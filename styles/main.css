@@ -44,7 +44,7 @@ main {
     display: flex;
     justify-content: space-between; /* 도시명과 시간 사이 공간 분배 */
     align-items: center;
-    padding: 8px 0;
+    padding: 8px 15px; /* 좌우 마진 추가 */
     border-bottom: 1px dashed #eee;
 }
 
@@ -59,12 +59,12 @@ main {
 
 .world-clock-item span:first-child {
     text-align: left; /* 도시명 좌측 정렬 */
-    padding-right: 10px; /* 도시명 우측 마진 */
+    /* padding-right는 flexbox의 space-between에 의해 자연스럽게 확보됨 */
 }
 
 .world-clock-item span:last-child {
     text-align: right; /* 현재 시간 우측 정렬 */
-    padding-left: 10px; /* 현재 시간 좌측 마진 */
+    /* padding-left는 flexbox의 space-between에 의해 자연스럽게 확보됨 */
 }
 
 .chart-section {
@@ -176,6 +176,8 @@ footer {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    padding: 0 15px; /* 날씨 섹션 좌우 마진 추가 */
+    box-sizing: border-box;
 }
 
 .top-info-slide.active {
@@ -237,12 +239,14 @@ footer {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
+    width: 100%; /* 부모 너비에 맞춤 */
 }
 
 .weather-current-info #weather-icon-current {
     width: 70px;
     height: 70px;
     margin-bottom: 5px;
+    background-color: transparent; /* 배경 박스 제거 */
 }
 
 .weather-current-info #temperature-current {
@@ -264,12 +268,14 @@ footer {
     width: 95%;
     margin-top: 10px;
     font-size: 0.8em;
+    margin-left: auto; /* 가운데 정렬 */
+    margin-right: auto; /* 가운데 정렬 */
 }
 
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 2px 0; /* 행간 줄임 */
+    padding: 1px 0; /* 행간 줄임 */
     border-bottom: 1px dotted #ccc;
 }
 
@@ -282,6 +288,8 @@ footer {
     margin-top: 15px;
     border-collapse: collapse;
     font-size: 0.75em;
+    margin-left: auto; /* 가운데 정렬 */
+    margin-right: auto; /* 가운데 정렬 */
 }
 
 .forecast-table th, .forecast-table td {
@@ -349,18 +357,28 @@ footer {
     word-wrap: break-word; /* 긴 단어 줄 바꿈 허용 */
 }
 
+/* 테이블 헤더에만 줄 바꿈 허용, 데이터 셀은 한 줄 유지 */
+.data-table th {
+    white-space: normal; /* 헤더 텍스트 줄 바꿈 허용 */
+}
+.data-table td {
+    white-space: nowrap; /* 데이터 셀은 한 줄 유지 */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 넘치는 내용 ...으로 표시 */
+}
+
 /* 테이블 컬럼 너비 조정 */
 .data-table th:nth-child(1), .data-table td:nth-child(1) { /* 항로 */
-    width: 40%; 
+    width: 45%; /* 항로 너비 늘림 */
 }
 .data-table th:nth-child(2), .data-table td:nth-child(2) { /* Current Index */
-    width: 20%;
+    width: 18.33%; /* 너비 줄임 */
 }
 .data-table th:nth-child(3), .data-table td:nth-child(3) { /* Previous Index */
-    width: 20%;
+    width: 18.33%; /* 너비 줄임 */
 }
 .data-table th:nth-child(4), .data-table td:nth-child(4) { /* Weekly Change */
-    width: 20%;
+    width: 18.33%; /* 너비 줄임 */
 }
 
 .data-table .table-date { /* 인덱스 값 아래 날짜 스타일 */
