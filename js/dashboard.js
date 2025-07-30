@@ -66,7 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             boxWidth: 20,
                             boxHeight: 10,
                             usePointStyle: false,
-                            strokeStyle: 'transparent',
+                            // 여기가 핵심 변경! strokeStyle 대신 lineWidth를 0으로 설정
+                            strokeStyle: 'transparent', // 기존에 있던 부분은 유지해도 좋지만
+                            lineWidth: 0, // <-- 이 줄을 추가하여 테두리 선 너비를 0으로 만듭니다.
                         }
                     },
                     tooltip: {
