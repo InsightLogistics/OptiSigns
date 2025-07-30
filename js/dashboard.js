@@ -5,7 +5,7 @@ let IACIChart;
 let blankSailingChart;
 let FBXChart;
 let XSIChart;
-let MBCIChart;
+let MBCIChart; // MBCI Chart 변수 선언
 let exchangeRateChart;
 
 const DATA_JSON_URL = 'data/crawling_data.json';
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (slides.length > 0) {
             showSlide(currentSlide);
-            if (slides.length > 1) {
+            if (slides.length > 1) { // 슬라이드가 1개 이상일 때만 인터벌 설정
                 setInterval(nextSlide, intervalTime);
             }
         }
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         table.appendChild(tbody);
         container.appendChild(table);
     };
-
+            // 이 아래 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
     const routeToDataKeyMap = {
         KCCI: {
             "종합지수": "KCCI_Composite_Index",
@@ -631,7 +631,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 false
             );
 
-
             colorIndex = 0;
 
             const KCCIData = chartDataBySection.KCCI || [];
@@ -760,9 +759,18 @@ document.addEventListener('DOMContentLoaded', () => {
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
-            // 이 아래 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows);
+
+
+            // MBCI 차트 및 테이블 설정 추가
+            colorIndex = 0;
+            const MBCIData = chartDataBySection.MBCI || [];
+            MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
+            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
+            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
+            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows);
             // 이 위 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
         } catch (error) {
             console.error("Failed to load and display data:", error);
@@ -791,6 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateWorldClocks, 1000);
         setupSlider('.chart-slide', 5000);
         setupSlider('.data-table-slide', 5000);
+        setupSlider('.top-info-slide', 5000); // 추가: 날씨/환율 슬라이더 작동을 위한 호출
     }
 
     loadAndDisplayData();
