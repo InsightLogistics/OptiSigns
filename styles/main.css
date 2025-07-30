@@ -383,7 +383,6 @@ footer {
 .data-table th {
     white-space: normal; /* 헤더 텍스트 줄 바꿈 허용 */
     line-height: 1.2; /* 헤더 행간 조절 */
-    font-size: 0.75em; /* <<-- 이 부분을 .data-table과 동일하게 설정합니다. */
 }
 .data-table td {
     white-space: nowrap; /* 데이터 셀은 한 줄 유지 */
