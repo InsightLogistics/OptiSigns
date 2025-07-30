@@ -367,8 +367,8 @@ footer {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.65em;
-    table-layout: fixed; /* 고정 너비 테이블 레이아웃 활성화 */
+    font-size: 0.75em; /* 원하는 기본 폰트 크기로 설정 (예: 0.75em) */
+    table-layout: fixed;
 }
 
 .data-table th, .data-table td {
@@ -383,7 +383,6 @@ footer {
 .data-table th {
     white-space: normal; /* 헤더 텍스트 줄 바꿈 허용 */
     line-height: 1.2; /* 헤더 행간 조절 */
-    font-size: 0.8em; /* 헤더 폰트 크기 약간 줄여서 2줄에 맞춤 */
 }
 .data-table td {
     white-space: nowrap; /* 데이터 셀은 한 줄 유지 */
