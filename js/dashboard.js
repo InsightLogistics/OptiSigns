@@ -77,11 +77,14 @@
                     scales: {
                         x: {
                             display: true,
-                            title: { display: false },
+                            title: {
+                                display: true, // 사용자 요청에 따라 true로 변경
+                                text: 'Date' // 사용자 요청에 따라 텍스트 추가
+                            },
                             type: 'time',
                             time: {
-                                unit: 'month',
-                                displayFormats: { month: 'MM/01/yy' },
+                                unit: 'month', // 기본값은 'month'로 유지, 필요시 additionalOptions에서 오버라이드
+                                displayFormats: { month: 'MM/01/yy' }, // 기본값 유지, 필요시 additionalOptions에서 오버라이드
                                 tooltipFormat: 'M/d/yyyy'
                             },
                             ticks: { source: 'auto', autoSkipPadding: 10, maxTicksLimit: 12 },
@@ -89,9 +92,12 @@
                         },
                         y: {
                             beginAtZero: true,
-                            title: { display: false },
+                            title: {
+                                display: true, // 사용자 요청에 따라 true로 변경
+                                text: 'Value' // 사용자 요청에 따라 텍스트 추가
+                            },
                             ticks: { count: 5 },
-                            grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' }
+                            grid: { display: false } // 사용자 요청에 따라 false로 변경
                         }
                     },
                     plugins: {
@@ -487,8 +493,9 @@
                             label: originalRouteName,
                             data: filteredMappedData,
                             backgroundColor: getNextColor(),
-                            borderColor: 'transparent',
-                            borderWidth: 0,
+                            // 사용자 요청에 따라 borderColor 및 borderWidth 로직 복원
+                            borderColor: getNextBorderColor(),
+                            borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
                             fill: false
                         });
                     } else {
@@ -565,29 +572,38 @@
             if (indexType === 'BLANK_SAILING') {
                 const { aggregatedData } = aggregateDataByMonth(chartData, 12);
                 datasets = [
-                    { label: "Gemini Cooperation", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 },
-                    { label: "MSC", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 },
-                    { label: "OCEAN Alliance", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 },
-                    { label: "Premier Alliance", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 },
-                    { label: "Others/Independent", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 },
-                    { label: "Total", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })), backgroundColor: getNextColor(), borderColor: 'transparent', borderWidth: 0 }
+                    { label: "Gemini Cooperation", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+                    { label: "MSC", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+                    { label: "OCEAN Alliance", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+                    { label: "Premier Alliance", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+                    { label: "Others/Independent", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+                    { label: "Total", data: aggregatedData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 }
                 ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
                 blankSailingChartInstance = setupChart(chartId, 'bar', datasets, {
                     scales: {
-                        x: { stacked: true, type: 'time', time: { unit: 'month', displayFormats: { month: 'MM/01/yy' }, tooltipFormat: 'M/d/yyyy' }, title: { display: false } },
-                        y: { stacked: true, beginAtZero: true, title: { display: false } }
+                        x: {
+                            stacked: true,
+                            type: 'time',
+                            time: { unit: 'month', displayFormats: { month: 'MMM \'yy' }, tooltipFormat: 'M/d/yyyy' }, // Blank Sailing은 월별로 표시
+                            title: { display: true, text: 'Month' }
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            title: { display: true, text: 'Blank Sailings' }
+                        }
                     }
                 });
             } else {
                 datasets = createDatasetsFromTableRows(indexType, chartData, tableRows);
                 // 각 차트 인스턴스를 해당 변수에 할당
-                if (chartId === 'KCCIChart') KCCIChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'SCFIChart') SCFIChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'WCIChart') WCIChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'IACIChart') IACIChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'FBXChart') FBXChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'XSIChart') XSIChartInstance = setupChart(chartId, 'line', datasets);
-                else if (chartId === 'MBCIChart') MBCIChartInstance = setupChart(chartId, 'line', datasets);
+                if (chartId === 'KCCIChart') KCCIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } }); // 일별 데이터 표시
+                else if (chartId === 'SCFIChart') SCFIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
+                else if (chartId === 'WCIChart') WCIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
+                else if (chartId === 'IACIChart') IACIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
+                else if (chartId === 'FBXChart') FBXChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
+                else if (chartId === 'XSIChart') XSIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
+                else if (chartId === 'MBCIChart') MBCIChartInstance = setupChart(chartId, 'line', datasets, { scales: { x: { time: { unit: 'day', displayFormats: { day: 'M/dd' } } } } });
             }
 
             renderTable(tableId, tableHeaders, tableRows, {
@@ -659,7 +675,10 @@
                 label: 'USD/KRW Exchange Rate',
                 data: exchangeRatesData.map(item => ({ x: item.date, y: item.rate })),
                 backgroundColor: 'rgba(253, 126, 20, 0.5)',
-                borderColor: 'transparent', borderWidth: 0, fill: false, pointRadius: 0
+                borderColor: '#e68a00', // 사용자 요청에 따라 borderColor 복원
+                borderWidth: 2, // 사용자 요청에 따라 borderWidth 복원
+                fill: false,
+                pointRadius: 0
             }];
             console.log("Exchange Rate Chart Datasets (before setup):", exchangeRateDatasets);
             console.log("Exchange Rate Chart Data Sample (first 5 points):", exchangeRateDatasets[0].data.slice(0, 5));
@@ -672,7 +691,7 @@
                         x: {
                             type: 'time', unit: 'day', displayFormats: { day: 'MM/dd' }, tooltipFormat: 'M/d/yyyy'
                         },
-                        y: { beginAtZero: false, ticks: { count: 5 }, grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' }, title: { display: false } }
+                        y: { beginAtZero: false, ticks: { count: 5 }, grid: { display: false }, title: { display: true, text: 'Exchange Rate' } } // 사용자 요청에 따라 grid.display: false 및 title 추가
                     },
                     plugins: { legend: { display: false } }
                 }
