@@ -15,23 +15,30 @@
     const DATA_JSON_URL = 'data/crawling_data.json';
     let allDashboardData = {}; // 모든 대시보드 데이터를 저장할 변수
 
-    document.addEventListener('DOMContentLoaded', async () => { // async 추가
-        // Chart.js 라이브러리 로딩 확인 (선택 사항이지만 디버깅에 유용)
-        // 이 부분은 이미 추가되어 있으나, 오류 메시지가 계속 나온다면 로딩 타이밍 문제일 수 있습니다.
-        if (typeof Chart === 'undefined') {
-            console.error("Chart.js library is not loaded. Please ensure script tags are correct.");
-            return;
-        }
-        if (typeof Chart.adapters === 'undefined' || typeof Chart.adapters.date === 'undefined') {
-            console.error("Chart.js Date Adapter is not loaded. Please ensure script tags are correct.");
-            return;
-        }
+    // Chart.js 및 Date Adapter가 로드될 때까지 기다리는 함수
+    async function waitForChartAdapter() {
+        return new Promise(resolve => {
+            const checkInterval = setInterval(() => {
+                // Chart와 Chart.adapters.date가 모두 정의되었는지 확인
+                if (typeof Chart !== 'undefined' && typeof Chart.adapters !== 'undefined' && typeof Chart.adapters.date !== 'undefined') {
+                    clearInterval(checkInterval);
+                    console.log("Chart.js Date Adapter is loaded. Proceeding with initialization.");
+                    resolve();
+                } else {
+                    console.log("Waiting for Chart.js Date Adapter to load...");
+                }
+            }, 100); // 100ms마다 확인
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Chart.js Date Adapter가 로드될 때까지 기다립니다.
+        await waitForChartAdapter();
 
         const setupChart = (chartId, type, datasets, additionalOptions = {}) => {
             const ctx = document.getElementById(chartId);
             if (ctx) {
                 // 기존 HTML 속성 및 인라인 스타일을 제거하여 충돌 방지
-                // 이전에 HTML에 하드코딩된 width/height나 style 속성이 있다면 제거합니다.
                 ctx.removeAttribute('width');
                 ctx.removeAttribute('height');
                 ctx.style.width = '';
@@ -42,15 +49,12 @@
                 let parentHeight = 450; // 폴백 값
 
                 if (parentContainer) {
-                    // 부모 컨테이너가 display:none이 아닌지 확인 후 크기 가져오기
-                    // 이 부분이 중요합니다. 요소가 실제로 렌더링될 때 정확한 크기를 가져옵니다.
                     const computedStyle = window.getComputedStyle(parentContainer);
                     parentWidth = parseFloat(computedStyle.width) || parentContainer.offsetWidth || 800;
                     parentHeight = parseFloat(computedStyle.height) || parentContainer.offsetHeight || 450;
 
                     if (parentWidth === 0 || parentHeight === 0) {
                         console.warn(`Canvas parent dimensions are zero for ${chartId}. Computed: w=${computedStyle.width}, h=${computedStyle.height}. Offset: w=${parentContainer.offsetWidth}, h=${parentContainer.offsetHeight}. This might affect chart rendering.`);
-                        // 만약 여전히 0이라면, 최소한의 크기를 보장하여 차트가 아예 안 그려지는 것을 방지
                         parentWidth = 800;
                         parentHeight = 450;
                     }
@@ -72,22 +76,22 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            display: true, // X축 라벨(날짜) 표시 유지
-                            title: { display: false }, // X축 타이틀 제거
+                            display: true,
+                            title: { display: false },
                             type: 'time',
                             time: {
-                                unit: 'month', // 가로축 단위를 월별로 고정
-                                displayFormats: { month: 'MM/01/yy' }, // 월별 형식 변경
+                                unit: 'month',
+                                displayFormats: { month: 'MM/01/yy' },
                                 tooltipFormat: 'M/d/yyyy'
                             },
-                            ticks: { source: 'auto', autoSkipPadding: 10, maxTicksLimit: 12 }, // 지난 1년 기준 월별 12개 눈금 배치
-                            grid: { display: false } // 가로축 보조선은 유지
+                            ticks: { source: 'auto', autoSkipPadding: 10, maxTicksLimit: 12 },
+                            grid: { display: false }
                         },
                         y: {
                             beginAtZero: true,
-                            title: { display: false }, // Y축 타이틀 제거
-                            ticks: { count: 5 }, // 세로 기준 5개 유지
-                            grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' } // 세로축 보조선 표시
+                            title: { display: false },
+                            ticks: { count: 5 },
+                            grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' }
                         }
                     },
                     plugins: {
@@ -690,4 +694,4 @@
             }
         }
     });
-})(); // IIFE
+})(); // IIFE 종료
