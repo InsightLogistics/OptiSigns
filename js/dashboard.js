@@ -19,61 +19,66 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const defaultOptions = {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                x: {
-                  display: true,
-                  title: { display: true, text: 'Date' },
-                  type: 'time',
-                  time: {
-                    unit: isAggregated ? 'month' : 'day',
-                    displayFormats: {
-                      month: 'MM/01/yyyy',
-                      day: 'M/dd'
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        },
+                        type: 'time',
+                        time: {
+                            unit: isAggregated ? 'month' : 'day',
+                            displayFormats: {
+                                month: 'MM/01/yyyy', // 변경: 가로축 날짜 형식을 MM/01/yyyy로 변경
+                                day: 'M/dd'
+                            },
+                            tooltipFormat: 'M/d/yyyy'
+                        },
+                        ticks: {
+                            source: 'auto',
+                            autoSkipPadding: 10
+                        },
+                        grid: {
+                            display: false
+                        }
                     },
-                    tooltipFormat: 'M/d/yyyy'
-                  },
-                  ticks: {
-                    source: 'auto',
-                    autoSkipPadding: 10
-                  },
-                  grid: { display: false }
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        },
+                        ticks: {
+                            count: 5
+                        },
+                        grid: {
+                            display: true, // 변경: 세로축 보조선 표시
+                            color: 'rgba(200, 200, 200, 0.5)' // 추가: 세로축 보조선 색상을 회색으로 설정
+                        }
+                    }
                 },
-                y: {
-                  beginAtZero: true,
-                  title: { display: true, text: 'Value' },
-                  ticks: { count: 5 },
-                  grid: {
-                    display: true,
-                    color: 'rgba(200, 200, 200, 0.5)'
-                  }
-                }
-              },
-              plugins: {  // ✅ plugins 설정을 여기서 한 번만 정의
-                legend: {
-                  display: true,
-                  position: 'right',
-                  labels: {
-                    usePointStyle: false,  // 포인트 스타일 비활성화
-                    boxWidth: 12,
-                    padding: 20,
-                    font: { size: 12 },
-                    boxBorderWidth: 0,     // 박스 테두리 제거
-                    borderWidth: 0,        // 텍스트 테두리 제거
-                    lineWidth: 0           // 라인 두께 제거
-                  }
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            // 변경: 범례 항목의 테두리를 제거하기 위해 lineWidth를 0으로 설정
+                            lineWidth: 0 
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
                 },
-                tooltip: {  // ✅ tooltip은 plugins 내부로 이동
-                  mode: 'index',
-                  intersect: false
+                elements: {
+                    point: {
+                        radius: 0
+                    }
                 }
-              },
-              elements: {
-                point: {
-                  radius: 0
-                }
-              }
             };
 
             if (isAggregated) {
@@ -364,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         table.appendChild(tbody);
         container.appendChild(table);
     };
-            // 이 아래 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
+
     const routeToDataKeyMap = {
         KCCI: {
             "종합지수": "KCCI_Composite_Index",
@@ -508,6 +513,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const exchangeRatesData = allDashboardData.exchange_rate || []; 
             const tableDataBySection = allDashboardData.table_data || {};
 
+            console.log("DEBUG: weatherData before processing:", weatherData); // 디버깅 로그 추가
+
             if (Object.keys(chartDataBySection).length === 0) {
                 console.warn("No chart data sections found in the JSON file.");
                 const chartSliderContainer = document.querySelector('.chart-slider-container');
@@ -520,7 +527,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
-            // 날씨 정보 업데이트 부분만 아래와 같이 교체 (기존 구조 동일)
+            console.log("DEBUG: currentWeatherData:", currentWeatherData); // 디버깅 로그 추가
+            console.log("DEBUG: forecastWeatherData:", forecastWeatherData); // 디버깅 로그 추가
+
+            // 날씨 정보 업데이트 부분
             const tempCurrent = document.getElementById('temperature-current');
             if (tempCurrent) tempCurrent.textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
             
@@ -538,7 +548,6 @@ document.addEventListener('DOMContentLoaded', () => {
               weatherIcon.style.display = 'block'; // 추가
             }
             
-            // 나머지 코드는 기존과 동일하게 유지
             const humidityCurrent = document.getElementById('humidity-current');
             if (humidityCurrent) humidityCurrent.textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
             
@@ -559,14 +568,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const forecastBody = document.getElementById('forecast-body');
             if (forecastBody) {
-              forecastBody.innerHTML = '';
+              forecastBody.innerHTML = ''; // 기존 내용을 지우고 새로 채움
               if (forecastWeatherData.length > 0) {
                 forecastWeatherData.slice(0, 7).forEach(day => {
                   const row = forecastBody.insertRow();
                   row.insertCell().textContent = day.date || '--';
                   row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
                   row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
-                  // 예보 아이콘 추가 (기존 코드 + 1줄)
+                  // 예보 아이콘과 상태를 함께 표시
                   row.insertCell().innerHTML = day.status 
                     ? `${day.status} <img src="https://openweathermap.org/img/wn/${day.icon}.png" style="width:20px;vertical-align:middle">`
                     : '--';
@@ -627,6 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 false
             );
 
+            // 여기부터 아래는 절대 건들면안된다 이 주석도 지우면 안된다
             colorIndex = 0;
 
             const KCCIData = chartDataBySection.KCCI || [];
@@ -755,9 +765,10 @@ document.addEventListener('DOMContentLoaded', () => {
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
+            // 이 아래 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows);
-
+            // 이 위 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
 
             // MBCI 차트 및 테이블 설정 추가
             colorIndex = 0;
@@ -767,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
             renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows);
-            // 이 위 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
+
         } catch (error) {
             console.error("Failed to load and display data:", error);
             // Fallback for elements if data loading fails
