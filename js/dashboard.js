@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
-            // 날씨 정보 업데이트 (요소 존재 여부 확인)
+            // 날씨 정보 업데이트 부분만 아래와 같이 교체 (기존 구조 동일)
             const tempCurrent = document.getElementById('temperature-current');
             if (tempCurrent) tempCurrent.textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
             
@@ -528,16 +528,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusCurrent) statusCurrent.textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             
             const weatherIcon = document.getElementById('weather-icon-current');
-            // 변경: 날씨 아이콘 URL을 OpenWeatherMap API 형식으로 변경
-            const weatherIconUrl = (iconCode) => {
-                if (iconCode) {
-                    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-                }
-                return 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // 아이콘 코드가 없을 경우 대체 이미지
-            };
-            // LA_WeatherIcon 데이터를 사용하여 아이콘 설정
-            if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherIcon);
-
+            if (weatherIcon) {
+              weatherIcon.src = currentWeatherData.LA_WeatherIcon 
+                ? `https://openweathermap.org/img/wn/${currentWeatherData.LA_WeatherIcon}@2x.png?_=${new Date().getTime()}`
+                : 'https://placehold.co/80x80/cccccc/ffffff?text=Icon';
+              weatherIcon.onerror = () => {
+                weatherIcon.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Error';
+              };
+              weatherIcon.style.display = 'block'; // 추가
+            }
+            
+            // 나머지 코드는 기존과 동일하게 유지
             const humidityCurrent = document.getElementById('humidity-current');
             if (humidityCurrent) humidityCurrent.textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
             
@@ -555,25 +556,25 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const sunsetTime = document.getElementById('sunset-time');
             if (sunsetTime) sunsetTime.textContent = currentWeatherData.LA_Sunset || '--';
-
+            
             const forecastBody = document.getElementById('forecast-body');
-            if (forecastBody) { // Check if forecastBody exists before manipulating
-                forecastBody.innerHTML = '';
-                if (forecastWeatherData.length > 0) {
-                    forecastWeatherData.slice(0, 7).forEach(day => {
-                        const row = forecastBody.insertRow();
-                        row.insertCell().textContent = day.date || '--';
-                        row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
-                        row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
-                        row.insertCell().textContent = day.status || '--';
-                    });
-                } else {
-                    forecastBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
-                }
-            } else {
-                console.warn("Element with ID 'forecast-body' not found. Cannot render forecast table.");
+            if (forecastBody) {
+              forecastBody.innerHTML = '';
+              if (forecastWeatherData.length > 0) {
+                forecastWeatherData.slice(0, 7).forEach(day => {
+                  const row = forecastBody.insertRow();
+                  row.insertCell().textContent = day.date || '--';
+                  row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
+                  row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
+                  // 예보 아이콘 추가 (기존 코드 + 1줄)
+                  row.insertCell().innerHTML = day.status 
+                    ? `${day.status} <img src="https://openweathermap.org/img/wn/${day.icon}.png" style="width:20px;vertical-align:middle">`
+                    : '--';
+                });
+              } else {
+                forecastBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
+              }
             }
-
 
             const currentExchangeRate = exchangeRatesData.length > 0 ? exchangeRatesData[exchangeRatesData.length - 1].rate : null;
             const currentExchangeRateElement = document.getElementById('current-exchange-rate-value');
