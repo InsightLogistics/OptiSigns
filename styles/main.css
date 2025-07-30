@@ -393,7 +393,8 @@ footer {
 /* 테이블 헤더에만 줄 바꿈 허용, 데이터 셀은 한 줄 유지 */
 .data-table th {
     white-space: normal; /* 헤더 텍스트 줄 바꿈 허용 */
-    line-height: 1.2; /* 헤더 행간 조절 */
+    line-height: 1; /* <<-- 1.2에서 1로 변경하여 행간을 최소화합니다. */
+    /* font-size는 제거된 상태가 맞습니다. .data-table에서 상속받아 동일한 크기가 됩니다. */
 }
 .data-table td {
     white-space: nowrap; /* 데이터 셀은 한 줄 유지 */
