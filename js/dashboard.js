@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         time: {
                             unit: isAggregated ? 'month' : 'day',
                             displayFormats: {
-                                month: 'MMM \'yy',
+                                month: 'MM/01/yyyy', // 변경: 가로축 날짜 형식을 MM/01/yyyy로 변경
                                 day: 'M/dd'
                             },
                             tooltipFormat: 'M/d/yyyy'
@@ -55,15 +55,19 @@ document.addEventListener('DOMContentLoaded', () => {
                             count: 5
                         },
                         grid: {
-                            display: false
-
+                            display: true, // 변경: 세로축 보조선 표시
+                            color: 'rgba(200, 200, 200, 0.5)' // 추가: 세로축 보조선 색상을 회색으로 설정
                         }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'right'
+                        position: 'right',
+                        labels: {
+                            // 변경: 범례 항목의 테두리를 제거하기 위해 lineWidth를 0으로 설정
+                            lineWidth: 0 
+                        }
                     },
                     tooltip: {
                         mode: 'index',
@@ -83,24 +87,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 delete defaultOptions.scales.x.ticks.maxTicksLimit;
             }
 
-            const options = { ...defaultOptions, ...additionalOptions };
-            if (options.scales && additionalOptions.scales) {
-                options.scales = { ...defaultOptions.scales, ...additionalOptions.scales };
-                if (options.scales.x && additionalOptions.scales.x) {
-                    options.scales.x = { ...defaultOptions.scales.x, ...additionalOptions.scales.x };
-                    if (isAggregated) {
-                        options.scales.x.ticks.maxTicksLimit = 12;
-                    } else {
-                        delete options.scales.x.ticks.maxTicksLimit;
+            // 옵션 병합 로직을 간소화하여 중복을 피하고 기본값 재정의를 보장
+            const options = {
+                ...defaultOptions,
+                ...additionalOptions,
+                scales: {
+                    ...defaultOptions.scales,
+                    ...additionalOptions.scales,
+                    x: {
+                        ...defaultOptions.scales.x,
+                        ...(additionalOptions.scales && additionalOptions.scales.x),
+                        time: {
+                            ...defaultOptions.scales.x.time,
+                            ...(additionalOptions.scales && additionalOptions.scales.x && additionalOptions.scales.x.time),
+                            displayFormats: {
+                                ...defaultOptions.scales.x.time.displayFormats,
+                                ...(additionalOptions.scales && additionalOptions.scales.x && additionalOptions.scales.x.time && additionalOptions.scales.x.time.displayFormats)
+                            }
+                        }
+                    },
+                    y: {
+                        ...defaultOptions.scales.y,
+                        ...(additionalOptions.scales && additionalOptions.scales.y),
+                        grid: {
+                            ...defaultOptions.scales.y.grid,
+                            ...(additionalOptions.scales && additionalOptions.scales.y && additionalOptions.scales.y.grid)
+                        }
+                    }
+                },
+                plugins: {
+                    ...defaultOptions.plugins,
+                    ...additionalOptions.plugins,
+                    legend: {
+                        ...defaultOptions.plugins.legend,
+                        ...(additionalOptions.plugins && additionalOptions.plugins.legend),
+                        labels: {
+                            ...defaultOptions.plugins.legend.labels,
+                            ...(additionalOptions.plugins && additionalOptions.plugins.legend && additionalOptions.plugins.legend.labels)
+                        }
                     }
                 }
-                if (options.scales.y && additionalOptions.scales.y) {
-                    options.scales.y = { ...defaultOptions.scales.y, ...additionalOptions.scales.y };
-                    if (!additionalOptions.scales.y.ticks || !additionalOptions.scales.y.ticks.hasOwnProperty('count')) {
-                        options.scales.y.ticks.count = defaultOptions.scales.y.ticks.count;
-                    }
-                }
+            };
+
+            // 병합 후 집계된 차트에 대해 maxTicksLimit 다시 적용
+            if (isAggregated) {
+                options.scales.x.ticks.maxTicksLimit = 12;
+            } else {
+                delete options.scales.x.ticks.maxTicksLimit;
             }
+
 
             let chartData = { datasets: datasets };
             if (type === 'bar' && additionalOptions.labels) {
@@ -204,8 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allDataKeys.forEach(key => {
                 newEntry[key] = monthEntry && monthEntry[key] && monthEntry[key].count > 0
-                                ? monthEntry[key].sum / monthEntry[key].count
-                                : null;
+                                        ? monthEntry[key].sum / monthEntry[key].count
+                                        : null;
             });
             
             aggregatedData.push(newEntry);
@@ -309,8 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (header.includes('Weekly Change')) {
                     const weeklyChange = rowData.weekly_change;
                     content = weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined
-                              ? `${weeklyChange.value} (${weeklyChange.percentage})`
-                              : '-';
+                                    ? `${weeklyChange.value} (${weeklyChange.percentage})`
+                                    : '-';
                     colorClass = weeklyChange?.color_class || '';
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
@@ -498,20 +533,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusCurrent) statusCurrent.textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             
             const weatherIcon = document.getElementById('weather-icon-current');
-            const weatherIconUrl = (status) => {
-                const base = 'https://placehold.co/80x80/';
-                const defaultColor = 'cccccc';
-                const textColor = 'ffffff';
-                if (status) {
-                    const lowerStatus = status.toLowerCase();
-                    if (lowerStatus.includes('clear') || lowerStatus.includes('맑음')) return `${base}00657e/${textColor}?text=SUN`;
-                    if (lowerStatus.includes('cloud') || lowerStatus.includes('구름')) return `${base}003A52/${textColor}?text=CLOUD`;
-                    if (lowerStatus.includes('rain') || lowerStatus.includes('비')) return `${base}28A745/${textColor}?text=RAIN`;
-                    if (lowerStatus.includes('snow') || lowerStatus.includes('눈')) return `${base}17A2B8/${textColor}?text=SNOW`;
+            // 변경: 날씨 아이콘 URL을 OpenWeatherMap API 형식으로 변경
+            const weatherIconUrl = (iconCode) => {
+                if (iconCode) {
+                    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
                 }
-                return `${base}${defaultColor}/${textColor}?text=Icon`;
+                return 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // 아이콘 코드가 없을 경우 대체 이미지
             };
-            if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
+            // LA_WeatherIcon 데이터를 사용하여 아이콘 설정
+            if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherIcon);
 
             const humidityCurrent = document.getElementById('humidity-current');
             if (humidityCurrent) humidityCurrent.textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
@@ -730,37 +760,38 @@ document.addEventListener('DOMContentLoaded', () => {
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
+            // 이 아래 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows);
-
-            colorIndex = 0;
-            const MBCIData = chartDataBySection.MBCI || [];
-            MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
-            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows);
-
-
-            setupSlider('.chart-slide', 5000);
-            setupSlider('.top-info-slide', 7000);
-
+            // 이 위 부분은 죽어도 건드리지말고 토씨하나 빠뜨리면 안되고 그대로 사용해야함 이 주석또한 절대로 지우지 말라
         } catch (error) {
-            console.error('Error loading or processing data:', error);
-            // Check if elements exist before attempting to modify their innerHTML
+            console.error("Failed to load and display data:", error);
+            // Fallback for elements if data loading fails
+            document.querySelectorAll('[id^="temperature-"], [id^="status-"], [id^="humidity-"], [id^="wind-speed-"], [id^="pressure-"], [id^="visibility-"], [id^="sunrise-"], [id^="sunset-"], #current-exchange-rate-value').forEach(el => {
+                if (el.tagName === 'IMG') {
+                    el.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Error';
+                } else {
+                    el.textContent = 'Failed to load';
+                }
+            });
+            const forecastBody = document.getElementById('forecast-body');
+            if (forecastBody) {
+                forecastBody.innerHTML = '<tr><td colspan="4">Failed to load forecast data.</td></tr>';
+            }
             const chartSliderContainer = document.querySelector('.chart-slider-container');
             if (chartSliderContainer) {
-                chartSliderContainer.innerHTML = '<p class="error-text">Failed to load chart data. Please check the data source and console for errors.</p>';
+                chartSliderContainer.innerHTML = '<p class="placeholder-text">Failed to load chart data.</p>';
             }
-            
-            const tableSliderContainer = document.querySelector('.table-slider-container');
-            if (tableSliderContainer) {
-                tableSliderContainer.innerHTML = '<p class="error-text">Failed to load table data. Please check the data source and console for errors.</p>';
-            }
+            document.querySelectorAll('.data-table-container').forEach(container => {
+                container.innerHTML = '<p class="text-gray-600 text-center">Failed to load table data.</p>';
+            });
         }
+
+        updateWorldClocks();
+        setInterval(updateWorldClocks, 1000);
+        setupSlider('.chart-slide', 5000);
+        setupSlider('.data-table-slide', 5000);
     }
 
     loadAndDisplayData();
-
-    setInterval(updateWorldClocks, 1000);
 });

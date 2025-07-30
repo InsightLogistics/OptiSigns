@@ -7137,9 +7137,9 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "77.43",
+            "LA_Temperature": "76.57",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "62",
+            "LA_Humidity": "64",
             "LA_WindSpeed": "11.5",
             "LA_Pressure": "1016",
             "LA_Visibility": "6.2",
