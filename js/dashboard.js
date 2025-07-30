@@ -66,14 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             boxWidth: 20,
                             boxHeight: 10,
                             usePointStyle: false,
-                            // 범례 테두리 제거: Chart.js 기본 범례 레이블에는 테두리가 없으므로,
-                            // 이 부분에서 명시적으로 테두리를 설정하지 않으면 됩니다.
-                            // 혹시 CSS에서 영향을 받는다면 CSS를 수정해야 합니다.
-                            // Chart.js 범례 테두리 제거를 위한 옵션 추가
-                            // Chart.js 3.x 이상에서는 border 관련 옵션이 legend.labels.pointStyle에 직접적으로 없음
-                            // 따라서, 범례 테두리가 보인다면 이는 외부 CSS 영향이거나,
-                            // 범례 아이콘 자체의 스타일링 문제일 수 있습니다.
-                            // 여기서는 Chart.js 기본 동작에 의존합니다.
+                            // 범례 아이템의 테두리 색상과 두께를 투명하고 0으로 설정하여 제거
+                            // Chart.js 3.x 이상에서 범례 아이템의 박스 테두리 제거를 위한 명시적 설정
+                            boxStrokeStyle: 'transparent',
+                            boxLineWidth: 0,
                         }
                     },
                     tooltip: {
@@ -247,20 +243,28 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const nextSlide = () => {
+            console.log(`Slider: Moving to next slide for selector: ${slidesSelector}`);
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         };
 
         if (slides.length > 0) {
+            console.log(`Slider: Found ${slides.length} slides for selector: ${slidesSelector}`);
             showSlide(currentSlide);
             if (slides.length > 1) {
                 // 기존 인터벌이 있다면 클리어 (슬라이더 중복 실행 방지)
                 if (slides[0].dataset.intervalId) {
                     clearInterval(parseInt(slides[0].dataset.intervalId));
+                    console.log(`Slider: Cleared existing interval for selector: ${slidesSelector}`);
                 }
                 const intervalId = setInterval(nextSlide, intervalTime);
                 slides[0].dataset.intervalId = intervalId.toString(); // 첫 번째 슬라이드에 인터벌 ID 저장
+                console.log(`Slider: Started new interval (${intervalId}) for selector: ${slidesSelector} with ${intervalTime}ms`);
+            } else {
+                console.log(`Slider: Only one slide found for selector: ${slidesSelector}, no auto-slide.`);
             }
+        } else {
+            console.warn(`Slider: No slides found for selector: ${slidesSelector}`);
         }
     };
 
@@ -489,8 +493,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: originalRouteName,
                         data: filteredMappedData,
                         backgroundColor: getNextColor(),
-                        borderColor: getNextBorderColor(),
-                        borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
+                        // 범례 아이템의 테두리도 함께 제거하기 위해 borderColor를 transparent로 설정
+                        borderColor: 'transparent',
+                        borderWidth: 0, // borderWidth를 0으로 설정
                         fill: false
                     });
                 } else {
@@ -629,8 +634,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 label: 'USD/KRW Exchange Rate',
                 data: exchangeRatesData.map(item => ({ x: item.date, y: item.rate })),
                 backgroundColor: 'rgba(253, 126, 20, 0.5)',
-                borderColor: '#e68a00',
-                borderWidth: 2,
+                // 환율 차트 라인의 테두리도 제거
+                borderColor: 'transparent',
+                borderWidth: 0,
                 fill: false,
                 pointRadius: 0
             }];
@@ -737,43 +743,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     label: "Gemini Cooperation",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    // 범례 아이템의 테두리도 함께 제거하기 위해 borderColor를 transparent로 설정
+                    borderColor: 'transparent',
+                    borderWidth: 0, // borderWidth를 0으로 설정
                 },
                 {
                     label: "MSC",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'transparent',
+                    borderWidth: 0,
                 },
                 {
                     label: "OCEAN Alliance",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'transparent',
+                    borderWidth: 0,
                 },
                 {
                     label: "Premier Alliance",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'transparent',
+                    borderWidth: 0,
                 },
                 {
                     label: "Others/Independent",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'transparent',
+                    borderWidth: 0,
                 },
                 {
                     label: "Total",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'transparent',
+                    borderWidth: 0,
                 }
             ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
 
