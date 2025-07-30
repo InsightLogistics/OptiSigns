@@ -5,7 +5,7 @@ html, body {
     padding: 0;
     overflow: hidden; /* 가로/세로 스크롤바 방지 */
     font-family: 'Inter', sans-serif;
-    background-color: #f0f2f5;
+    background-color: transparent; /* 변경: 배경색을 투명으로 설정하여 외부 여백 원인 파악 */
     color: #333;
     line-height: 1.6;
     display: flex; /* 대시보드 컨테이너를 중앙에 배치하기 위해 flexbox 사용 */
@@ -14,20 +14,23 @@ html, body {
 }
 
 .container {
-    /* 16:9 비율을 유지하면서 뷰포트 내부에 최대한 크게 채우도록 너비와 높이 계산 */
-    width: min(100vw, calc(100vh / 9 * 16));
-    height: min(100vh, calc(100vw / 16 * 9));
+    position: absolute; /* 변경: 절대 위치 지정 */
+    top: 50%; /* 변경: 상단에서 50% 위치 */
+    left: 50%; /* 변경: 좌측에서 50% 위치 */
+    transform: translate(-50%, -50%); /* 변경: 정확히 중앙 정렬 */
     
-    /* 기존의 절대 위치 지정 및 top/left 속성 제거 (flexbox가 중앙 정렬 담당) */
-    position: relative; /* 내부 요소의 절대 위치 지정을 위해 relative 유지 */
-    margin: 0; /* 컨테이너 마진 제거 */
+    /* 16:9 비율을 유지하면서 뷰포트 내부에 최대한 크게 채우도록 너비와 높이 계산 */
+    /* calc(100vh * 16 / 9)는 뷰포트 높이에 맞춰 16:9 너비를 계산, calc(100vw * 9 / 16)는 뷰포트 너비에 맞춰 16:9 높이를 계산 */
+    /* min() 함수를 사용하여 두 값 중 작은 것을 선택, 항상 뷰포트 안에 들어가도록 함 */
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    
     padding: 10px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* 패딩이 너비/높이에 포함되도록 설정 */
-    /* 내부 콘텐츠가 컨테이너를 넘어설 경우를 대비하여 overflow: hidden; 유지 */
-    overflow: hidden; 
+    overflow: hidden; /* 내부 콘텐츠가 컨테이너를 넘어설 경우를 대비하여 overflow: hidden; 유지 */
 }
 
 header {
