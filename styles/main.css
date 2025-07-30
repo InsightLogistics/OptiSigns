@@ -461,3 +461,18 @@ body .chartjs-legend-item-text {
   margin-left: 8px !important;
   vertical-align: middle !important;
 }
+
+div.chart-container canvas ~ ul.chartjs-legend > li > span { /* 차트 컨테이너 바로 아래 범례 ul의 li 안의 span 선택 */
+    border: none !important;
+    box-shadow: none !important;
+    background-clip: padding-box !important;
+}
+
+div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
+    border: none !important; /* 한번 더 명시적으로 테두리 제거 */
+    box-shadow: none !important;
+    background-clip: padding-box !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 0 !important; /* 혹시 모를 둥근 테두리 제거 */
+}
