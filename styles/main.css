@@ -444,3 +444,19 @@ footer {
     gap: 1rem;
     margin-bottom: 15px;
 }
+
+/* ====== 차트 범례 테두리 제거 ====== */
+.chartjs-legend-item > span {
+  border: none !important;
+  box-shadow: none !important;
+  background-clip: padding-box !important;
+}
+.chartjs-legend-item > span:first-child {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 0 !important;
+}
+.chartjs-legend-item-text {
+  margin-left: 8px !important;
+  vertical-align: middle !important;
+}
