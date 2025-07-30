@@ -1,23 +1,30 @@
 html, body {
     width: 3000px; /* 화면 전체 너비를 3000px로 설정 */
-    min-height: 1688px; /* 화면 전체 최소 높이를 1688px로 설정 */
-    margin: 0 auto; /* 화면 내용을 가운데 정렬 */
+    height: 1688px; /* 화면 전체 높이를 1688px로 설정 */
+    margin: 0; /* 모든 마진 제거 */
     padding: 0;
-    overflow-x: hidden; /* 가로 스크롤바 방지 */
+    overflow: hidden; /* 가로/세로 스크롤바 방지 */
     font-family: 'Inter', sans-serif;
     background-color: #f0f2f5;
     color: #333;
     line-height: 1.6;
+    position: absolute; /* 절대 위치 지정 */
+    top: 0; /* 좌상단 정렬 */
+    left: 0; /* 좌상단 정렬 */
 }
 
 .container {
     width: 3000px; /* 대시보드 컨테이너 너비를 3000px로 고정 */
     height: 1688px; /* 대시보드 컨테이너 높이를 1688px로 고정 */
-    margin: 20px auto;
+    margin: 0; /* 컨테이너 마진 제거 */
     padding: 10px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: absolute; /* 절대 위치 지정 */
+    top: 0; /* 좌상단 정렬 */
+    left: 0; /* 좌상단 정렬 */
+    box-sizing: border-box; /* 패딩이 너비/높이에 포함되도록 설정 */
 }
 
 header {
