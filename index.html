@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OptiSign Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Global Shipping Index Dashboard</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <!-- Chart.js Date Adapter (Moment.js or Luxon) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <!-- 기존 CSS는 styles/main.css에서 불러옵니다. -->
 </head>
 <body class="bg-gray-100">
     <div class="container">
@@ -32,29 +38,31 @@
                     <div class="top-info-slider-container">
                         <div class="top-info-slide active" id="top-info-slide-1">
                             <h3>World Clocks</h3>
-                            <div class="world-clock-item">
-                                <span>Los Angeles</span>
-                                <span id="time-la"></span>
-                            </div>
-                            <div class="world-clock-item">
-                                <span>New York</span>
-                                <span id="time-ny"></span>
-                            </div>
-                            <div class="world-clock-item">
-                                <span>Paris</span>
-                                <span id="time-paris"></span>
-                            </div>
-                            <div class="world-clock-item">
-                                <span>Shanghai</span>
-                                <span id="time-shanghai"></span>
-                            </div>
-                            <div class="world-clock-item">
-                                <span>Seoul</span>
-                                <span id="time-seoul"></span>
-                            </div>
-                            <div class="world-clock-item">
-                                <span>Sydney</span>
-                                <span id="time-sydney"></span>
+                            <div class="world-clock-list">
+                                <div class="world-clock-item">
+                                    <span>Los Angeles</span>
+                                    <span id="time-la">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>New York</span>
+                                    <span id="time-ny">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Paris</span>
+                                    <span id="time-paris">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Shanghai</span>
+                                    <span id="time-shanghai">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Seoul</span>
+                                    <span id="time-seoul">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Sydney</span>
+                                    <span id="time-sydney">--:--:--</span>
+                                </div>
                             </div>
                         </div>
 
@@ -83,9 +91,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="forecast-body">
-                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td colspan="4">Loading forecast data...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -110,7 +116,7 @@
                                 <canvas id="KCCIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="KCCITableContainer">
+                        <div class="table-section data-table-container" id="KCCITableContainer">
                         </div>
                     </div>
 
@@ -121,7 +127,7 @@
                                 <canvas id="SCFIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="SCFITableContainer">
+                        <div class="table-section data-table-container" id="SCFITableContainer">
                         </div>
                     </div>
 
@@ -132,7 +138,7 @@
                                 <canvas id="WCIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="WCITableContainer">
+                        <div class="table-section data-table-container" id="WCITableContainer">
                         </div>
                     </div>
 
@@ -143,7 +149,7 @@
                                 <canvas id="IACIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="IACITableContainer">
+                        <div class="table-section data-table-container" id="IACITableContainer">
                         </div>
                     </div>
 
@@ -154,7 +160,7 @@
                                 <canvas id="blankSailingChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="BLANK_SAILINGTableContainer">
+                        <div class="table-section data-table-container" id="BLANK_SAILINGTableContainer">
                         </div>
                     </div>
 
@@ -165,7 +171,7 @@
                                 <canvas id="FBXChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="FBXTableContainer">
+                        <div class="table-section data-table-container" id="FBXTableContainer">
                         </div>
                     </div>
 
@@ -176,7 +182,7 @@
                                 <canvas id="XSIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="XSITableContainer">
+                        <div class="table-section data-table-container" id="XSITableContainer">
                         </div>
                     </div>
 
@@ -187,7 +193,7 @@
                                 <canvas id="MBCIChart"></canvas>
                             </div>
                         </div>
-                        <div class="table-section" id="MBCITableContainer">
+                        <div class="table-section data-table-container" id="MBCITableContainer">
                         </div>
                     </div>
                 </div>
