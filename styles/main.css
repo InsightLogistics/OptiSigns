@@ -367,7 +367,7 @@ footer {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85em;
+    font-size: 0.65em;
     table-layout: fixed; /* 고정 너비 테이블 레이아웃 활성화 */
 }
 
