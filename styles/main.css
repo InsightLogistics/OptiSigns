@@ -60,18 +60,20 @@ header h1 {
 }
 
 .dashboard-grid {
-    /* display: grid; /* 이 줄을 제거하거나 주석 처리 */
-    /* grid-template-columns: 1fr; /* 이 줄을 제거하거나 주석 처리 */
+    display: grid; /* 이 줄을 다시 활성화 */
+    /* grid-template-columns: 1fr; /* 이 줄은 제거된 상태로 유지 */
+    /* top-content-grid와 chart-slider-container가 세로로 배치되도록 row 템플릿 정의 */
+    grid-template-rows: auto 1fr; /* 첫 번째 행은 콘텐츠 높이에 맞게, 두 번째 행은 남은 공간 모두 차지 */
     gap: 10px; /* 섹션 간 간격은 유지 */
-    /* flex-grow: 1; /* main이 이미 flex-grow를 가지므로 여기서 제거 */
-    /* overflow-y: auto; /* main이 이미 overflow-y를 가지므로 여기서 제거 */
+    flex-grow: 1; /* .container 내에서 남은 공간을 모두 차지하도록 */
+    overflow: hidden; /* 그리드 컨테이너 자체는 스크롤바 없음 */
     padding: 10px; /* 대시보드 전체 콘텐츠에 패딩 추가 */
 }
 
 main {
     padding: 0;
-    flex-grow: 1; /* .container 내에서 남은 세로 공간을 모두 차지 */
-    overflow-y: auto; /* main 내부 콘텐츠가 넘칠 경우 스크롤바 생성 */
+    /* flex-grow: 1; /* dashboard-grid가 이미 flex-grow를 가지므로 여기서 제거 */
+    /* overflow-y: auto; /* dashboard-grid가 overflow를 관리하므로 여기서 제거 */
 }
 
 .world-clock-item {
@@ -128,8 +130,8 @@ main {
     background-color: transparent;
     padding: 0;
     box-shadow: none;
-    /* height: 500px; /* 이 줄을 제거하여 높이를 유연하게 만듭니다. */
-    flex-grow: 1; /* main 내에서 남은 세로 공간을 차지하도록 추가 */
+    /* height: 500px; /* 이 줄은 여전히 제거된 상태여야 합니다. */
+    /* flex-grow: 1; /* 이 줄을 제거하여 grid-template-rows에 의해 높이가 결정되도록 합니다. */
     display: flex;
     flex-direction: column;
     align-items: center;
