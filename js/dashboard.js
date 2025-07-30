@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 Chart.getChart(chartId).destroy();
             }
 
-            // Chart.js의 기본 옵션을 정의합니다.
             const defaultOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -26,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     x: {
                         display: true,
                         title: {
-                            display: false, // X축 타이틀 제거
-                            text: 'Date'
+                            display: false // X축 타이틀 제거
                         },
                         type: 'time',
                         time: {
@@ -49,8 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     y: {
                         beginAtZero: true,
                         title: {
-                            display: false, // Y축 타이틀 제거
-                            text: 'Value'
+                            display: false // Y축 타이틀 제거
                         },
                         ticks: {
                             count: 5 // 세로 기준 5개 유지
@@ -83,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            // 기본 옵션과 추가 옵션을 병합합니다.
             const options = { ...defaultOptions, ...additionalOptions };
             if (options.scales && additionalOptions.scales) {
                 options.scales = { ...defaultOptions.scales, ...additionalOptions.scales };
