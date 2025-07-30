@@ -66,14 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             boxWidth: 20,
                             boxHeight: 10,
                             usePointStyle: false,
-                            // 범례 테두리 제거: Chart.js 기본 범례 레이블에는 테두리가 없으므로,
-                            // 이 부분에서 명시적으로 테두리를 설정하지 않으면 됩니다.
-                            // 혹시 CSS에서 영향을 받는다면 CSS를 수정해야 합니다.
-                            // Chart.js 범례 테두리 제거를 위한 옵션 추가
-                            // Chart.js 3.x 이상에서는 border 관련 옵션이 legend.labels.pointStyle에 직접적으로 없음
-                            // 따라서, 범례 테두리가 보인다면 이는 외부 CSS 영향이거나,
-                            // 범례 아이콘 자체의 스타일링 문제일 수 있습니다.
-                            // 여기서는 Chart.js 기본 동작에 의존합니다.
+                            strokeStyle: 'transparent',
                         }
                     },
                     tooltip: {
