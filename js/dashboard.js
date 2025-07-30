@@ -17,6 +17,7 @@
 
     document.addEventListener('DOMContentLoaded', async () => { // async 추가
         // Chart.js 라이브러리 로딩 확인 (선택 사항이지만 디버깅에 유용)
+        // 이 부분은 이미 추가되어 있으나, 오류 메시지가 계속 나온다면 로딩 타이밍 문제일 수 있습니다.
         if (typeof Chart === 'undefined') {
             console.error("Chart.js library is not loaded. Please ensure script tags are correct.");
             return;
@@ -689,4 +690,4 @@
             }
         }
     });
-})(); // IIFE 종료
+})(); // IIFE
