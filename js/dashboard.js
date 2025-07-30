@@ -17,14 +17,22 @@
         const setupChart = (chartId, type, datasets, additionalOptions = {}, isAggregated = false) => {
             const ctx = document.getElementById(chartId);
             if (ctx) {
-                // 캔버스 부모 컨테이너의 계산된 크기를 가져와 캔버스에 명시적으로 설정
+                // *** CRITICAL FIX: Remove hardcoded HTML attributes and inline styles ***
+                // 기존에 HTML 태그에 직접 명시된 width/height 속성 제거
+                ctx.removeAttribute('width');
+                ctx.removeAttribute('height');
+                // 기존에 인라인 스타일로 적용된 width/height 제거
+                ctx.style.width = '';
+                ctx.style.height = '';
+
                 const parentContainer = ctx.parentElement; // 이 요소는 .chart-container 입니다.
                 if (parentContainer) {
                     const computedStyle = window.getComputedStyle(parentContainer);
                     const parentWidth = parseFloat(computedStyle.width);
                     const parentHeight = parseFloat(computedStyle.height);
 
-                    // 캔버스 width/height 속성 설정 (fallback 포함)
+                    // 캔버스 드로잉 버퍼 width/height 속성 설정 (fallback 포함)
+                    // 이 값들이 실제 캔버스에 그려지는 해상도를 결정합니다.
                     ctx.width = parentWidth || parentContainer.offsetWidth || 800;
                     ctx.height = parentHeight || parentContainer.offsetHeight || 450;
 
