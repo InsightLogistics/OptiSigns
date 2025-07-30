@@ -848,8 +848,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // 슬라이더 시간 간격 설정 (10초 간격)
-            setupSlider('.chart-slides > .chart-slide', 10000);
+            setupSlider('.chart-slider-container > .chart-slide', 10000); // <-- .chart-slides를 .chart-slider-container로 변경
             setupSlider('.top-info-slider-container > .top-info-slide', 10000);
+
 
             // 세계 시간 업데이트 시작
             updateWorldClocks();
