@@ -268,13 +268,13 @@ footer {
 }
 
 .weather-current-info #temperature-current {
-    font-size: 2.5em;
+    font-size: 0.9em;
     font-weight: bold;
     color: #00657e;
 }
 
 .weather-current-info #status-current {
-    font-size: 1.1em;
+    font-size: 0.9em;
     color: #555;
     text-transform: capitalize;
     text-align: center; /* 날씨 상태 텍스트 가운데 정렬 */
