@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiSign Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <header>
+            <h1>Global Shipping Index Dashboard</h1>
+            <p class="text-gray-600" id="last-updated">Last Updated: Loading...</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <main>
+                <div class="top-content-grid">
+                    <div class="announcements-section">
+                        <h2>Announcements</h2>
+                        <ul class="announcements-list">
+                            <li>식사 후 건더기를 제외한 **국물은 그라인더를 켠 상태로 싱크대**에 비워주시고 나머지 **쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통**에 버려주세요.</li>
+                            <li>버리러 갈 때는 **Warehouse 계단이 아닌 Office 계단을 통해 이동**해주시고 한 쪽에 쓰레기가 몰리지 않도록 **2개의 쓰레기 통에 적절히 분배**해주세요.</li>
+                            <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 **본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지**해주세요.</li>
+                            <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 **퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.**</li>
+                            <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 **책상의 먼지 및 얼룩을 닦아서 제거**해주세요.</li>
+                        </ul>
+                    </div>
+
+                    <div class="top-info-slider-container">
+                        <div class="top-info-slide active" id="top-info-slide-1">
+                            <h3>World Clocks</h3>
+                            <div class="world-clock-item">
+                                <span>Los Angeles</span>
+                                <span id="time-la"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>New York</span>
+                                <span id="time-ny"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Paris</span>
+                                <span id="time-paris"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Shanghai</span>
+                                <span id="time-shanghai"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Seoul</span>
+                                <span id="time-seoul"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Sydney</span>
+                                <span id="time-sydney"></span>
+                            </div>
+                        </div>
+
+                        <div class="top-info-slide" id="top-info-slide-2">
+                            <h3>Weather in Los Angeles</h3>
+                            <div class="weather-current-info">
+                                <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
+                                <span id="temperature-current">--°F</span>
+                                <span id="status-current">Loading...</span>
+                            </div>
+                            <div class="weather-details">
+                                <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
+                                <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
+                                <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
+                                <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
+                                <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
+                                <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
+                            </div>
+                            <table class="forecast-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="forecast-body">
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="top-info-slide" id="top-info-slide-3">
+                            <h3>USD to KRW Exchange Rate</h3>
+                            <div class="exchange-rate-info">
+                                <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                            </div>
+                            <div class="exchange-rate-chart-container">
+                                <canvas id="exchangeRateChartCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-slider-container">
+                    <div class="chart-slide active" id="chart-slide-1">
+                        <div class="chart-section">
+                            <h2>KCCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="KCCIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="KCCITableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-2">
+                        <div class="chart-section">
+                            <h2>SCFI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="SCFIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="SCFITableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-3">
+                        <div class="chart-section">
+                            <h2>WCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="WCIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="WCITableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-4">
+                        <div class="chart-section">
+                            <h2>IACI Composite Index</h2>
+                            <div class="chart-container">
+                                <canvas id="IACIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="IACITableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-5">
+                        <div class="chart-section">
+                            <h2>Blank Sailings by Alliance</h2>
+                            <div class="chart-container">
+                                <canvas id="blankSailingChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="BLANK_SAILINGTableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-6">
+                        <div class="chart-section">
+                            <h2>FBX Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="FBXChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="FBXTableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-7">
+                        <div class="chart-section">
+                            <h2>XSI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="XSIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="XSITableContainer">
+                        </div>
+                    </div>
+
+                    <div class="chart-slide" id="chart-slide-8">
+                        <div class="chart-section">
+                            <h2>MBCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="MBCIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="MBCITableContainer">
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 OptiSign. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
