@@ -1,14 +1,18 @@
-body {
+html, body {
+    width: 3000px; /* 화면 전체 너비를 3000px로 설정 */
+    min-height: 1688px; /* 화면 전체 최소 높이를 1688px로 설정 */
+    margin: 0 auto; /* 화면 내용을 가운데 정렬 */
+    padding: 0;
+    overflow-x: hidden; /* 가로 스크롤바 방지 */
     font-family: 'Inter', sans-serif;
     background-color: #f0f2f5;
     color: #333;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 3000px; /* 메인 컨테이너가 3000px 너비까지 확장되도록 설정 */
+    width: 100%; /* 부모 요소(body)의 너비를 꽉 채우도록 설정 */
     margin: 20px auto;
     padding: 10px;
     background-color: #fff;
@@ -186,8 +190,10 @@ footer {
 
 .top-info-slide h3 {
     font-size: 1.6em;
-    margin-bottom: 8px;
-    color: #00657e;
+    margin-bottom: 0px; /* 헤더 아래 마진 제거 */
+    line-height: 1.2; /* 헤더 행간 조절 */
+    white-space: normal; /* 텍스트 줄 바꿈 허용 */
+    word-break: keep-all; /* 단어 단위로 줄 바꿈 */
 }
 
 .top-info-slide p {
@@ -270,12 +276,14 @@ footer {
     margin-left: auto; /* 가운데 정렬 */
     margin-right: auto; /* 가운데 정렬 */
     line-height: 1.1; /* 행간 더 줄임 */
+    padding-top: 0; /* 날씨 상세 정보 상단 패딩 제거 */
+    padding-bottom: 0; /* 날씨 상세 정보 하단 패딩 제거 */
 }
 
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 0px 0; /* 행간 더욱 줄임 */
+    padding: 0px 0; /* 위아래 패딩을 0으로 설정하여 간격 최소화 */
     border-bottom: 1px dotted #ccc;
 }
 
@@ -361,6 +369,7 @@ footer {
 .data-table th {
     white-space: normal; /* 헤더 텍스트 줄 바꿈 허용 */
     line-height: 1.2; /* 헤더 행간 조절 */
+    font-size: 0.8em; /* 헤더 폰트 크기 약간 줄여서 2줄에 맞춤 */
 }
 .data-table td {
     white-space: nowrap; /* 데이터 셀은 한 줄 유지 */
@@ -370,16 +379,16 @@ footer {
 
 /* 테이블 컬럼 너비 조정 */
 .data-table th:nth-child(1), .data-table td:nth-child(1) { /* 항로 */
-    width: 35%; /* 항로 너비 조정 */
+    width: 30%; /* 항로 너비 조정 */
 }
 .data-table th:nth-child(2), .data-table td:nth-child(2) { /* Current Index */
-    width: 21.66%; /* 너비 조정 */
+    width: 23.33%; /* 너비 조정 */
 }
 .data-table th:nth-child(3), .data-table td:nth-child(3) { /* Previous Index */
-    width: 21.66%; /* 너비 조정 */
+    width: 23.33%; /* 너비 조정 */
 }
 .data-table th:nth-child(4), .data-table td:nth-child(4) { /* Weekly Change */
-    width: 21.66%; /* 너비 조정 */
+    width: 23.33%; /* 너비 조정 */
 }
 
 .data-table .table-date-header { /* 헤더 내 날짜 스타일 */
