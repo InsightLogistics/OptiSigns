@@ -11,8 +11,8 @@ html, body {
 }
 
 .container {
-    max-width: 3000px; /* 메인 컨테이너가 3000px 너비까지 확장되도록 설정 */
-    width: 100%; /* 부모 요소(body)의 너비를 꽉 채우도록 설정 */
+    width: 3000px; /* 대시보드 컨테이너 너비를 3000px로 고정 */
+    height: 1688px; /* 대시보드 컨테이너 높이를 1688px로 고정 */
     margin: 20px auto;
     padding: 10px;
     background-color: #fff;
@@ -194,6 +194,7 @@ footer {
     line-height: 1.2; /* 헤더 행간 조절 */
     white-space: normal; /* 텍스트 줄 바꿈 허용 */
     word-break: keep-all; /* 단어 단위로 줄 바꿈 */
+    padding-top: 10px; /* 상단 패딩 추가하여 헤더 잘림 방지 */
 }
 
 .top-info-slide p {
