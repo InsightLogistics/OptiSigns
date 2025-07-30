@@ -5,13 +5,10 @@ html, body {
     padding: 0;
     overflow: hidden;
     font-family: 'Inter', sans-serif;
-    background-color: #f0f0f0; /* transparent -> #f0f0f0 (회색 배경 유지) */
+    background-color: #f0f0f0; /* 회색 배경 유지 */
     color: #333;
     line-height: 1.6;
-    /* 아래 세 줄은 제거 (컨테이너가 직접 위치를 잡으므로 불필요) */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
+    /* 이전에 제거했던 display, justify-content, align-items는 계속 제거된 상태여야 합니다. */
 }
 
 .container {
@@ -20,7 +17,7 @@ html, body {
     left: 0;
     transform: none;
     
-    /* 16:9 비율 유지하며 화면 채우기 - 이 부분이 가장 중요합니다 */
+    /* 16:9 비율 유지하며 화면 채우기 */
     width: 100vw;
     height: calc(100vw * 9 / 16); /* 너비 기준으로 16:9 높이 계산 */
     max-height: 100vh; /* 뷰포트 높이를 넘지 않도록 제한 */
@@ -31,12 +28,19 @@ html, body {
     border-radius: 0;
     box-shadow: none;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: hidden; /* 컨테이너 자체는 스크롤바 없음 */
     
-    /* 헤더, 대시보드 그리드, 푸터를 세로로 배치하고 공간을 유연하게 분배 */
+    /* 헤더, 메인, 푸터를 세로로 배치하고 유연하게 공간 분배 */
     display: flex;
     flex-direction: column;
-    /* align-items: stretch; /* 자식 요소들이 컨테이너 너비를 채우도록 */
+}
+
+/* 뷰포트가 16:9 비율보다 넓을 경우 (높이가 제한될 때) */
+@media (min-aspect-ratio: 16/9) {
+    .container {
+        width: calc(100vh * 16 / 9);
+        height: 100vh;
+    }
 }
 
 header {
@@ -56,16 +60,18 @@ header h1 {
 }
 
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* 현재는 1열 그리드 */
-    gap: 10px;
-    flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
-    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤바 생성 */
+    /* display: grid; /* 이 줄을 제거하거나 주석 처리 */
+    /* grid-template-columns: 1fr; /* 이 줄을 제거하거나 주석 처리 */
+    gap: 10px; /* 섹션 간 간격은 유지 */
+    /* flex-grow: 1; /* main이 이미 flex-grow를 가지므로 여기서 제거 */
+    /* overflow-y: auto; /* main이 이미 overflow-y를 가지므로 여기서 제거 */
     padding: 10px; /* 대시보드 전체 콘텐츠에 패딩 추가 */
 }
 
 main {
     padding: 0;
+    flex-grow: 1; /* .container 내에서 남은 세로 공간을 모두 차지 */
+    overflow-y: auto; /* main 내부 콘텐츠가 넘칠 경우 스크롤바 생성 */
 }
 
 .world-clock-item {
@@ -110,7 +116,7 @@ main {
 
 .chart-container {
     position: relative;
-    height: 40vh; /* 기존 450px에서 뷰포트 높이에 비례하도록 변경 (원하는 값으로 조절) */
+    height: 70%; /* chart-slider-container의 70% 높이를 차지 (원하는 비율로 조절) */
     width: 100%;
     margin: 0 auto;
 }
@@ -123,6 +129,7 @@ main {
     padding: 0;
     box-shadow: none;
     /* height: 500px; /* 이 줄을 제거하여 높이를 유연하게 만듭니다. */
+    flex-grow: 1; /* main 내에서 남은 세로 공간을 차지하도록 추가 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,7 +174,7 @@ main {
 
 footer {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 15px; /* 30px에서 15px으로 줄여서 공간 확보 (원하는 값으로 조절) */
     padding-top: 15px;
     border-top: 1px solid #eee;
     color: #777;
@@ -349,7 +356,7 @@ footer {
 
 .exchange-rate-chart-container {
     position: relative;
-    height: 15vh; /* 기존 200px에서 뷰포트 높이에 비례하도록 변경 (원하는 값으로 조절) */
+    height: 60%; /* top-info-slide 내에서 60% 높이를 차지 (원하는 비율로 조절) */
     width: 95%;
     margin: 0 auto;
 }
@@ -494,12 +501,4 @@ div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
     width: 12px !important;
     height: 12px !important;
     border-radius: 0 !important;
-}
-
-/* 뷰포트가 16:9 비율보다 넓을 경우 (높이가 제한될 때) */
-@media (min-aspect-ratio: 16/9) {
-    .container {
-        width: calc(100vh * 16 / 9);
-        height: 100vh;
-    }
 }
