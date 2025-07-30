@@ -69,6 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             // 범례 테두리 제거: Chart.js 기본 범례 레이블에는 테두리가 없으므로,
                             // 이 부분에서 명시적으로 테두리를 설정하지 않으면 됩니다.
                             // 혹시 CSS에서 영향을 받는다면 CSS를 수정해야 합니다.
+                            // Chart.js 범례 테두리 제거를 위한 옵션 추가
+                            // Chart.js 3.x 이상에서는 border 관련 옵션이 legend.labels.pointStyle에 직접적으로 없음
+                            // 따라서, 범례 테두리가 보인다면 이는 외부 CSS 영향이거나,
+                            // 범례 아이콘 자체의 스타일링 문제일 수 있습니다.
+                            // 여기서는 Chart.js 기본 동작에 의존합니다.
                         }
                     },
                     tooltip: {
@@ -249,7 +254,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slides.length > 0) {
             showSlide(currentSlide);
             if (slides.length > 1) {
-                setInterval(nextSlide, intervalTime);
+                // 기존 인터벌이 있다면 클리어 (슬라이더 중복 실행 방지)
+                if (slides[0].dataset.intervalId) {
+                    clearInterval(parseInt(slides[0].dataset.intervalId));
+                }
+                const intervalId = setInterval(nextSlide, intervalTime);
+                slides[0].dataset.intervalId = intervalId.toString(); // 첫 번째 슬라이드에 인터벌 ID 저장
             }
         }
     };
@@ -294,8 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${month}-${day}-${year}`;
     };
 
-    // renderTable 함수 수정: dateInfo 인자 추가
-    const renderTable = (containerId, headers, rows, dateInfo = {}) => {
+    // renderTable 함수 수정: headerDates 인자 추가
+    const renderTable = (containerId, headers, rows, headerDates = {}) => {
         const container = document.getElementById(containerId);
         if (!container) {
             console.warn(`Table container with ID ${containerId} not found.`);
@@ -316,7 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerRow = document.createElement('tr');
         headers.forEach(headerText => {
             const th = document.createElement('th');
-            th.textContent = headerText;
+            // 헤더에 날짜 정보 추가
+            if (headerText.includes('Current Index') && headerDates.currentIndexDate) {
+                th.innerHTML = `Current Index<br><span class="table-date-header">${headerDates.currentIndexDate}</span>`;
+            } else if (headerText.includes('Previous Index') && headerDates.previousIndexDate) {
+                th.innerHTML = `Previous Index<br><span class="table-date-header">${headerDates.previousIndexDate}</span>`;
+            } else {
+                th.textContent = headerText;
+            }
             headerRow.appendChild(th);
         });
         thead.appendChild(headerRow);
@@ -342,28 +359,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
-                    const valueSpan = document.createElement('span');
-                    valueSpan.textContent = content;
-                    td.appendChild(valueSpan);
-                    if (dateInfo.currentIndexDate) {
-                        const dateSpan = document.createElement('span');
-                        dateSpan.textContent = dateInfo.currentIndexDate;
-                        dateSpan.classList.add('table-date');
-                        td.appendChild(document.createElement('br'));
-                        td.appendChild(dateSpan);
-                    }
+                    td.textContent = content; // 값만 표시, 날짜는 헤더로 이동
                 } else if (header.includes('Previous Index')) {
                     content = rowData.previous_index ?? '-';
-                    const valueSpan = document.createElement('span');
-                    valueSpan.textContent = content;
-                    td.appendChild(valueSpan);
-                    if (dateInfo.previousIndexDate) {
-                        const dateSpan = document.createElement('span');
-                        dateSpan.textContent = dateInfo.previousIndexDate;
-                        dateSpan.classList.add('table-date');
-                        td.appendChild(document.createElement('br'));
-                        td.appendChild(dateSpan);
-                    }
+                    td.textContent = content; // 값만 표시, 날짜는 헤더로 이동
                 } else if (header.includes('항로') || header.includes('route')) {
                     const displayRouteName = rowData.route ? rowData.route.split('_').slice(1).join('_') : '-';
                     td.textContent = displayRouteName;
@@ -729,8 +728,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
             const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
             
-            // Blank Sailing 테이블의 날짜는 월별 집계 데이터의 마지막 날짜를 사용합니다.
-            const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData); // 원본 데이터에서 날짜 가져오기
+            // Blank Sailing 테이블의 날짜는 원본 데이터의 마지막 날짜를 사용합니다.
+            const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
             const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
             
             const blankSailingDatasets = [
