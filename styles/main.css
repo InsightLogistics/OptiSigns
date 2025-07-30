@@ -405,7 +405,6 @@ footer {
 }
 
 .data-table .table-date-header { /* 헤더 내 날짜 스타일 */
-    font-size: 0.75em;
     color: #666;
     display: block; /* 새 줄에 표시 */
     margin-top: 2px; /* 값과의 간격 */
