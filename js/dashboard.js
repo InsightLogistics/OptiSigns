@@ -63,12 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         display: true,
                         position: 'right',
                         labels: {
-                            boxWidth: 20,
-                            boxHeight: 10,
-                            usePointStyle: false,
-                            // 여기가 핵심 변경! strokeStyle 대신 lineWidth를 0으로 설정
-                            strokeStyle: 'transparent', // 기존에 있던 부분은 유지해도 좋지만
-                            lineWidth: 0, // <-- 이 줄을 추가하여 테두리 선 너비를 0으로 만듭니다.
+                            // boxWidth: 20, // 기본값으로 두거나 필요한 경우 조정
+                            // boxHeight: 10, // 기본값으로 두거나 필요한 경우 조정
+                            usePointStyle: false, // 여전히 false 유지
+
+                            // 범례 아이템을 커스터마이징하는 함수
+                            generateLabels: function(chart) {
+                                const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                return originalLabels.map(label => {
+                                    // 각 범례 아이템에 대해
+                                    label.lineWidth = 0; // 범례 상자의 테두리 두께를 0으로 설정
+                                    label.strokeStyle = 'transparent'; // 범례 상자의 테두리 색상을 투명으로 설정
+                                    // 중요: 데이터셋의 borderColor는 그대로 유지하되,
+                                    // 범례 아이콘을 그릴 때만 테두리를 없앱니다.
+
+                                    return label;
+                                });
+                            }
                         }
                     },
                     tooltip: {
