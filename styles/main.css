@@ -1,5 +1,5 @@
 html, body {
-    width: 7000px; /* 화면 전체 너비를 7000px로 설정 */
+    width: 5333px; /* 화면 전체 너비를 5333px로 설정 */
     height: 3000px; /* 화면 전체 높이를 3000px로 설정 */
     margin: 0; /* 모든 마진 제거 */
     padding: 0;
@@ -14,7 +14,7 @@ html, body {
 }
 
 .container {
-    width: 7000px; /* 대시보드 컨테이너 너비를 7000px로 고정 */
+    width: 5333px; /* 대시보드 컨테이너 너비를 5333px로 고정 */
     height: 3000px; /* 대시보드 컨테이너 높이를 3000px로 고정 */
     margin: 0; /* 컨테이너 마진 제거 */
     padding: 10px;
