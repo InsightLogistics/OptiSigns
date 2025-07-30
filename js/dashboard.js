@@ -65,7 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         labels: {
                             boxWidth: 20,
                             boxHeight: 10,
-                            usePointStyle: false
+                            usePointStyle: false,
+                            // 범례 테두리 제거: Chart.js 기본 범례 레이블에는 테두리가 없으므로,
+                            // 이 부분에서 명시적으로 테두리를 설정하지 않으면 됩니다.
+                            // 혹시 CSS에서 영향을 받는다면 CSS를 수정해야 합니다.
                         }
                     },
                     tooltip: {
@@ -280,7 +283,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const renderTable = (containerId, headers, rows) => {
+    // 날짜 포맷팅 헬퍼 함수
+    const formatDateForTable = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        if (isNaN(date)) return ''; // Invalid date
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
+
+    // renderTable 함수 수정: dateInfo 인자 추가
+    const renderTable = (containerId, headers, rows, dateInfo = {}) => {
         const container = document.getElementById(containerId);
         if (!container) {
             console.warn(`Table container with ID ${containerId} not found.`);
@@ -321,21 +336,41 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ? `${weeklyChange.value} (${weeklyChange.percentage})`
                                     : '-';
                     colorClass = weeklyChange?.color_class || '';
+                    td.textContent = content;
+                    if (colorClass) {
+                        td.classList.add(colorClass);
+                    }
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
+                    const valueSpan = document.createElement('span');
+                    valueSpan.textContent = content;
+                    td.appendChild(valueSpan);
+                    if (dateInfo.currentIndexDate) {
+                        const dateSpan = document.createElement('span');
+                        dateSpan.textContent = dateInfo.currentIndexDate;
+                        dateSpan.classList.add('table-date');
+                        td.appendChild(document.createElement('br'));
+                        td.appendChild(dateSpan);
+                    }
                 } else if (header.includes('Previous Index')) {
                     content = rowData.previous_index ?? '-';
+                    const valueSpan = document.createElement('span');
+                    valueSpan.textContent = content;
+                    td.appendChild(valueSpan);
+                    if (dateInfo.previousIndexDate) {
+                        const dateSpan = document.createElement('span');
+                        dateSpan.textContent = dateInfo.previousIndexDate;
+                        dateSpan.classList.add('table-date');
+                        td.appendChild(document.createElement('br'));
+                        td.appendChild(dateSpan);
+                    }
                 } else if (header.includes('항로') || header.includes('route')) {
                     const displayRouteName = rowData.route ? rowData.route.split('_').slice(1).join('_') : '-';
-                    content = displayRouteName;
+                    td.textContent = displayRouteName;
                 } else {
-                    content = rowData[header.toLowerCase().replace(/\s/g, '_')] ?? '-';
+                    td.textContent = rowData[header.toLowerCase().replace(/\s/g, '_')] ?? '-';
                 }
                 
-                td.textContent = content;
-                if (colorClass) {
-                    td.classList.add(colorClass);
-                }
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
@@ -471,6 +506,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return datasets;
     };
 
+    // 날씨 아이콘 매핑
+    const weatherIconMapping = {
+        'clear': '01d', '맑음': '01d',
+        'clouds': '02d', '구름': '02d',
+        'partly cloudy': '02d',
+        'scattered clouds': '03d',
+        'broken clouds': '04d',
+        'shower rain': '09d',
+        'rain': '10d', '비': '10d',
+        'thunderstorm': '11d',
+        'snow': '13d', '눈': '13d',
+        'mist': '50d',
+        'fog': '50d',
+        'haze': '50d',
+        'drizzle': '09d'
+    };
+
+    const weatherIconUrl = (status) => {
+        if (!status) return `https://placehold.co/80x80/cccccc/ffffff?text=Icon`;
+        const lowerStatus = status.toLowerCase();
+        let iconCode = null;
+
+        for (const key in weatherIconMapping) {
+            if (lowerStatus.includes(key)) {
+                iconCode = weatherIconMapping[key];
+                break;
+            }
+        }
+        
+        if (iconCode) {
+            return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        }
+        return `https://placehold.co/80x80/cccccc/ffffff?text=Icon`; // Default placeholder if no match
+    };
 
     async function loadAndDisplayData() {
         let allDashboardData = {};
@@ -507,19 +576,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusCurrent) statusCurrent.textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             
             const weatherIcon = document.getElementById('weather-icon-current');
-            const weatherIconUrl = (status) => {
-                const base = 'https://placehold.co/80x80/';
-                const defaultColor = 'cccccc';
-                const textColor = 'ffffff';
-                if (status) {
-                    const lowerStatus = status.toLowerCase();
-                    if (lowerStatus.includes('clear') || lowerStatus.includes('맑음')) return `${base}00657e/${textColor}?text=SUN`;
-                    if (lowerStatus.includes('cloud') || lowerStatus.includes('구름')) return `${base}003A52/${textColor}?text=CLOUD`;
-                    if (lowerStatus.includes('rain') || lowerStatus.includes('비')) return `${base}28A745/${textColor}?text=RAIN`;
-                    if (lowerStatus.includes('snow') || lowerStatus.includes('눈')) return `${base}17A2B8/${textColor}?text=SNOW`;
-                }
-                return `${base}${defaultColor}/${textColor}?text=Icon`;
-            };
             if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
 
             const humidityCurrent = document.getElementById('humidity-current');
@@ -612,47 +668,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 false // 환율 차트는 월별 집계를 하지 않으므로 false 유지
             );
 
+            // 각 지수별 최신/이전 날짜를 가져오는 헬퍼 함수
+            const getLatestAndPreviousDates = (chartData) => {
+                if (!chartData || chartData.length < 2) return { latestDate: null, previousDate: null };
+                const sortedData = [...chartData].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const latestDate = sortedData[0] ? new Date(sortedData[0].date) : null;
+                const previousDate = sortedData[1] ? new Date(sortedData[1].date) : null;
+                return { latestDate, previousDate };
+            };
 
-            // colorIndex 재설정 제거
+
+            // KCCI 차트 및 테이블
             const KCCIData = chartDataBySection.KCCI || [];
-            KCCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: KCCILatestDate, previousDate: KCCIPrevDate } = getLatestAndPreviousDates(KCCIData);
             const KCCITableRows = tableDataBySection.KCCI ? tableDataBySection.KCCI.rows : [];
             const KCCIDatasets = createDatasetsFromTableRows('KCCI', KCCIData, KCCITableRows);
             KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, {}, false);
-            renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, KCCITableRows);
+            renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, KCCITableRows, {
+                currentIndexDate: formatDateForTable(KCCILatestDate),
+                previousIndexDate: formatDateForTable(KCCIPrevDate)
+            });
 
 
-            // colorIndex 재설정 제거
+            // SCFI 차트 및 테이블
             const SCFIData = chartDataBySection.SCFI || [];
-            SCFIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: SCFILatestDate, previousDate: SCFIPrevDate } = getLatestAndPreviousDates(SCFIData);
             const SCFITableRows = tableDataBySection.SCFI ? tableDataBySection.SCFI.rows : [];
             const SCFIDatasets = createDatasetsFromTableRows('SCFI', SCFIData, SCFITableRows);
             SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, {}, false);
-            renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, SCFITableRows);
+            renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, SCFITableRows, {
+                currentIndexDate: formatDateForTable(SCFILatestDate),
+                previousIndexDate: formatDateForTable(SCFIPrevDate)
+            });
 
 
-            // colorIndex 재설정 제거
+            // WCI 차트 및 테이블
             const WCIData = chartDataBySection.WCI || [];
-            WCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: WCILatestDate, previousDate: WCIPrevDate } = getLatestAndPreviousDates(WCIData);
             const WCITableRows = tableDataBySection.WCI ? tableDataBySection.WCI.rows : [];
             const WCIDatasets = createDatasetsFromTableRows('WCI', WCIData, WCITableRows);
             WCIChart = setupChart('WCIChart', 'line', WCIDatasets, {}, false);
-            renderTable('WCITableContainer', tableDataBySection.WCI.headers, WCITableRows);
+            renderTable('WCITableContainer', tableDataBySection.WCI.headers, WCITableRows, {
+                currentIndexDate: formatDateForTable(WCILatestDate),
+                previousIndexDate: formatDateForTable(WCIPrevDate)
+            });
 
 
-            // colorIndex 재설정 제거
+            // IACI 차트 및 테이블
             const IACIData = chartDataBySection.IACI || [];
-            IACIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: IACILatestDate, previousDate: IACIPrevDate } = getLatestAndPreviousDates(IACIData);
             const IACITableRows = tableDataBySection.IACI ? tableDataBySection.IACI.rows : [];
             const IACIDatasets = createDatasetsFromTableRows('IACI', IACIData, IACITableRows);
             IACIChart = setupChart('IACIChart', 'line', IACIDatasets, {}, false);
-            renderTable('IACITableContainer', tableDataBySection.IACI.headers, IACITableRows);
+            renderTable('IACITableContainer', tableDataBySection.IACI.headers, IACITableRows, {
+                currentIndexDate: formatDateForTable(IACILatestDate),
+                previousIndexDate: formatDateForTable(IACIPrevDate)
+            });
 
 
             const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
             const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
             
-            // colorIndex 재설정 제거
+            // Blank Sailing 테이블의 날짜는 월별 집계 데이터의 마지막 날짜를 사용합니다.
+            const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData); // 원본 데이터에서 날짜 가져오기
+            const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
+            
             const blankSailingDatasets = [
                 {
                     label: "Gemini Cooperation",
@@ -696,7 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 }
-            ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined)); // 오류 수정: dataset.some -> dataset.data.some
+            ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
 
             blankSailingChart = setupChart(
                 'blankSailingChart', 'bar',
@@ -722,34 +802,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 true
             );
-            const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
-            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows);
+            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
+                currentIndexDate: formatDateForTable(BSLatestDate),
+                previousIndexDate: formatDateForTable(BSPrevDate)
+            });
 
 
-            // colorIndex 재설정 제거
+            // FBX 차트 및 테이블
             const FBXData = chartDataBySection.FBX || [];
-            FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: FBXLatestDate, previousDate: FBXPrevDate } = getLatestAndPreviousDates(FBXData);
             const FBXTableRows = tableDataBySection.FBX ? tableDataBySection.FBX.rows : [];
             const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, FBXTableRows);
             FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
-            renderTable('FBXTableContainer', tableDataBySection.FBX.headers, FBXTableRows);
+            renderTable('FBXTableContainer', tableDataBySection.FBX.headers, FBXTableRows, {
+                currentIndexDate: formatDateForTable(FBXLatestDate),
+                previousIndexDate: formatDateForTable(FBXPrevDate)
+            });
 
 
-            // colorIndex 재설정 제거
+            // XSI 차트 및 테이블
             const XSIData = chartDataBySection.XSI || [];
-            XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: XSILatestDate, previousDate: XSIPrevDate } = getLatestAndPreviousDates(XSIData);
             const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
-            renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows);
+            renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows, {
+                currentIndexDate: formatDateForTable(XSILatestDate),
+                previousIndexDate: formatDateForTable(XSIPrevDate)
+            });
 
-            // colorIndex 재설정 제거
+            // MBCI 차트 및 테이블
             const MBCIData = chartDataBySection.MBCI || [];
-            MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const { latestDate: MBCILatestDate, previousDate: MBCIPrevDate } = getLatestAndPreviousDates(MBCIData);
             const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows);
+            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows, {
+                currentIndexDate: formatDateForTable(MBCILatestDate),
+                previousIndexDate: formatDateForTable(MBCIPrevDate)
+            });
 
             // 슬라이더 시간 간격 설정 (10초 간격)
             setupSlider('.chart-slides > .chart-slide', 10000);
