@@ -375,7 +375,7 @@ footer {
     border: 1px solid #e0e0e0;
     padding: 4px 8px;
     text-align: center; /* left에서 center로 변경 */
-    vertical-align: top; /* 내용이 여러 줄일 때 상단 정렬 */
+    vertical-align: middle; /* top에서 middle로 변경하여 세로 가운데 정렬 */
     word-wrap: break-word; /* 긴 단어 줄 바꿈 허용 */
 }
 
