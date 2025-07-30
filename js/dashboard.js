@@ -17,6 +17,27 @@
         const setupChart = (chartId, type, datasets, additionalOptions = {}, isAggregated = false) => {
             const ctx = document.getElementById(chartId);
             if (ctx) {
+                // 캔버스 부모 컨테이너의 계산된 크기를 가져와 캔버스에 명시적으로 설정
+                const parentContainer = ctx.parentElement; // 이 요소는 .chart-container 입니다.
+                if (parentContainer) {
+                    const computedStyle = window.getComputedStyle(parentContainer);
+                    const parentWidth = parseFloat(computedStyle.width);
+                    const parentHeight = parseFloat(computedStyle.height);
+
+                    // 캔버스 width/height 속성 설정 (fallback 포함)
+                    ctx.width = parentWidth || parentContainer.offsetWidth || 800;
+                    ctx.height = parentHeight || parentContainer.offsetHeight || 450;
+
+                    if (parentWidth === 0 || parentHeight === 0) {
+                        console.warn(`Canvas parent dimensions are zero for ${chartId}. Computed: w=${parentWidth}, h=${parentHeight}. Offset: w=${parentContainer.offsetWidth}, h=${parentContainer.offsetHeight}. This might affect chart rendering.`);
+                    }
+                } else {
+                    // 부모 컨테이너를 찾을 수 없는 경우 기본값 설정
+                    ctx.width = 800;
+                    ctx.height = 450;
+                    console.warn(`Canvas parent not found for ${chartId}. Using fallback dimensions.`);
+                }
+
                 if (Chart.getChart(chartId)) {
                     Chart.getChart(chartId).destroy();
                 }
