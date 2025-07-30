@@ -19,75 +19,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const defaultOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        },
-                        type: 'time',
-                        time: {
-                            unit: isAggregated ? 'month' : 'day',
-                            displayFormats: {
-                                month: 'MM/01/yyyy', // 변경: 가로축 날짜 형식을 MM/01/yyyy로 변경
-                                day: 'M/dd'
-                            },
-                            tooltipFormat: 'M/d/yyyy'
-                        },
-                        ticks: {
-                            source: 'auto',
-                            autoSkipPadding: 10
-                        },
-                        grid: {
-                            display: false
-                        }
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  display: true,
+                  title: { display: true, text: 'Date' },
+                  type: 'time',
+                  time: {
+                    unit: isAggregated ? 'month' : 'day',
+                    displayFormats: {
+                      month: 'MM/01/yyyy',
+                      day: 'M/dd'
                     },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Value'
-                        },
-                        ticks: {
-                            count: 5
-                        },
-                        grid: {
-                            display: true, // 변경: 세로축 보조선 표시
-                            color: 'rgba(200, 200, 200, 0.5)' // 추가: 세로축 보조선 색상을 회색으로 설정
-                        }
-                    }
+                    tooltipFormat: 'M/d/yyyy'
+                  },
+                  ticks: {
+                    source: 'auto',
+                    autoSkipPadding: 10
+                  },
+                  grid: { display: false }
                 },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'right',
-                        labels: {
-                            boxWidth: 12,  // 색상 박스 너비
-                            padding: 20,   // 범례 간 간격
-                            usePointStyle: true,  // 포인트 스타일 사용
-                            pointStyle: 'circle', // 원형 스타일 지정
-                            font: {
-                                size: 12
-                            },
-                            // 테두리 관련 설정
-                            boxBorderWidth: 0,    // 박스 테두리 두께
-                            borderWidth: 0,       // 텍스트 테두리 두께
-                            lineWidth: 0          // 라인 두께
-                        }
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false
-                    }
-                },
-                elements: {
-                    point: {
-                        radius: 0
-                    }
+                y: {
+                  beginAtZero: true,
+                  title: { display: true, text: 'Value' },
+                  ticks: { count: 5 },
+                  grid: {
+                    display: true,
+                    color: 'rgba(200, 200, 200, 0.5)'
+                  }
                 }
+              },
+              plugins: {  // ✅ plugins 설정을 여기서 한 번만 정의
+                legend: {
+                  display: true,
+                  position: 'right',
+                  labels: {
+                    usePointStyle: false,  // 포인트 스타일 비활성화
+                    boxWidth: 12,
+                    padding: 20,
+                    font: { size: 12 },
+                    boxBorderWidth: 0,     // 박스 테두리 제거
+                    borderWidth: 0,        // 텍스트 테두리 제거
+                    lineWidth: 0           // 라인 두께 제거
+                  }
+                },
+                tooltip: {  // ✅ tooltip은 plugins 내부로 이동
+                  mode: 'index',
+                  intersect: false
+                }
+              },
+              elements: {
+                point: {
+                  radius: 0
+                }
+              }
             };
 
             if (isAggregated) {
