@@ -42,7 +42,7 @@ main {
 
 .world-clock-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 도시명과 시간 사이 공간 분배 */
     align-items: center;
     padding: 8px 0;
     border-bottom: 1px dashed #eee;
@@ -58,15 +58,15 @@ main {
 }
 
 .world-clock-item span:first-child {
-    text-align: right;
-    flex-grow: 1;
-    padding-right: 10px;
+    text-align: left; /* 도시명 좌측 정렬 */
+    /* flex-grow: 1; 제거 */
+    padding-right: 10px; /* 도시명 우측 마진 (시간과의 간격) */
 }
 
 .world-clock-item span:last-child {
-    text-align: left;
-    flex-grow: 1;
-    padding-left: 10px;
+    text-align: right; /* 현재 시간 우측 정렬 */
+    /* flex-grow: 1; 제거 */
+    padding-left: 10px; /* 현재 시간 좌측 마진 (도시명과의 간격) */
 }
 
 .chart-section {
