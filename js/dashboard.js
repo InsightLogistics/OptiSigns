@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 }
-            ].filter(dataset => dataset.some(point => point.y !== null && point.y !== undefined));
+            ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined)); // 오류 수정: dataset.some -> dataset.data.some
 
             blankSailingChart = setupChart(
                 'blankSailingChart', 'bar',
