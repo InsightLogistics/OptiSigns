@@ -59,14 +59,12 @@ main {
 
 .world-clock-item span:first-child {
     text-align: left; /* 도시명 좌측 정렬 */
-    /* flex-grow: 1; 제거 */
-    padding-right: 10px; /* 도시명 우측 마진 (시간과의 간격) */
+    padding-right: 10px; /* 도시명 우측 마진 */
 }
 
 .world-clock-item span:last-child {
     text-align: right; /* 현재 시간 우측 정렬 */
-    /* flex-grow: 1; 제거 */
-    padding-left: 10px; /* 현재 시간 좌측 마진 (도시명과의 간격) */
+    padding-left: 10px; /* 현재 시간 좌측 마진 */
 }
 
 .chart-section {
@@ -95,9 +93,9 @@ main {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background-color: transparent;
+    background-color: transparent; /* 배경 박스 제거 */
     padding: 0;
-    box-shadow: none;
+    box-shadow: none; /* 배경 박스 제거 */
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -271,7 +269,7 @@ footer {
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 4px 0;
+    padding: 2px 0; /* 행간 줄임 */
     border-bottom: 1px dotted #ccc;
 }
 
@@ -340,12 +338,36 @@ footer {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.85em;
+    table-layout: fixed; /* 고정 너비 테이블 레이아웃 활성화 */
 }
 
 .data-table th, .data-table td {
     border: 1px solid #e0e0e0;
     padding: 4px 8px;
     text-align: left;
+    vertical-align: top; /* 내용이 여러 줄일 때 상단 정렬 */
+    word-wrap: break-word; /* 긴 단어 줄 바꿈 허용 */
+}
+
+/* 테이블 컬럼 너비 조정 */
+.data-table th:nth-child(1), .data-table td:nth-child(1) { /* 항로 */
+    width: 40%; 
+}
+.data-table th:nth-child(2), .data-table td:nth-child(2) { /* Current Index */
+    width: 20%;
+}
+.data-table th:nth-child(3), .data-table td:nth-child(3) { /* Previous Index */
+    width: 20%;
+}
+.data-table th:nth-child(4), .data-table td:nth-child(4) { /* Weekly Change */
+    width: 20%;
+}
+
+.data-table .table-date { /* 인덱스 값 아래 날짜 스타일 */
+    font-size: 0.75em;
+    color: #666;
+    display: block; /* 새 줄에 표시 */
+    margin-top: 2px; /* 값과의 간격 */
 }
 
 .data-table th {
