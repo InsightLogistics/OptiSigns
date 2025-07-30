@@ -65,8 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         display: true,
                         position: 'right',
                         labels: {
-                            // 변경: 범례 항목의 테두리를 제거하기 위해 lineWidth를 0으로 설정
-                            lineWidth: 0 
+                            boxWidth: 12,  // 색상 박스 너비
+                            padding: 20,   // 범례 간 간격
+                            usePointStyle: true,  // 포인트 스타일 사용
+                            pointStyle: 'circle', // 원형 스타일 지정
+                            font: {
+                                size: 12
+                            },
+                            // 테두리 관련 설정
+                            boxBorderWidth: 0,    // 박스 테두리 두께
+                            borderWidth: 0,       // 텍스트 테두리 두께
+                            lineWidth: 0          // 라인 두께
                         }
                     },
                     tooltip: {
