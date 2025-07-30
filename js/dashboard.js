@@ -503,6 +503,10 @@
                 const originalRouteName = row.route.split('_').slice(1).join('_');
                 const dataKey = mapping[originalRouteName];
                 
+                // --- DEBUG LOGS START ---
+                console.log(`[${indexType}] Processing route: '${originalRouteName}', mapped dataKey: '${dataKey}'`);
+                // --- DEBUG LOGS END ---
+
                 if (dataKey !== null && dataKey !== undefined && row.current_index !== "") { 
                     const mappedData = chartData.map(item => {
                         const xVal = item.date;
@@ -511,6 +515,13 @@
                     });
 
                     const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
+
+                    // --- DEBUG LOGS START ---
+                    console.log(`[${indexType}] Route: '${originalRouteName}', dataKey: '${dataKey}', filteredMappedData length: ${filteredMappedData.length}`);
+                    if (filteredMappedData.length > 0) {
+                        console.log(`[${indexType}] Route: '${originalRouteName}', Sample filteredMappedData (first 5):`, filteredMappedData.slice(0, 5));
+                    }
+                    // --- DEBUG LOGS END ---
 
                     if (filteredMappedData.length > 0) {
                         datasets.push({
@@ -531,6 +542,9 @@
                     console.warn(`WARNING: No dataKey found or current_index is empty for ${indexType} - route: '${row.route}'. Skipping dataset.`);
                 }
             });
+            // --- DEBUG LOGS START ---
+            console.log(`[${indexType}] Final datasets before Chart setup:`, datasets);
+            // --- DEBUG LOGS END ---
             return datasets;
         };
 
@@ -892,3 +906,20 @@
         loadAndDisplayData();
     });
 })(); // IIFE 종료
+"
+I have reviewed the selected code from the Canvas and your console logs. You're asking why the charts are not appearing despite the data loading and slider functionality seemingly working.
+
+Based on the provided console logs, the `crawling_data.json` file is loading successfully, and the sliders are detecting the correct number of slides and cycling through them. This confirms that the HTML structure for the slides is present and the JavaScript is interacting with them.
+
+The most likely reason the charts themselves are not appearing is that the **datasets being passed to Chart.js are empty or contain only `null`/`undefined` values** after the filtering process in `createDatasetsFromTableRows`.
+
+Even if the `routeToDataKeyMap` is correct, if the actual data from your `crawling_data.json` for specific routes (e.g., KCCI, SCFI, WCI, FBX, XSI, MBCI) has `null` or non-numeric values for the mapped keys, then the `filteredMappedData` array within `createDatasetsFromTableRows` will be empty. When `filteredMappedData.length` is 0, no dataset is added to the `datasets` array, and Chart.js has nothing to draw.
+
+To confirm this, I've added more detailed `console.log` statements within the `createDatasetsFromTableRows` function in the Canvas. These logs will show:
+
+* Which route and data key are being processed.
+* The length of `filteredMappedData` for each route.
+* A sample of the `filteredMappedData` (first 5 points) if it's not empty.
+* The `Final datasets` array for each chart *before* it's passed to `setupChart`.
+
+Please run the Canvas again with these changes and check the browser's developer console. The new logs will provide crucial information about whether the data is correctly being prepared for each chart. This will help us pinpoint if the issue is with the data itself or a rendering problem after the data is prepar
