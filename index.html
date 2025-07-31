@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-    <!-- 기존 CSS는 styles/main.css에서 불러옵니다. -->
 </head>
 <body class="bg-gray-100">
     <div class="container">
@@ -21,21 +20,26 @@
         </header>
 
         <div class="dashboard-grid">
-                <div class="top-content-grid">
-                    <div class="announcements-section">
-                        <h2>Announcements</h2>
-                        <ul class="announcements-list">
-                            <li>• 식사 후 건더기를 제외한 <strong>국물은 그라인더를 켠 상태로 싱크대</strong>에 비워주시고 나머지 <strong>쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통</strong>에 버려주세요.</li>
-                            <li>• 버리러 갈 때는 <strong>Warehouse 계단이 아닌 Office 계단을 통해 이동</strong>해주시고 한 쪽에 쓰레기가 몰리지 않도록 <strong>2개의 쓰레기 통에 적절히 분배</strong>해주세요.</li>
-                            <li>• 건물 내 커피 및 국물 등 액체류를 흘리는 경우 <strong>본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지</strong>해주세요.</li>
-                            <li>• 쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 <strong>퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</strong></li>
-                            <li>• 미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 <strong>책상의 먼지 및 얼룩을 닦아서 제거</strong>해주세요.</li>
-                        </ul>
-                    </div>
+            <div class="top-content-grid">
+                <!-- Announcements 섹션 -->
+                <div class="announcements-section">
+                    <h2>Announcements</h2>
+                    <ul class="announcements-list">
+                        <li>• 식사 후 건더기를 제외한 <strong>국물은 그라인더를 켠 상태로 싱크대</strong>에 비워주시고 나머지 <strong>쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통</strong>에 버려주세요.</li>
+                        <li>• 버리러 갈 때는 <strong>Warehouse 계단이 아닌 Office 계단을 통해 이동</strong>해주시고 한 쪽에 쓰레기가 몰리지 않도록 <strong>2개의 쓰레기 통에 적절히 분배</strong>해주세요.</li>
+                        <li>• 건물 내 커피 및 국물 등 액체류를 흘리는 경우 <strong>본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지</strong>해주세요.</li>
+                        <li>• 쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 <strong>퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</strong></li>
+                        <li>• 미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 <strong>책상의 먼지 및 얼룩을 닦아서 제거</strong>해주세요.</li>
+                    </ul>
+                </div>
 
+                <!-- World Clocks, LA Weather, Exchange Rate 슬라이더 섹션 -->
+                <!-- 헤더를 슬라이더 컨테이너 밖으로 옮겨서 고정되도록 함 -->
+                <div class="top-info-slider-wrapper">
+                    <h2 id="top-slider-header-title"></h2>
                     <div class="top-info-slider-container">
+                        <!-- 첫 번째 슬라이드: World Clocks -->
                         <div class="top-info-slide active" id="top-info-slide-1">
-                            <h3>World Clocks</h3>
                             <div class="world-clock-list">
                                 <div class="world-clock-item">
                                     <span>Los Angeles</span>
@@ -64,8 +68,8 @@
                             </div>
                         </div>
 
+                        <!-- 두 번째 슬라이드: LA Weather -->
                         <div class="top-info-slide" id="top-info-slide-2">
-                            <h3>Weather in Los Angeles</h3>
                             <div class="weather-current-info">
                                 <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
                                 <span id="temperature-current">--°F</span>
@@ -80,13 +84,16 @@
                                 <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
                             </div>
                             <div id="forecast-table-container" class="mt-4">
-                                <p class="text-gray-600 text-center">Loading forecast data...</p></div>
+                                <p class="text-gray-600 text-center">Loading forecast data...</p>
+                            </div>
                         </div>
 
+                        <!-- 세 번째 슬라이드: 환율 정보 -->
                         <div class="top-info-slide" id="top-info-slide-3">
-                            <h3>USD to KRW Exchange Rate</h3>
                             <div class="exchange-rate-info">
-                                <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                                <p class="text-center text-sm">Current Rate:</p>
+                                <p id="current-exchange-rate-value" class="text-xl font-bold text-center">Loading...</p>
+                                <p class="text-xs text-gray-500 text-center mt-1">Updated: <span id="exchange-rate-updated-time">--</span></p>
                             </div>
                             <div class="exchange-rate-chart-container">
                                 <canvas id="exchangeRateChartCanvas"></canvas>
@@ -94,106 +101,108 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
+
+            <!-- 차트 및 테이블 슬라이더 섹션 -->
+            <div class="chart-slider-wrapper">
+                <h2 id="chart-slider-header-title" class="px-4 pt-4 text-left font-bold text-lg text-[#003A52]"></h2>
                 <div class="chart-slider-container">
                     <div class="chart-slide active" id="chart-slide-1">
                         <div class="chart-section">
-                            <h2>KCCI Indices</h2>
                             <div class="chart-container">
                                 <canvas id="KCCIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="KCCITableContainer">
+                            <!-- KCCI Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-2">
                         <div class="chart-section">
-                            <h2>SCFI Indices</h2>
                             <div class="chart-container">
                                 <canvas id="SCFIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="SCFITableContainer">
+                            <!-- SCFI Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-3">
                         <div class="chart-section">
-                            <h2>WCI Indices</h2>
                             <div class="chart-container">
                                 <canvas id="WCIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="WCITableContainer">
+                            <!-- WCI Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-4">
                         <div class="chart-section">
-                            <h2>IACI Composite Index</h2>
                             <div class="chart-container">
                                 <canvas id="IACIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="IACITableContainer">
+                            <!-- IACI Table will be inserted here by JS -->
                         </div>
                     </div>
-
+                    
                     <div class="chart-slide" id="chart-slide-5">
                         <div class="chart-section">
-                            <h2>Blank Sailings by Alliance</h2>
                             <div class="chart-container">
                                 <canvas id="blankSailingChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="BLANK_SAILINGTableContainer">
+                            <!-- Blank Sailings Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-6">
                         <div class="chart-section">
-                            <h2>FBX Indices</h2>
                             <div class="chart-container">
                                 <canvas id="FBXChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="FBXTableContainer">
+                            <!-- FBX Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-7">
                         <div class="chart-section">
-                            <h2>XSI Indices</h2>
                             <div class="chart-container">
                                 <canvas id="XSIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="XSITableContainer">
+                            <!-- XSI Table will be inserted here by JS -->
                         </div>
                     </div>
 
                     <div class="chart-slide" id="chart-slide-8">
                         <div class="chart-section">
-                            <h2>MBCI Indices</h2>
                             <div class="chart-container">
                                 <canvas id="MBCIChart"></canvas>
                             </div>
                         </div>
                         <div class="table-section data-table-container" id="MBCITableContainer">
+                            <!-- MBCI Table will be inserted here by JS -->
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
 
         <footer>
             <p>&copy; 2025 Insight Logistics. All rights reserved.</p>
         </footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     
-    <script src="js/dashboard.js"></script> <!-- type="module" 제거 -->
+    <script src="js/dashboard.js"></script>
 </body>
 </html>
