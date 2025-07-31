@@ -602,46 +602,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const forecastTableContainer = document.getElementById('forecast-table-container');
             if (forecastTableContainer) {
-                forecastTableContainer.innerHTML = ''; // 초기화: 기존 내용을 지웁니다.
+                forecastTableContainer.innerHTML = ''; 
 
                 if (forecastWeatherData.length > 0) {
                     const table = document.createElement('table');
-                    table.classList.add('data-table', 'forecast-table'); // CSS 클래스 유지
+                    table.classList.add('data-table', 'forecast-table'); 
 
-                    // --- 여기서부터 수정된 부분입니다 ---
-
-                    // 1. colgroup 요소 생성
+                    // --- colgroup 추가 (이 부분은 유지합니다) ---
                     const colgroup = document.createElement('colgroup');
                     
-                    // 첫 번째 열 (항목 라벨: "Max", "Min", "Weather" 등이 들어갈 열) - 20% 너비
                     const col1 = document.createElement('col');
-                    col1.style.width = '20%'; // 인라인 스타일로 명시적 너비 지정
+                    col1.style.width = '20%'; 
                     colgroup.appendChild(col1);
 
-                    // 나머지 5개의 날짜/예보 열 - 각각 16% 너비 (총 80% / 5 = 16%)
-                    for (let i = 0; i < 5; i++) { // 날짜가 5개라고 가정합니다.
+                    for (let i = 0; i < 5; i++) { 
                         const col = document.createElement('col');
-                        col.style.width = '16%'; // 인라인 스타일로 명시적 너비 지정
+                        col.style.width = '16%';
                         colgroup.appendChild(col);
                     }
-                    table.appendChild(colgroup); // colgroup을 <table>에 추가합니다.
-
-                    // --- 수정된 부분 끝 ---
+                    table.appendChild(colgroup); 
+                    // --- colgroup 추가 끝 ---
                     
                     const thead = document.createElement('thead');
                     const headerRow = document.createElement('tr');
 
-                    // 빈 셀 (colgroup에 의해 너비가 20%로 고정됩니다.)
-                    headerRow.insertCell().textContent = '';
+                    headerRow.insertCell().textContent = ''; // 첫 번째 빈 셀
+
+                    // 날짜 헤더 (데이터가 부족해도 5개를 모두 생성하도록 수정)
+                    // slice(0, 5)는 최대 5개이므로, 만약 데이터가 3개면 3개만 나옵니다.
+                    // 이를 보완하여 항상 5개의 열을 만들도록 합니다.
+                    const displayForecast = forecastWeatherData.slice(0, 5);
+                    const numForecastDays = 5; // 항상 5일 예보를 표시
                     
-                    // 날짜 헤더 (최대 5일)
-                    forecastWeatherData.slice(0, 5).forEach(day => {
+                    for (let i = 0; i < numForecastDays; i++) {
+                        const day = displayForecast[i]; // 데이터가 없으면 undefined
                         const th = document.createElement('th');
-                        // Tailwind 클래스는 유지하되, 너비 관련 클래스는 여기서 제거합니다.
-                        // 너비는 이미 colgroup에서 설정했으므로 불필요합니다.
                         th.className = 'text-sm font-semibold whitespace-nowrap leading-tight h-8'; 
                         
-                        if (day.date) {
+                        if (day && day.date) { // day 객체가 존재하고 date 속성이 있을 때만 처리
                             const dateParts = day.date.split('/');
                             if (dateParts.length === 3) {
                                 const month = parseInt(dateParts[0], 10);
@@ -655,60 +653,64 @@ document.addEventListener('DOMContentLoaded', () => {
                                 th.textContent = '--';
                             }
                         } else {
-                            th.textContent = '--';
+                            th.textContent = '--'; // 데이터가 없으면 -- 표시
                         }
-                        
                         headerRow.appendChild(th);
-                    });
+                    }
                     thead.appendChild(headerRow);
                     table.appendChild(thead);
                     
                     const tbody = document.createElement('tbody');
                     
-                    // Max(°F) 행 (나머지 행들도 동일하게 진행됩니다.)
+                    // Max(°F) 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
                     const maxRow = document.createElement('tr');
                     maxRow.insertCell().textContent = 'Max (°F)';
-                    forecastWeatherData.slice(0, 5).forEach(day => {
+                    for (let i = 0; i < numForecastDays; i++) {
+                        const day = displayForecast[i];
                         const td = document.createElement('td');
-                        td.style.whiteSpace = 'pre-line'; // 줄바꿈 허용은 유지
+                        td.style.whiteSpace = 'pre-line'; 
                         
-                        if (day.max_temp != null) {
+                        if (day && day.max_temp != null) {
                             td.textContent = `${day.max_temp}`;
                         } else {
                             td.textContent = '--';
                         }
                         maxRow.appendChild(td);
-                    });
+                    }
                     tbody.appendChild(maxRow);
                     
-                    // Min(°F) 행 (생략된 코드 부분도 위와 같이 계속됩니다.)
+                    // Min(°F) 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
                     const minRow = document.createElement('tr');
                     minRow.insertCell().textContent = 'Min (°F)';
-                    forecastWeatherData.slice(0, 5).forEach(day => {
+                    for (let i = 0; i < numForecastDays; i++) {
+                        const day = displayForecast[i];
                         const td = document.createElement('td');
                         td.style.whiteSpace = 'pre-line';
                         
-                        if (day.min_temp != null) {
+                        if (day && day.min_temp != null) {
                             td.textContent = `${day.min_temp}`;
                         } else {
                             td.textContent = '--';
                         }
                         minRow.appendChild(td);
-                    });
+                    }
                     tbody.appendChild(minRow);
                     
-                    // Weather 상태 행
+                    // Weather 상태 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
                     const weatherStatusRow = document.createElement('tr');
                     weatherStatusRow.insertCell().textContent = 'Weather';
-                    forecastWeatherData.slice(0, 5).forEach(day => {
+                    for (let i = 0; i < numForecastDays; i++) {
+                        const day = displayForecast[i];
                         const td = document.createElement('td');
-                        if (day.status) {
+                        // !!! 중요: 길어지는 텍스트 처리 - CSS가 우선이지만, JS에서 직접 적용도 가능합니다.
+                        // CSS에서 확실히 적용하는 것이 더 좋습니다. 아래 CSS 수정을 참조하세요.
+                        if (day && day.status) {
                             td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
                         } else {
                             td.textContent = '--';
                         }
                         weatherStatusRow.appendChild(td);
-                    });
+                    }
                     tbody.appendChild(weatherStatusRow);
                     
                     table.appendChild(tbody);
