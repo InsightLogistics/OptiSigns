@@ -333,10 +333,14 @@ footer {
     font-size: 0.75em;
 }
 
+/* 테이블의 각 행(tr)에 공통 높이 및 정렬 규칙 적용 */
+.forecast-table tr {
+    line-height: 1.2;
+}
+
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
-    /* 패딩을 동일하게 설정하여 행 높이를 일치시킴 */
     padding: 0.35rem 0.25rem;
     text-align: center;
     vertical-align: middle;
@@ -345,13 +349,12 @@ footer {
     text-overflow: ellipsis;
     height: auto;
     min-height: unset;
-    line-height: 1.2;
+    /* line-height를 tr로 옮겼으므로 여기서는 제거 */
 }
 
-/* 테이블 헤더 셀 스타일 - 다른 셀과 패딩을 동일하게 유지하여 높이 문제 해결 */
+/* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
     font-weight: bold;
-    /* 이전의 padding-top, padding-bottom 규칙을 삭제했습니다. */
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
