@@ -337,25 +337,26 @@ footer {
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
-    padding: 4px 8px; /* 통일된 패딩으로 높이 제어 */
+    padding: 4px 8px;
     text-align: center;
-    vertical-align: middle; /* 수직 중앙 정렬 */
-    min-height: 28px; 
-    word-wrap: break-word; /* 텍스트 줄바꿈 허용 */
+    vertical-align: middle;
+    min-height: 28px;
+    /* 텍스트가 줄바꿈되지 않고 한 줄로 표시되도록 수정 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 /* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
     font-weight: bold;
-    background-color: #f8f8f8; /* 배경색 추가로 가시성 향상 */
+    background-color: #f8f8f8;
 }
 
 /* 일반 셀의 텍스트를 중앙 정렬합니다. */
 .forecast-table td {
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
