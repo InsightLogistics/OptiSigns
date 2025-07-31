@@ -72,12 +72,12 @@ header h1 {
 }
 
 /* World Clocks 섹션 스타일 */
-/* 세계시간 헤더와 본문 간격 수정 및 도시명 아래에 시간 표시 */
+/* 세계 시계 리스트 */
 .world-clock-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 0.25rem 0.5rem;
-    padding: 0 0.5rem;
+    padding: 0;
 }
 
 /* 시간과 도시명을 세로로 정렬하고 간격 조정 */
@@ -201,36 +201,35 @@ footer {
     overflow: hidden;
     border-radius: 8px;
     background-color: #fff;
-    padding: 10px;
+    padding: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100%;
 }
 
+/* 상단 정보 슬라이드 */
 .top-info-slide {
-    display: none;
     width: 100%;
     height: 100%;
-    text-align: center;
-    font-size: 1.1em;
-    color: #003A52;
-    flex-direction: column;
-    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-    padding: 0 15px;
+    padding: 15px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-info-slide.active {
-    display: flex;
     opacity: 1;
     visibility: visible;
+    display: flex;
 }
 
 .top-info-slide h3 {
@@ -246,6 +245,40 @@ footer {
 .top-info-slide p {
     font-size: 1em;
     color: #333;
+}
+
+/* 슬라이드 헤더 */
+.slide-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 10;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.slide-header h3 {
+    font-size: 1.5em; /* chart-section h2와 폰트 크기 일치 */
+    font-weight: 700;
+    color: #003A52; /* 차트 슬라이더 헤더 색상과 일치 */
+    margin: 0;
+    text-align: left; /* 좌측 정렬 */
+    padding-left: 15px; /* 차트 슬라이더와 패딩 일치 */
+}
+
+/* 헤더 아래 회색 줄 */
+.header-divider {
+    border: 0;
+    border-bottom: 1px solid #e0e0e0; /* 차트 슬라이더의 구분선과 색상 일치 */
+    margin: 10px 0 0 0;
+}
+
+/* 슬라이드 본문 */
+.slide-content {
+    flex-grow: 1;
+    padding: 10px 0;
+    overflow-y: auto; /* 내용이 길 경우 스크롤 */
 }
 
 /* 공지사항 섹션 */
@@ -290,9 +323,9 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0; /* 간격 축소: 0.25rem -> 0 */
     gap: 0.5rem;
     flex-wrap: nowrap;
+    margin-bottom: 0;
 }
 
 .weather-current-info #weather-icon-current {
@@ -402,6 +435,7 @@ footer {
 /* 환율 정보 스타일 */
 .exchange-rate-info {
     margin-bottom: 5px;
+    text-align: center;
 }
 
 /* 현재 환율 값의 폰트 크기 조정 */
@@ -415,8 +449,7 @@ footer {
 .exchange-rate-chart-container {
     position: relative;
     height: 65%;
-    width: 95%;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .exchange-rate-chart-container canvas {
