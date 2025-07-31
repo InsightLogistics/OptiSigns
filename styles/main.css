@@ -313,10 +313,11 @@ footer {
 }
 
 /* 날씨 상세 정보 간격 수정 */
+/* 위아래 간격을 더 좁게 조정 */
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px; /* 그리드 항목 사이 간격 10px -> 5px로 줄임 */
+    gap: 3px; /* 그리드 항목 사이 간격을 5px -> 3px로 좁힘 */
     width: 95%;
     margin-top: 5px;
     font-size: 0.7em;
@@ -330,7 +331,7 @@ footer {
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 4px 4px; /* 각 항목의 내부 패딩 8px -> 4px로 줄임 */
+    padding: 2px 4px; /* 각 항목의 내부 패딩을 4px -> 2px로 좁힘 */
     border-bottom: 1px dotted #ccc;
 }
 
@@ -357,7 +358,7 @@ footer {
 .forecast-table td {
     box-sizing: border-box !important;
     border: 1px solid #e2e8f0;
-    padding: 4px 6px !important;
+    padding: 2px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
     margin: 0 !important;
     vertical-align: middle;
     line-height: 1.2;
@@ -369,9 +370,7 @@ footer {
     font-weight: 600 !important; /* bold와 600 중 하나로 통일 */
     color: #003A52;
     font-size: 0.75rem;
-    padding: 2px 6px;
-    line-height: 1.2;
-    height: 32px; /* 높이 고정 */
+    height: auto; /* 고정된 높이를 제거하여 내용에 따라 유동적으로 변경되도록 함 */
     overflow: hidden;
 }
 
