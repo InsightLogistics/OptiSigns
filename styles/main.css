@@ -370,14 +370,13 @@ footer {
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
 .forecast-table th:first-child,
 .forecast-table td:first-child {
-    max-width: 120px !important;
     width: 20% !important;
     white-space: normal;
     text-align: left;
     padding-left: 0.5rem;
 }
 
-/* 나머지 7개 열 너비 균등 분배 */
+/* 나머지 5개 열 너비 균등 분배 */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
     width: calc(80% / 5);
