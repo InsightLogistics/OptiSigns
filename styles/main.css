@@ -71,6 +71,7 @@ header h1 {
 }
 
 /* World Clocks 섹션 스타일 */
+/* 세계시간 헤더와 본문 간격 수정 및 도시명 아래에 시간 표시 */
 .world-clock-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -78,10 +79,11 @@ header h1 {
     padding: 0 0.5rem;
 }
 
+/* 시간과 도시명을 세로로 정렬하고 간격 조정 */
 .world-clock-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0.2rem 0.25rem;
     font-size: 0.8em;
     line-height: 1.2;
@@ -91,12 +93,25 @@ header h1 {
 .world-clock-item span:first-child {
     font-weight: normal;
     color: #555;
+    margin-bottom: 2px; /* 도시명과 시간 간격 조절 */
 }
 
 .world-clock-item span:last-child {
     font-weight: bold;
     color: #333;
-    margin-left: 0.5rem;
+    margin-left: 0; /* 좌측 정렬을 위해 마진 제거 */
+}
+
+/* 카드 내부 헤더 스타일 (좌측 정렬 및 아래 구분선 추가) */
+.chart-section h2,
+.announcements-section h2,
+.table-section h3 {
+    text-align: left; /* 헤더 좌측 정렬 */
+    padding-left: 15px; /* 카드 좌측 패딩과 동일하게 설정 */
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0; /* 헤더 아래 회색 구분선 */
+    margin-bottom: 15px; /* 헤더와 본문 간격 조절 */
+    margin-top: 0;
 }
 
 /* 차트 섹션 스타일 */
@@ -110,8 +125,6 @@ header h1 {
 .chart-section h2 {
     font-size: 1.8em;
     color: #003A52;
-    margin-bottom: 15px;
-    text-align: center;
     font-weight: 700;
 }
 
@@ -249,8 +262,6 @@ footer {
 .announcements-section h2 {
     font-size: 1.6em;
     color: #003A52;
-    margin-bottom: 15px;
-    text-align: center;
     font-weight: 700;
 }
 
@@ -273,11 +284,12 @@ footer {
 }
 
 /* LA 날씨 정보 스타일 */
+/* 날씨 정보 섹션 간격 수정 */
 .weather-current-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem; /* 간격 축소 */
     gap: 0.5rem;
     flex-wrap: nowrap;
 }
@@ -300,10 +312,11 @@ footer {
     margin-left: 0.25rem;
 }
 
+/* 날씨 상세 정보 간격 수정 */
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    gap: 10px; /* 그리드 항목 사이 간격 넓힘 */
     width: 95%;
     margin-top: 5px;
     font-size: 0.7em;
@@ -317,7 +330,7 @@ footer {
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 0px 0;
+    padding: 4px 8px; /* 각 항목에 내부 패딩 추가 */
     border-bottom: 1px dotted #ccc;
 }
 
@@ -390,8 +403,9 @@ footer {
     margin-bottom: 5px;
 }
 
+/* 현재 환율 값의 폰트 크기 조정 */
 .exchange-rate-info #current-exchange-rate-value {
-    font-size: 1.8em;
+    font-size: 1.2em; /* 폰트 크기 줄임 */
     font-weight: bold;
     color: #00657e;
     margin-bottom: 5px;
@@ -419,11 +433,11 @@ footer {
     max-height: 480px;
 }
 
+/* KCCI Indices 헤더 스타일 */
 .table-section h3 {
     font-size: 1.2em;
     color: #003A52;
-    margin-bottom: 10px;
-    text-align: center;
+    font-weight: 700;
 }
 
 /* 다른 모든 테이블에 적용되는 공통 스타일 (forecast-table 제외) */
