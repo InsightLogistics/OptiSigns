@@ -617,6 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 날짜 헤더 추가 (최대 7일까지)
                     forecastWeatherData.slice(0, 7).forEach(day => {
                         const th = document.createElement('th');
+                        th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
                         th.textContent = day.date || '--'; // 날짜만 표시
                         headerRow.appendChild(th);
                     });
