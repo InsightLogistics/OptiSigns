@@ -290,7 +290,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.25rem; /* 간격 축소 */
+    margin-bottom: 0; /* 간격 축소: 0.25rem -> 0 */
     gap: 0.5rem;
     flex-wrap: nowrap;
 }
@@ -320,7 +320,7 @@ footer {
     grid-template-columns: 1fr 1fr;
     gap: 3px; /* 그리드 항목 사이 간격을 5px -> 3px로 좁힘 */
     width: 95%;
-    margin-top: 5px;
+    margin-top: 3px; /* 위쪽 간격 축소: 5px -> 3px */
     font-size: 0.7em;
     margin-left: auto;
     margin-right: auto;
