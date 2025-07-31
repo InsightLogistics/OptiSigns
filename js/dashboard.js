@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         headerRow.insertCell().textContent = '';
                 
                         // 날짜 (년 없이 MM/DD 형식으로)
-                        forecastWeatherData.slice(0, 7).forEach(day => {
+                        forecastWeatherData.slice(0, 5).forEach(day => {
                             const th = document.createElement('th');
                             th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
                         
@@ -646,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Max(°F) 행
                         const maxRow = document.createElement('tr');
                         maxRow.insertCell().textContent = 'Max (°F)';
-                        forecastWeatherData.slice(0, 7).forEach(day => {
+                        forecastWeatherData.slice(0, 5).forEach(day => {
                             const td = document.createElement('td');
                             td.style.whiteSpace = 'pre-line'; // 줄바꿈 허용
                 
@@ -663,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Min(°F) 행
                         const minRow = document.createElement('tr');
                         minRow.insertCell().textContent = 'Min (°F)';
-                        forecastWeatherData.slice(0, 7).forEach(day => {
+                        forecastWeatherData.slice(0, 5).forEach(day => {
                             const td = document.createElement('td');
                             td.style.whiteSpace = 'pre-line';
                 
@@ -679,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Weather 상태 행 (기존처럼 텍스트만)
                         const weatherStatusRow = document.createElement('tr');
                         weatherStatusRow.insertCell().textContent = 'Weather';
-                        forecastWeatherData.slice(0, 7).forEach(day => {
+                        forecastWeatherData.slice(0, 5).forEach(day => {
                             const td = document.createElement('td');
                             if (day.status) {
                                 td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
