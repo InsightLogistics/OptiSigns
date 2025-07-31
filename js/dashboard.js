@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // 날짜 (년 없이 MM/DD 형식으로)
                         forecastWeatherData.slice(0, 5).forEach(day => {
                             const th = document.createElement('th');
-                            th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
+                            th.className = 'text-sm font-semibold whitespace-nowrap leading-tight h-8';
                         
                             if (day.date) {
                                 const dateParts = day.date.split('/'); // ['7', '31', '2025']
