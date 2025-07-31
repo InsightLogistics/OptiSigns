@@ -335,20 +335,20 @@ footer {
 }
 
 /* 테이블의 각 셀(th, td)에 Flexbox를 적용하여 높이와 정렬을 강제로 통일합니다. */
-.forecast-table th,
-.forecast-table td {
-    box-sizing: border-box !important; /* 필수! */
-    border: 1px solid #e2e8f0;
-    padding: 4px 4px;
-    text-align: center;
-    vertical-align: middle;
-    min-height: 28px;
-    /* 텍스트가 줄바꿈되지 않고 한 줄로 표시되도록 수정 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-}
+    .forecast-table th,
+    .forecast-table td {
+      box-sizing: border-box !important;
+      border: 1px solid #e2e8f0;
+      padding: 4px 6px !important;  /* p-1(0.25rem=4px) 보다 약간 작게 */
+      margin: 0 !important;
+      text-align: center;
+      vertical-align: middle;
+      min-height: 28px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
 
 /* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
@@ -385,6 +385,8 @@ footer {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;    
 }
 
 /* 환율 정보 스타일 */
