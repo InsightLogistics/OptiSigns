@@ -554,6 +554,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return `https://placehold.co/80x80/cccccc/ffffff?text=Icon`; // Default placeholder if no match
     };
 
+            // 각 지수별 최신/이전 날짜를 가져오는 헬퍼 함수
+            const getLatestAndPreviousDates = (chartData) => {
+                if (!chartData || chartData.length < 2) return { latestDate: null, previousDate: null };
+                const sortedData = [...chartData].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const latestDate = sortedData[0] ? new Date(sortedData[0].date) : null;
+                const previousDate = sortedData[1] ? new Date(sortedData[1].date) : null;
+                return { latestDate, previousDate };
+            };
+    
 async function loadAndDisplayData() {
     let allDashboardData = {};
     try {
