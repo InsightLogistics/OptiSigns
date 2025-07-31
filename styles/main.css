@@ -274,118 +274,117 @@ footer {
 
 /* LA 날씨 정보 스타일 */
 .weather-current-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    gap: 0.5rem;
-    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
 }
 
 .weather-current-info #weather-icon-current {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .weather-current-info #temperature-current {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
 }
 
 .weather-current-info #status-current {
-    font-size: 1em;
-    color: #666;
-    margin-left: 0.25rem;
+    font-size: 1em;
+    color: #666;
+    margin-left: 0.25rem;
 }
 
 .weather-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    width: 95%;
-    margin-top: 5px;
-    font-size: 0.7em;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.0;
-    padding-top: 0;
-    padding-bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    width: 95%;
+    margin-top: 5px;
+    font-size: 0.7em;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .weather-details div {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 0;
-    border-bottom: 1px dotted #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0;
+    border-bottom: 1px dotted #ccc;
 }
 
 .weather-details div:last-child, .weather-details div:nth-last-child(2) {
-    border-bottom: none;
+    border-bottom: none;
 }
 
 /* 날씨 예보 테이블 스타일 */
 .forecast-table {
-    width: 600px;
-    max-width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-    font-size: 0.75em;
+    width: 600px;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 0.75em;
 }
 
 /* 테이블의 각 셀(th, td)에 Flexbox를 적용하여 높이와 정렬을 강제로 통일합니다. */
 .forecast-table th,
 .forecast-table td {
-    border: 1px solid #e2e8f0;
-    padding: 4px 8px;
-    text-align: center;
-    vertical-align: middle;
-    min-height: 28px;
-    /* 텍스트가 줄바꿈되지 않고 한 줄로 표시되도록 수정 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
+    border: 1px solid #e2e8f0;
+    padding: 4px 8px;
+    text-align: center;
+    vertical-align: middle;
+    min-height: 28px;
+    /* 텍스트가 줄바꿈되지 않고 한 줄로 표시되도록 수정 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 /* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
-    font-weight: bold;
-    background-color: #f8f8f8;
-    white-space: nowrap;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 2px 6px;
-    line-height: 1.2;
-    height: 32px; /* 높이 고정 */
-    overflow: hidden;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    line-height: 1.2;
+    height: 32px; /* 높이 고정 */
+    overflow: hidden;
 }
 
 /* 일반 셀의 텍스트를 중앙 정렬합니다. */
 .forecast-table td {
-    text-align: center;
+    text-align: center;
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
 .forecast-table th:first-child,
 .forecast-table td:first-child {
-    /* 너비를 20%로 늘려 텍스트가 잘리지 않도록 함 */
-    width: 20%;
-    white-space: normal;
-    text-align: left;
-    padding-left: 0.5rem;
+    max-width: 120px !important;
+    width: 20% !important;
+    white-space: normal;
+    text-align: left;
+    padding-left: 0.5rem;
 }
 
-/* 나머지 5개 날짜 열 너비 균등 분배 */
+/* 나머지 7개 열 너비 균등 분배 */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
-    /* 80%의 너비를 5개 열에 균등하게 분배 (80% / 5 = 16%) */
-    width: 16%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
+    width: calc(80% / 5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 
 /* 환율 정보 스타일 */
