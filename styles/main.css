@@ -352,6 +352,13 @@ footer {
 .forecast-table th {
     font-weight: bold;
     background-color: #f8f8f8;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    line-height: 1.2;
+    height: 32px; /* 높이 고정 */
+    overflow: hidden;
 }
 
 /* 일반 셀의 텍스트를 중앙 정렬합니다. */
