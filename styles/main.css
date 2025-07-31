@@ -327,7 +327,8 @@ footer {
 
 /* 날씨 예보 테이블 스타일 */
 .forecast-table {
-    width: 100%;
+    width: 600px;
+    max-width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
     font-size: 0.75em;
@@ -367,9 +368,10 @@ footer {
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
+.forecast-table th:first-child,
 .forecast-table td:first-child {
-    max-width: 80px;    /* 최대 너비 */
-    width: 16%;         /* 전체 대비 너비 비율 */
+    max-width: 80px !important;
+    width: 16% !important;
     white-space: normal;
     text-align: left;
     padding-left: 0.5rem;
@@ -378,7 +380,7 @@ footer {
 /* 나머지 7개 열 너비 균등 분배 */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
-    width: calc(84% / 7);  /* 84%를 7개로 나눠 균등 분배 */
+    width: calc(84% / 7);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
