@@ -338,6 +338,7 @@ footer {
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
+    box-sizing: border-box;
     padding: 4px 8px;
     text-align: center;
     vertical-align: middle;
@@ -379,7 +380,7 @@ footer {
 /* 나머지 5개 열 너비 균등 분배 */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
-    width: calc(80% / 5);
+    width: 16%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
