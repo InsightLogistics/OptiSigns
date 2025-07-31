@@ -476,7 +476,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn(`No data key mapping found for index type: ${indexType}`);
             return datasets;
         }
-
+    
+        // 각 차트 유형마다 색상 인덱스를 초기화하여 색상 할당이 일관되도록 합니다.
+        colorIndex = 0; 
+    
         tableRows.forEach(row => {
             const originalRouteName = row.route.split('_').slice(1).join('_');
             const dataKey = mapping[originalRouteName];
@@ -487,15 +490,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const yVal = item[dataKey];
                     return { x: xVal, y: yVal };
                 });
-
+    
                 const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
-
+    
                 if (filteredMappedData.length > 0) {
+                    // borderColors 배열에서 하나의 색상을 가져와서
+                    // 차트 라인 색상(borderColor)과 범례 채우기 색상(backgroundColor) 모두에 사용합니다.
+                    const sharedColor = borderColors[colorIndex % borderColors.length]; 
+                    colorIndex++; 
+    
                     datasets.push({
                         label: originalRouteName,
                         data: filteredMappedData,
-                        backgroundColor: getNextColor(),
-                        borderColor: getNextBorderColor(),
+                        backgroundColor: sharedColor, // 범례 채우기 색상 (테두리 없음)
+                        borderColor: sharedColor,     // 차트 라인 색상
                         borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
                         fill: false
                     });
