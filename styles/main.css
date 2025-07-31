@@ -316,7 +316,7 @@ footer {
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px; /* 그리드 항목 사이 간격 넓힘 */
+    gap: 5px; /* 그리드 항목 사이 간격 10px -> 5px로 줄임 */
     width: 95%;
     margin-top: 5px;
     font-size: 0.7em;
@@ -330,7 +330,7 @@ footer {
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 4px 8px; /* 각 항목에 내부 패딩 추가 */
+    padding: 4px 4px; /* 각 항목의 내부 패딩 8px -> 4px로 줄임 */
     border-bottom: 1px dotted #ccc;
 }
 
