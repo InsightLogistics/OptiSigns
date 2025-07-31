@@ -600,103 +600,124 @@ document.addEventListener('DOMContentLoaded', () => {
             const sunsetTime = document.getElementById('sunset-time');
             if (sunsetTime) sunsetTime.textContent = currentWeatherData.LA_Sunset || '--';
 
-            const forecastTableContainer = document.getElementById('forecast-table-container'); // 새 컨테이너 ID (HTML도 변경 필요)
-                if (forecastTableContainer) {
-                    forecastTableContainer.innerHTML = ''; // 초기화
-                
-                    if (forecastWeatherData.length > 0) {
-                        const table = document.createElement('table');
-                        table.classList.add('data-table', 'forecast-table');
-                
-                        const thead = document.createElement('thead');
-                        const headerRow = document.createElement('tr');
-                
-                        // 빈 셀
-                        headerRow.insertCell().textContent = '';
-                
-                        // 날짜 (년 없이 MM/DD 형식으로)
-                        forecastWeatherData.slice(0, 5).forEach(day => {
-                            const th = document.createElement('th');
-                            th.className = 'text-sm font-semibold whitespace-nowrap leading-tight h-8';
+            const forecastTableContainer = document.getElementById('forecast-table-container');
+            if (forecastTableContainer) {
+                forecastTableContainer.innerHTML = ''; // 초기화: 기존 내용을 지웁니다.
+
+                if (forecastWeatherData.length > 0) {
+                    const table = document.createElement('table');
+                    table.classList.add('data-table', 'forecast-table'); // CSS 클래스 유지
+
+                    // --- 여기서부터 수정된 부분입니다 ---
+
+                    // 1. colgroup 요소 생성
+                    const colgroup = document.createElement('colgroup');
+                    
+                    // 첫 번째 열 (항목 라벨: "Max", "Min", "Weather" 등이 들어갈 열) - 20% 너비
+                    const col1 = document.createElement('col');
+                    col1.style.width = '20%'; // 인라인 스타일로 명시적 너비 지정
+                    colgroup.appendChild(col1);
+
+                    // 나머지 5개의 날짜/예보 열 - 각각 16% 너비 (총 80% / 5 = 16%)
+                    for (let i = 0; i < 5; i++) { // 날짜가 5개라고 가정합니다.
+                        const col = document.createElement('col');
+                        col.style.width = '16%'; // 인라인 스타일로 명시적 너비 지정
+                        colgroup.appendChild(col);
+                    }
+                    table.appendChild(colgroup); // colgroup을 <table>에 추가합니다.
+
+                    // --- 수정된 부분 끝 ---
+                    
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+
+                    // 빈 셀 (colgroup에 의해 너비가 20%로 고정됩니다.)
+                    headerRow.insertCell().textContent = '';
+                    
+                    // 날짜 헤더 (최대 5일)
+                    forecastWeatherData.slice(0, 5).forEach(day => {
+                        const th = document.createElement('th');
+                        // Tailwind 클래스는 유지하되, 너비 관련 클래스는 여기서 제거합니다.
+                        // 너비는 이미 colgroup에서 설정했으므로 불필요합니다.
+                        th.className = 'text-sm font-semibold whitespace-nowrap leading-tight h-8'; 
                         
-                            if (day.date) {
-                                const dateParts = day.date.split('/'); // ['7', '31', '2025']
-                                if (dateParts.length === 3) {
-                                    const month = parseInt(dateParts[0], 10);
-                                    const dayNum = parseInt(dateParts[1], 10);
-                                    if (!isNaN(month) && !isNaN(dayNum)) {
-                                        th.textContent = `${month}/${dayNum}`;
-                                    } else {
-                                        th.textContent = '--';
-                                    }
+                        if (day.date) {
+                            const dateParts = day.date.split('/');
+                            if (dateParts.length === 3) {
+                                const month = parseInt(dateParts[0], 10);
+                                const dayNum = parseInt(dateParts[1], 10);
+                                if (!isNaN(month) && !isNaN(dayNum)) {
+                                    th.textContent = `${month}/${dayNum}`;
                                 } else {
                                     th.textContent = '--';
                                 }
                             } else {
                                 th.textContent = '--';
                             }
+                        } else {
+                            th.textContent = '--';
+                        }
                         
-                            headerRow.appendChild(th);
-                        });
-                        thead.appendChild(headerRow);
-                        table.appendChild(thead);
-                
-                        const tbody = document.createElement('tbody');
-                
-                        // Max(°F) 행
-                        const maxRow = document.createElement('tr');
-                        maxRow.insertCell().textContent = 'Max (°F)';
-                        forecastWeatherData.slice(0, 5).forEach(day => {
-                            const td = document.createElement('td');
-                            td.style.whiteSpace = 'pre-line'; // 줄바꿈 허용
-                
-                            if (day.max_temp != null) {
-                                // 값 줄바꿈 표시 (숫자만)
-                                td.textContent = `${day.max_temp}`;
-                            } else {
-                                td.textContent = '--';
-                            }
-                            maxRow.appendChild(td);
-                        });
-                        tbody.appendChild(maxRow);
-                
-                        // Min(°F) 행
-                        const minRow = document.createElement('tr');
-                        minRow.insertCell().textContent = 'Min (°F)';
-                        forecastWeatherData.slice(0, 5).forEach(day => {
-                            const td = document.createElement('td');
-                            td.style.whiteSpace = 'pre-line';
-                
-                            if (day.min_temp != null) {
-                                td.textContent = `${day.min_temp}`;
-                            } else {
-                                td.textContent = '--';
-                            }
-                            minRow.appendChild(td);
-                        });
-                        tbody.appendChild(minRow);
-                
-                        // Weather 상태 행 (기존처럼 텍스트만)
-                        const weatherStatusRow = document.createElement('tr');
-                        weatherStatusRow.insertCell().textContent = 'Weather';
-                        forecastWeatherData.slice(0, 5).forEach(day => {
-                            const td = document.createElement('td');
-                            if (day.status) {
-                                td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
-                            } else {
-                                td.textContent = '--';
-                            }
-                            weatherStatusRow.appendChild(td);
-                        });
-                        tbody.appendChild(weatherStatusRow);
-                
-                        table.appendChild(tbody);
-                        forecastTableContainer.appendChild(table);
-                
-                    } else {
-                        forecastTableContainer.innerHTML = '<p class="text-gray-600 text-center">No forecast data available.</p>';
-                    }
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+                    
+                    const tbody = document.createElement('tbody');
+                    
+                    // Max(°F) 행 (나머지 행들도 동일하게 진행됩니다.)
+                    const maxRow = document.createElement('tr');
+                    maxRow.insertCell().textContent = 'Max (°F)';
+                    forecastWeatherData.slice(0, 5).forEach(day => {
+                        const td = document.createElement('td');
+                        td.style.whiteSpace = 'pre-line'; // 줄바꿈 허용은 유지
+                        
+                        if (day.max_temp != null) {
+                            td.textContent = `${day.max_temp}`;
+                        } else {
+                            td.textContent = '--';
+                        }
+                        maxRow.appendChild(td);
+                    });
+                    tbody.appendChild(maxRow);
+                    
+                    // Min(°F) 행 (생략된 코드 부분도 위와 같이 계속됩니다.)
+                    const minRow = document.createElement('tr');
+                    minRow.insertCell().textContent = 'Min (°F)';
+                    forecastWeatherData.slice(0, 5).forEach(day => {
+                        const td = document.createElement('td');
+                        td.style.whiteSpace = 'pre-line';
+                        
+                        if (day.min_temp != null) {
+                            td.textContent = `${day.min_temp}`;
+                        } else {
+                            td.textContent = '--';
+                        }
+                        minRow.appendChild(td);
+                    });
+                    tbody.appendChild(minRow);
+                    
+                    // Weather 상태 행
+                    const weatherStatusRow = document.createElement('tr');
+                    weatherStatusRow.insertCell().textContent = 'Weather';
+                    forecastWeatherData.slice(0, 5).forEach(day => {
+                        const td = document.createElement('td');
+                        if (day.status) {
+                            td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
+                        } else {
+                            td.textContent = '--';
+                        }
+                        weatherStatusRow.appendChild(td);
+                    });
+                    tbody.appendChild(weatherStatusRow);
+                    
+                    table.appendChild(tbody);
+                    forecastTableContainer.appendChild(table);
+                    
                 } else {
+                    forecastTableContainer.innerHTML = '<p class="text-gray-600 text-center">No forecast data available.</p>';
+                }
+            } else {
                 console.warn("Element with ID 'forecast-table-container' not found. Cannot render forecast table.");
             }
 
