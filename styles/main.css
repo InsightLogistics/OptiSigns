@@ -72,29 +72,33 @@ header h1 {
     padding: 10px; /* 대시보드 전체 콘텐츠에 패딩 추가 */
 }
 
+/* World Clocks 섹션 스타일 */
+.world-clock-list {
+    display: grid; /* 그리드 레이아웃 사용 */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 반응형 그리드, 최소 너비 120px */
+    gap: 0.25rem 0.5rem; /* 행(위아래) 간격 0.25rem, 열(좌우) 간격 0.5rem */
+    padding: 0 0.5rem; /* 좌우 패딩 줄이기 */
+}
+
 .world-clock-item {
     display: flex;
-    justify-content: space-between; /* 도시명과 시간 사이 공간 분배 */
+    justify-content: space-between; /* 도시 이름과 시간 사이 공간 분배 */
     align-items: center;
-    padding: 6px 15px; /* 좌우 마진 추가, 위아래 패딩 줄임 */
-    border-bottom: 1px dashed #eee;
-}
-
-.world-clock-item:last-child {
-    border-bottom: none;
-}
-
-.world-clock-item span {
-    font-weight: 600;
-    color: #003A52;
+    padding: 0.2rem 0.25rem; /* 아이템 내부의 위아래/좌우 패딩을 더 줄임 */
+    font-size: 0.8em; /* 폰트 크기 줄이기 */
+    line-height: 1.2; /* 행간 줄이기 */
+    white-space: nowrap; /* 내용이 줄바꿈되지 않도록 */
 }
 
 .world-clock-item span:first-child {
-    text-align: left; /* 도시명 좌측 정렬 */
+    font-weight: normal; /* 도시 이름 폰트 두께 */
+    color: #555;
 }
 
 .world-clock-item span:last-child {
-    text-align: right; /* 현재 시간 우측 정렬 */
+    font-weight: bold; /* 시간 폰트 두께 */
+    color: #333;
+    margin-left: 0.5rem; /* 도시 이름과 시간 사이 간격 */
 }
 
 .chart-section {
@@ -219,8 +223,9 @@ footer {
 }
 
 .top-info-slide h3 {
-    font-size: 1.2em; /* 날씨 헤더 폰트 크기 1.4em -> 1.2em으로 줄임 */
-    margin-bottom: 5px; /* 헤더 아래 마진 제거 -> 5px로 변경 */
+    font-size: 1em; /* 날씨 헤더 폰트 크기 1.4em -> 1.2em으로 줄임 */
+    margin-bottom: 1px; /* 헤더 아래 마진 제거 -> 5px로 변경 */
+    font-weight: bold; /* 헤더를 두껍게 */
     line-height: 1.1; /* 헤더 행간 더 줄임 */
     white-space: normal;
     word-break: keep-all;
