@@ -18,20 +18,20 @@ html, body {
     top: 0;
     left: 0;
     transform: none;
-
+    
     /* 16:9 비율 유지하며 화면 채우기 */
     width: 100vw;
     height: calc(100vw * 9 / 16);
     max-height: 100vh;
     max-width: calc(100vh * 16 / 9);
-
+    
     padding: 0;
     background-color: transparent;
     border-radius: 0;
     box-shadow: none;
     box-sizing: border-box;
     overflow: hidden;
-
+    
     display: flex;
     flex-direction: column;
 }
