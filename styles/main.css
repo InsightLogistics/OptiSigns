@@ -327,7 +327,7 @@ footer {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    font-size: 0.9em; /* 폰트 크기를 줄여 공간 효율성을 높입니다 */
+    font-size: 0.7em; /* 폰트 크기를 줄여 공간 효율성을 높입니다 */
     table-layout: fixed;
 }
 
