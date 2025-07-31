@@ -234,16 +234,17 @@ footer {
 }
 
 .top-info-slide h3 {
-    font-size: 1.3em;
-    color: #003A52;
-    font-weight: 700;
-    padding-left: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-    margin: 0 0 15px 0;
-    position: static; /* 고정 제거 */
-    background-color: transparent; /* 배경 없애기 */
-    z-index: auto; /* 불필요하면 제거 */
+  position: absolute; /* 좌측 상단 고정 */
+  top: 10px;
+  left: 15px;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  color: #003A52;
+  background-color: white; /* 배경 지정해서 글자 가독성 확보 */
+  z-index: 20;
+  border-bottom: 1px solid #e0e0e0; /* 헤더 밑줄 */
+  width: calc(100% - 30px); /* 좌우 여백 고려한 너비 */
 }
 
 .top-info-slide p {
