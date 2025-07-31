@@ -234,16 +234,16 @@ footer {
 }
 
 .top-info-slide h3 {
-  position: absolute;
-  top: 10px;
-  left: 15px;
-  margin: 0;
-  padding-bottom: 4px; /* 밑줄 공간 확보 */
-  font-weight: 700;
-  color: #003A52;
-  background-color: white;
-  z-index: 20;
-  border-bottom: 1px solid #e0e0e0;
+    font-size: 1.3em;
+    color: #003A52;
+    font-weight: 700;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 0 15px 0;
+    position: static; /* 고정 제거 */
+    background-color: transparent; /* 배경 없애기 */
+    z-index: auto; /* 불필요하면 제거 */
 }
 
 .top-info-slide p {
