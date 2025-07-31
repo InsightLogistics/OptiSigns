@@ -620,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
                         
                             if (day.date) {
-                                const dateParts = day.date.split('-'); // ['mm','dd','yyyy']
+                                const dateParts = day.date.split('/'); // ['7', '31', '2025']
                                 if (dateParts.length === 3) {
                                     const month = parseInt(dateParts[0], 10);
                                     const dayNum = parseInt(dateParts[1], 10);
