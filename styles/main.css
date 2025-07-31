@@ -333,32 +333,33 @@ footer {
     font-size: 0.75em;
 }
 
-/* 테이블의 각 행(tr)에 공통 높이 및 정렬 규칙 적용 */
-.forecast-table tr {
-    /* 기존 line-height는 셀(th, td)로 옮겨서 삭제 */
-}
-
-/* 헤더 셀과 일반 셀의 높이를 일치시키기 위해 패딩과 라인 높이를 통일 */
-/* 셀의 높이를 더 좁게 하고, 고정 높이와 라인 높이를 지정하여 정렬 문제를 해결합니다. */
+/* 테이블의 각 셀(th, td)에 Flexbox를 적용하여 높이와 정렬을 강제로 통일합니다. */
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
-    /* 일관된 높이를 강제로 적용합니다. */
-    height: 28px; 
+    /* Flexbox를 사용하여 콘텐츠를 수직 중앙 정렬합니다. */
+    display: flex;
+    align-items: center;
+    /* 최소 높이를 설정하여 셀 높이가 일정하게 유지되도록 강제합니다. */
+    min-height: 28px; 
     /* 패딩을 최소화하여 여백을 줄입니다. */
-    padding: 0 0.25rem; /* 수직 패딩 0, 수평 패딩 0.25rem */
+    padding: 0 0.25rem;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* 높이와 동일하게 설정하여 텍스트를 수직 중앙 정렬합니다. */
-    line-height: 28px; 
 }
 
 /* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
     font-weight: bold;
+    justify-content: center;
+}
+
+/* 일반 셀의 텍스트를 중앙 정렬합니다. */
+.forecast-table td {
+    justify-content: center;
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
@@ -367,6 +368,8 @@ footer {
     white-space: normal;
     text-align: left;
     padding-left: 0.5rem;
+    /* 첫 번째 열은 왼쪽 정렬을 유지합니다. */
+    justify-content: flex-start;
 }
 
 /* 환율 정보 스타일 */
