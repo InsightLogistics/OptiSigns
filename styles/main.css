@@ -403,7 +403,7 @@ footer {
 
 /* 환율 정보 스타일 */
 .exchange-rate-info {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 /* 현재 환율 값의 폰트 크기 조정 */
@@ -419,6 +419,7 @@ footer {
     height: 65%;
     width: 95%;
     margin: 0 auto;
+    margin-top: 15px; /* 본문 위쪽 여백 추가 */    
 }
 
 .exchange-rate-chart-container canvas {
