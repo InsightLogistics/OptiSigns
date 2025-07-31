@@ -602,120 +602,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const forecastTableContainer = document.getElementById('forecast-table-container');
             if (forecastTableContainer) {
-                forecastTableContainer.innerHTML = ''; 
-
+                forecastTableContainer.innerHTML = '';
+            
                 if (forecastWeatherData.length > 0) {
                     const table = document.createElement('table');
-                    table.classList.add('data-table', 'forecast-table'); 
-
-                    // --- colgroup 추가 (이 부분은 유지합니다) ---
+                    table.classList.add('data-table', 'forecast-table');
+            
+                    // colgroup 추가
                     const colgroup = document.createElement('colgroup');
-                    
                     const col1 = document.createElement('col');
-                    col1.style.width = '20%'; 
+                    col1.style.width = '20%';
                     colgroup.appendChild(col1);
-
-                    for (let i = 0; i < 5; i++) { 
+                    for (let i = 0; i < 5; i++) {
                         const col = document.createElement('col');
                         col.style.width = '16%';
                         colgroup.appendChild(col);
                     }
-                    table.appendChild(colgroup); 
-                    // --- colgroup 추가 끝 ---
-                    
+                    table.appendChild(colgroup);
+            
                     const thead = document.createElement('thead');
                     const headerRow = document.createElement('tr');
-
-                    headerRow.insertCell().textContent = ''; // 첫 번째 빈 셀
-
-                    // 날짜 헤더 (데이터가 부족해도 5개를 모두 생성하도록 수정)
-                    // slice(0, 5)는 최대 5개이므로, 만약 데이터가 3개면 3개만 나옵니다.
-                    // 이를 보완하여 항상 5개의 열을 만들도록 합니다.
+                    headerRow.insertCell().textContent = '';
                     const displayForecast = forecastWeatherData.slice(0, 5);
-                    const numForecastDays = 5; // 항상 5일 예보를 표시
-                    
+                    const numForecastDays = 5;
+            
                     for (let i = 0; i < numForecastDays; i++) {
-                        const day = displayForecast[i]; // 데이터가 없으면 undefined
+                        const day = displayForecast[i] || {};
                         const th = document.createElement('th');
-                        th.className = 'text-sm font-semibold whitespace-nowrap leading-tight h-8'; 
-                        
-                        if (day && day.date) { // day 객체가 존재하고 date 속성이 있을 때만 처리
-                            const dateParts = day.date.split('/');
-                            if (dateParts.length === 3) {
-                                const month = parseInt(dateParts[0], 10);
-                                const dayNum = parseInt(dateParts[1], 10);
-                                if (!isNaN(month) && !isNaN(dayNum)) {
-                                    th.textContent = `${month}/${dayNum}`;
-                                } else {
-                                    th.textContent = '--';
-                                }
-                            } else {
-                                th.textContent = '--';
-                            }
-                        } else {
-                            th.textContent = '--'; // 데이터가 없으면 -- 표시
-                        }
+                        th.className = 'text-sm font-semibold whitespace-nowrap leading-tight';
+                        th.textContent = day.date ? `${day.date.split('/')[0]}/${day.date.split('/')[1]}` : '--';
                         headerRow.appendChild(th);
                     }
                     thead.appendChild(headerRow);
                     table.appendChild(thead);
-                    
+            
                     const tbody = document.createElement('tbody');
-                    
-                    // Max(°F) 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
+            
+                    // Max(°F) 행
                     const maxRow = document.createElement('tr');
                     maxRow.insertCell().textContent = 'Max (°F)';
                     for (let i = 0; i < numForecastDays; i++) {
-                        const day = displayForecast[i];
+                        const day = displayForecast[i] || {};
                         const td = document.createElement('td');
-                        td.style.whiteSpace = 'pre-line'; 
-                        
-                        if (day && day.max_temp != null) {
-                            td.textContent = `${day.max_temp}`;
-                        } else {
-                            td.textContent = '--';
-                        }
+                        td.textContent = day.max_temp != null ? `${day.max_temp}` : '--';
                         maxRow.appendChild(td);
                     }
                     tbody.appendChild(maxRow);
-                    
-                    // Min(°F) 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
+            
+                    // Min(°F) 행
                     const minRow = document.createElement('tr');
                     minRow.insertCell().textContent = 'Min (°F)';
                     for (let i = 0; i < numForecastDays; i++) {
-                        const day = displayForecast[i];
+                        const day = displayForecast[i] || {};
                         const td = document.createElement('td');
-                        td.style.whiteSpace = 'pre-line';
-                        
-                        if (day && day.min_temp != null) {
-                            td.textContent = `${day.min_temp}`;
-                        } else {
-                            td.textContent = '--';
-                        }
+                        td.textContent = day.min_temp != null ? `${day.min_temp}` : '--';
                         minRow.appendChild(td);
                     }
                     tbody.appendChild(minRow);
-                    
-                    // Weather 상태 행 (데이터가 부족해도 5개를 모두 생성하도록 수정)
+            
+                    // Weather 상태 행
                     const weatherStatusRow = document.createElement('tr');
                     weatherStatusRow.insertCell().textContent = 'Weather';
                     for (let i = 0; i < numForecastDays; i++) {
-                        const day = displayForecast[i];
+                        const day = displayForecast[i] || {};
                         const td = document.createElement('td');
-                        // !!! 중요: 길어지는 텍스트 처리 - CSS가 우선이지만, JS에서 직접 적용도 가능합니다.
-                        // CSS에서 확실히 적용하는 것이 더 좋습니다. 아래 CSS 수정을 참조하세요.
-                        if (day && day.status) {
-                            td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
-                        } else {
-                            td.textContent = '--';
-                        }
+                        td.textContent = day.status ? day.status.replace(/\s*\(.*\)/, '').trim() : '--';
                         weatherStatusRow.appendChild(td);
                     }
                     tbody.appendChild(weatherStatusRow);
-                    
+            
                     table.appendChild(tbody);
                     forecastTableContainer.appendChild(table);
-                    
                 } else {
                     forecastTableContainer.innerHTML = '<p class="text-gray-600 text-center">No forecast data available.</p>';
                 }
