@@ -1,14 +1,12 @@
-/* styles/main.css */
-
-/* 전체 페이지 레이아웃 및 폰트 설정 */
-html, body {
+/* Base Styles & Layout */
+body {
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-family: 'Inter', sans-serif;
-    background-color: #f0f0f0; /* 투명 -> #f0f0f0 (회색 배경 유지) */
+    background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
 }
@@ -17,26 +15,18 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
-    transform: none;
-    
-    /* 16:9 비율 유지하며 화면 채우기 */
     width: 100vw;
-    height: calc(100vw * 9 / 16);
+    height: calc(100vw * 9 / 16); /* Maintain 16:9 aspect ratio */
     max-height: 100vh;
     max-width: calc(100vh * 16 / 9);
-    
     padding: 0;
     background-color: transparent;
-    border-radius: 0;
-    box-shadow: none;
     box-sizing: border-box;
     overflow: hidden;
-    
     display: flex;
     flex-direction: column;
 }
 
-/* 뷰포트가 16:9 비율보다 넓을 경우 */
 @media (min-aspect-ratio: 16/9) {
     .container {
         width: calc(100vh * 16 / 9);
@@ -44,8 +34,7 @@ html, body {
     }
 }
 
-/* 헤더 스타일 */
-/* 요청에 따라 헤더를 좌측 정렬 */
+/* Header */
 header {
     text-align: left;
     padding-bottom: 10px;
@@ -60,7 +49,7 @@ header h1 {
     font-weight: 700;
 }
 
-/* 대시보드 그리드 컨테이너 */
+/* Dashboard Grid */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -71,8 +60,7 @@ header h1 {
     padding: 10px;
 }
 
-/* World Clocks 섹션 스타일 */
-/* 세계시간 헤더와 본문 간격 수정 및 도시명 아래에 시간 표시 */
+/* World Clocks */
 .world-clock-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -80,10 +68,9 @@ header h1 {
     padding: 0 0.5rem;
 }
 
-/* 시간과 도시명을 세로로 정렬하고 간격 조정 */
 .world-clock-item {
     display: flex;
-    flex-direction: column; /* 도시명 아래에 시간이 나오도록 변경 */
+    flex-direction: column;
     align-items: flex-start;
     padding: 0.2rem 0.25rem;
     font-size: 0.8em;
@@ -94,28 +81,30 @@ header h1 {
 .world-clock-item span:first-child {
     font-weight: normal;
     color: #555;
-    margin-bottom: 2px; /* 도시명과 시간 간격 조절 */
+    margin-bottom: 2px;
 }
 
 .world-clock-item span:last-child {
     font-weight: bold;
     color: #333;
-    margin-left: 0; /* 좌측 정렬을 위해 마진 제거 */
+    margin-left: 0;
 }
 
-/* 카드 내부 헤더 스타일 (좌측 정렬 및 아래 구분선 추가) */
+/* Card Headers (common style) */
 .chart-section h2,
 .announcements-section h2,
 .table-section h3 {
-    text-align: left; /* 헤더 좌측 정렬 */
-    padding-left: 15px; /* 카드 좌측 패딩과 동일하게 설정 */
+    text-align: left;
+    padding-left: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0; /* 헤더 아래 회색 구분선 추가 */
-    margin-bottom: 15px; /* 헤더와 본문 간격 조절 */
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
     margin-top: 0;
+    color: #003A52;
+    font-weight: 700;
 }
 
-/* 차트 섹션 스타일 */
+/* Chart Sections */
 .chart-section {
     background-color: #fff;
     padding: 10px;
@@ -124,9 +113,7 @@ header h1 {
 }
 
 .chart-section h2 {
-    font-size: 1.5em; /* 폰트 크기 조정 */
-    color: #003A52;
-    font-weight: 700;
+    font-size: 1.5em;
 }
 
 .chart-container {
@@ -136,6 +123,12 @@ header h1 {
     margin: 0 auto;
 }
 
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Chart Slider */
 .chart-slider-container {
     position: relative;
     overflow: hidden;
@@ -173,11 +166,7 @@ header h1 {
     z-index: 10;
 }
 
-.chart-container canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
-
+/* Placeholder Text */
 .placeholder-text {
     text-align: center;
     color: #666;
@@ -185,17 +174,7 @@ header h1 {
     padding: 30px;
 }
 
-/* 푸터 스타일 */
-footer {
-    text-align: center;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
-    color: #777;
-    font-size: 0.9em;
-}
-
-/* 상단 정보 슬라이더 컨테이너 */
+/* Top Info Slider (for exchange rate) */
 .top-info-slider-container {
     position: relative;
     overflow: hidden;
@@ -209,7 +188,7 @@ footer {
 }
 
 .top-info-slide {
-    display: none;
+    display: none; /* Controlled by JS now for fade */
     width: 100%;
     height: 100%;
     text-align: center;
@@ -248,7 +227,7 @@ footer {
     color: #333;
 }
 
-/* 공지사항 섹션 */
+/* Announcements Section */
 .announcements-section {
     background-color: #fff;
     padding: 15px;
@@ -261,9 +240,7 @@ footer {
 }
 
 .announcements-section h2 {
-    font-size: 1.3em; /* 폰트 크기 조정 */
-    color: #003A52;
-    font-weight: 700;
+    font-size: 1.3em;
 }
 
 .announcements-list {
@@ -284,13 +261,12 @@ footer {
     border-bottom: none;
 }
 
-/* LA 날씨 정보 스타일 */
-/* 날씨 정보 섹션 간격 수정 */
+/* LA Weather Information */
 .weather-current-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0; /* 간격 축소: 0.25rem -> 0 */
+    margin-bottom: 0;
     gap: 0.5rem;
     flex-wrap: nowrap;
 }
@@ -313,14 +289,12 @@ footer {
     margin-left: 0.25rem;
 }
 
-/* 날씨 상세 정보 간격 수정 */
-/* 위아래 간격을 더 좁게 조정 */
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px; /* 그리드 항목 사이 간격을 5px -> 3px로 좁힘 */
+    gap: 3px;
     width: 95%;
-    margin-top: 3px; /* 위쪽 간격 축소: 5px -> 3px */
+    margin-top: 3px;
     font-size: 0.7em;
     margin-left: auto;
     margin-right: auto;
@@ -332,19 +306,16 @@ footer {
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 2px 4px; /* 각 항목의 내부 패딩을 4px -> 2px로 좁힘 */
+    padding: 2px 4px;
     border-bottom: 1px dotted #ccc;
 }
 
-.weather-details div:last-child, .weather-details div:nth-last-child(2) {
+.weather-details div:last-child,
+.weather-details div:nth-last-child(2) {
     border-bottom: none;
 }
 
-/* -------------------------------------------------------------------------------------- */
-/* 날씨 예보 테이블 (forecast-table) 전용 스타일:                                            */
-/* 다른 차트 테이블의 스타일과 분리하고, 불필요한 중복을 제거하여 유지보수성을 높입니다.           */
-/* -------------------------------------------------------------------------------------- */
-
+/* Forecast Table */
 .forecast-table {
     width: 100% !important;
     max-width: 100% !important;
@@ -354,32 +325,28 @@ footer {
     font-size: 0.75em;
 }
 
-/* forecast-table의 모든 셀에 공통으로 적용되는 스타일 */
-/* 요청에 따라 헤더와 본문 셀의 높이를 동일하게 조정 */
 .forecast-table th,
 .forecast-table td {
     box-sizing: border-box !important;
     border: 1px solid #e2e8f0;
-    padding: 2px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
+    padding: 2px 6px !important;
     margin: 0 !important;
     vertical-align: middle;
     line-height: 1.2;
 }
 
-/* 헤더 셀에만 적용되는 스타일 */
 .forecast-table th {
     background-color: #f8f8f8;
-    font-weight: 600 !important; /* bold와 600 중 하나로 통일 */
+    font-weight: 600 !important;
     color: #003A52;
     font-size: 0.75rem;
-    height: auto; /* 고정된 높이를 제거하여 내용에 따라 유동적으로 변경되도록 함 */
+    height: auto;
     overflow: hidden;
 }
 
-/* 날씨 예보 테이블의 첫 번째 열 (Min/Max, Weather 레이블) */
 .forecast-table th:first-child,
 .forecast-table td:first-child {
-    width: 20% !important; /* forecast-table의 첫 번째 열 너비를 20%로 강제 */
+    width: 20% !important;
     white-space: normal !important;
     text-align: left !important;
     padding-left: 0.5rem !important;
@@ -387,10 +354,9 @@ footer {
     text-overflow: ellipsis !important;
 }
 
-/* 날씨 예보 테이블의 나머지 5개 열 (날짜, Max/Min 온도, 상태) */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
-    width: 16% !important; /* forecast-table의 나머지 열 너비를 16%로 강제 */
+    width: 16% !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -399,14 +365,13 @@ footer {
     padding-right: 0.5rem !important;
 }
 
-/* 환율 정보 스타일 */
+/* Exchange Rate Information */
 .exchange-rate-info {
     margin-bottom: 5px;
 }
 
-/* 현재 환율 값의 폰트 크기 조정 */
 .exchange-rate-info #current-exchange-rate-value {
-    font-size: 1.2em; /* 폰트 크기 줄임 */
+    font-size: 1.2em;
     font-weight: bold;
     color: #00657e;
     margin-bottom: 5px;
@@ -424,7 +389,7 @@ footer {
     height: 100% !important;
 }
 
-/* 테이블 섹션 (KCCI Indices) 스타일 */
+/* Table Sections (KCCI Indices, etc.) */
 .table-section {
     background-color: #fff;
     padding: 10px;
@@ -434,14 +399,11 @@ footer {
     max-height: 480px;
 }
 
-/* KCCI Indices 헤더 스타일 */
 .table-section h3 {
-    font-size: 1.0em; /* 폰트 크기 조정 */
-    color: #003A52;
-    font-weight: 700;
+    font-size: 1.0em;
 }
 
-/* 다른 모든 테이블에 적용되는 공통 스타일 (forecast-table 제외) */
+/* Common Table Styles (excluding forecast-table) */
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -449,7 +411,8 @@ footer {
     table-layout: fixed;
 }
 
-.data-table th, .data-table td {
+.data-table th,
+.data-table td {
     border: 1px solid #e0e0e0;
     padding: 4px 8px;
     text-align: center;
@@ -460,24 +423,34 @@ footer {
 .data-table th {
     white-space: normal;
     line-height: 1;
+    background-color: #f8f8f8;
+    font-weight: 600;
+    color: #003A52;
 }
+
 .data-table td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 테이블 컬럼 너비 조정 (다른 .data-table에만 적용) */
-.data-table th:nth-child(1), .data-table td:nth-child(1) {
+.data-table th:nth-child(1),
+.data-table td:nth-child(1) {
     width: 30%;
 }
-.data-table th:nth-child(2), .data-table td:nth-child(2) {
+
+.data-table th:nth-child(2),
+.data-table td:nth-child(2) {
     width: 23.33%;
 }
-.data-table th:nth-child(3), .data-table td:nth-child(3) {
+
+.data-table th:nth-child(3),
+.data-table td:nth-child(3) {
     width: 23.33%;
 }
-.data-table th:nth-child(4), .data-table td:nth-child(4) {
+
+.data-table th:nth-child(4),
+.data-table td:nth-child(4) {
     width: 23.33%;
 }
 
@@ -485,12 +458,6 @@ footer {
     color: #666;
     display: block;
     margin-top: 2px;
-}
-
-.data-table th {
-    background-color: #f8f8f8;
-    font-weight: 600;
-    color: #003A52;
 }
 
 .data-table tbody tr:nth-child(even) {
@@ -501,7 +468,7 @@ footer {
     background-color: #f0f8ff;
 }
 
-/* 색상 유틸리티 */
+/* Color Utilities */
 .text-blue-500 {
     color: #3b82f6;
 }
@@ -514,6 +481,7 @@ footer {
     color: #374151;
 }
 
+/* Top Content Grid */
 .top-content-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -521,26 +489,9 @@ footer {
     margin-bottom: 10px;
 }
 
-/* Chart.js 범례 테두리 강제 제거 (Tailwind CSS 기본값 재정의) */
-.chartjs-legend-item > span {
-    border-width: 0 !important;
-    border-style: none !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-    background-clip: padding-box !important;
-}
-
-.chartjs-legend-item > span:first-child {
-    border-width: 0 !important;
-    border-style: none !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-    background-clip: padding-box !important;
-    width: 12px !important;
-    height: 12px !important;
-    border-radius: 0 !important;
-}
-
+/* Chart.js Legend Overrides */
+/* Ensure no borders or shadows on legend items due to potential library/framework conflicts */
+.chartjs-legend-item > span,
 div.chart-container canvas ~ ul.chartjs-legend > li > span {
     border-width: 0 !important;
     border-style: none !important;
@@ -549,6 +500,7 @@ div.chart-container canvas ~ ul.chartjs-legend > li > span {
     background-clip: padding-box !important;
 }
 
+.chartjs-legend-item > span:first-child,
 div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
     border-width: 0 !important;
     border-style: none !important;
@@ -558,4 +510,14 @@ div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
     width: 12px !important;
     height: 12px !important;
     border-radius: 0 !important;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 0.9em;
 }
