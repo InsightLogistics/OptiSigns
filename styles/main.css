@@ -269,32 +269,32 @@ footer {
     border-bottom: none;
 }
 
+/* Weather in Los Angeles 섹션 내 현재 날씨 정보 스타일 */
 .weather-current-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5px; /* 10px -> 5px으로 줄임 */
-    width: 100%;
+    display: flex; /* 플렉스박스 컨테이너로 설정 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 (필요에 따라 flex-start 또는 space-around 등 변경 가능) */
+    margin-bottom: 1rem; /* 하단 여백 추가 (아래 상세 정보와 간격) */
+    gap: 0.5rem; /* 요소들 사이의 간격 */
+    flex-wrap: nowrap; /* 요소들이 줄바꿈되지 않도록 설정 */
 }
 
 .weather-current-info #weather-icon-current {
-    width: 60px; /* 아이콘 크기 70px -> 60px으로 줄임 */
-    height: 60px; /* 아이콘 크기 70px -> 60px으로 줄임 */
-    margin-bottom: 3px; /* 5px -> 3px으로 줄임 */
-    background-color: transparent;
+    width: 40px; /* 아이콘 크기 줄이기 (예시, 필요에 따라 조정) */
+    height: 40px;
+    object-fit: contain; /* 이미지 비율 유지 */
 }
 
 .weather-current-info #temperature-current {
-    font-size: 0.85em; /* 0.9em -> 0.85em으로 줄임 */
+    font-size: 1.5em; /* 온도 글자 크기 조정 (현재 레이아웃에서 중요) */
     font-weight: bold;
-    color: #00657e;
+    color: #333;
 }
 
 .weather-current-info #status-current {
-    font-size: 0.85em; /* 0.9em -> 0.85em으로 줄임 */
-    color: #555;
-    text-transform: capitalize;
-    text-align: center;
+    font-size: 1em; /* 날씨 상태 글자 크기 */
+    color: #666;
+    margin-left: 0.25rem; /* 온도와 상태 사이의 간격 */
 }
 
 .weather-details {
