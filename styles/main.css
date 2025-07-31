@@ -75,9 +75,10 @@ header h1 {
 /* 세계 시계 리스트 */
 .world-clock-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
     gap: 0.25rem 0.5rem;
     padding: 0;
+    font-size: 0.8rem;
 }
 
 /* 시간과 도시명을 세로로 정렬하고 간격 조정 */
@@ -220,7 +221,7 @@ footer {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-    padding: 15px;
+    padding: 1rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -259,26 +260,28 @@ footer {
 }
 
 .slide-header h3 {
-    font-size: 1.5em; /* chart-section h2와 폰트 크기 일치 */
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #003A52; /* 차트 슬라이더 헤더 색상과 일치 */
+    color: #003A52;
     margin: 0;
-    text-align: left; /* 좌측 정렬 */
-    padding-left: 15px; /* 차트 슬라이더와 패딩 일치 */
+    text-align: left;
+    padding-left: 1rem;
 }
 
 /* 헤더 아래 회색 줄 */
 .header-divider {
     border: 0;
-    border-bottom: 1px solid #e0e0e0; /* 차트 슬라이더의 구분선과 색상 일치 */
-    margin: 10px 0 0 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0.5rem 0 0 0;
 }
 
 /* 슬라이드 본문 */
 .slide-content {
     flex-grow: 1;
-    padding: 10px 0;
-    overflow-y: auto; /* 내용이 길 경우 스크롤 */
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 /* 공지사항 섹션 */
@@ -326,12 +329,12 @@ footer {
     gap: 0.5rem;
     flex-wrap: nowrap;
     margin-bottom: 0;
+    font-size: 1rem;
 }
 
 .weather-current-info #weather-icon-current {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .weather-current-info #temperature-current {
@@ -351,21 +354,17 @@ footer {
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px; /* 그리드 항목 사이 간격을 5px -> 3px로 좁힘 */
-    width: 95%;
-    margin-top: 3px; /* 위쪽 간격 축소: 5px -> 3px */
-    font-size: 0.7em;
-    margin-left: auto;
-    margin-right: auto;
+    gap: 0.2rem;
+    width: 100%;
+    font-size: 0.7rem;
     line-height: 1.0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .weather-details div {
     display: flex;
     justify-content: space-between;
-    padding: 2px 4px; /* 각 항목의 내부 패딩을 4px -> 2px로 좁힘 */
+    padding: 0.1rem 0.2rem;
     border-bottom: 1px dotted #ccc;
 }
 
@@ -373,69 +372,57 @@ footer {
     border-bottom: none;
 }
 
-/* -------------------------------------------------------------------------------------- */
-/* 날씨 예보 테이블 (forecast-table) 전용 스타일:                                            */
-/* 다른 차트 테이블의 스타일과 분리하고, 불필요한 중복을 제거하여 유지보수성을 높입니다.           */
-/* -------------------------------------------------------------------------------------- */
-
-.forecast-table {
-    width: 100% !important;
-    max-width: 100% !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
-    border-spacing: 0 !important;
-    font-size: 0.75em;
+/* 날씨 예보 테이블 컨테이너 */
+#forecast-table-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    max-height: 30%;
+    overflow: hidden;
 }
 
-/* forecast-table의 모든 셀에 공통으로 적용되는 스타일 */
-/* 요청에 따라 헤더와 본문 셀의 높이를 동일하게 조정 */
+/* 날씨 예보 테이블 */
+.forecast-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    font-size: 0.65rem;
+    margin: 0;
+}
+
 .forecast-table th,
 .forecast-table td {
     box-sizing: border-box !important;
     border: 1px solid #e2e8f0;
-    padding: 2px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
+    padding: 0.2rem 0.4rem !important;
     margin: 0 !important;
     vertical-align: middle;
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
-/* 헤더 셀에만 적용되는 스타일 */
-.forecast-table th {
-    background-color: #f8f8f8;
-    font-weight: 600 !important; /* bold와 600 중 하나로 통일 */
-    color: #003A52;
-    font-size: 0.75rem;
-    height: auto; /* 고정된 높이를 제거하여 내용에 따라 유동적으로 변경되도록 함 */
-    overflow: hidden;
-}
-
-/* 날씨 예보 테이블의 첫 번째 열 (Min/Max, Weather 레이블) */
 .forecast-table th:first-child,
 .forecast-table td:first-child {
-    width: 20% !important; /* forecast-table의 첫 번째 열 너비를 20%로 강제 */
+    width: 20% !important;
     white-space: normal !important;
     text-align: left !important;
     padding-left: 0.5rem !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
 }
 
-/* 날씨 예보 테이블의 나머지 5개 열 (날짜, Max/Min 온도, 상태) */
 .forecast-table th:not(:first-child),
 .forecast-table td:not(:first-child) {
-    width: 16% !important; /* forecast-table의 나머지 열 너비를 16%로 강제 */
+    width: 16% !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
     text-align: center !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding-left: 0.3rem !important;
+    padding-right: 0.3rem !important;
 }
+
 
 /* 환율 정보 스타일 */
 .exchange-rate-info {
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
     text-align: center;
+    font-size: 1rem;
 }
 
 /* 현재 환율 값의 폰트 크기 조정 */
@@ -448,7 +435,7 @@ footer {
 
 .exchange-rate-chart-container {
     position: relative;
-    height: 65%;
+    height: 50%;
     width: 100%;
 }
 
@@ -591,4 +578,48 @@ div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
     width: 12px !important;
     height: 12px !important;
     border-radius: 0 !important;
+}
+
+/* 반응형: 큰 화면 */
+@media (min-width: 1920px) {
+    .slide-header h3 {
+        font-size: 1.5rem;
+    }
+    .world-clock-list {
+        font-size: 1rem;
+    }
+    .weather-current-info {
+        font-size: 1.2rem;
+    }
+    .weather-details {
+        font-size: 0.9rem;
+    }
+    .exchange-rate-info {
+        font-size: 1.2rem;
+    }
+    .forecast-table {
+        font-size: 0.8rem;
+    }
+}
+
+/* 반응형: 작은 화면 */
+@media (max-width: 1366px) {
+    .slide-header h3 {
+        font-size: 1rem;
+    }
+    .world-clock-list {
+        font-size: 0.7rem;
+    }
+    .weather-current-info {
+        font-size: 0.9rem;
+    }
+    .weather-details {
+        font-size: 0.6rem;
+    }
+    .exchange-rate-info {
+        font-size: 0.9rem;
+    }
+    .forecast-table {
+        font-size: 0.6rem;
+    }
 }
