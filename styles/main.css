@@ -329,35 +329,43 @@ footer {
 
 /* style.css 또는 인라인 스타일에 추가 */
 .forecast-table {
+    /* 기존 테이블 스타일 유지 */
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    font-size: 0.7em; /* 폰트 크기를 줄여 공간 효율성을 높입니다 */
+    font-size: 0.7em; /* 원래 0.75em 이었으니, 더 줄이려면 0.7em 유지 */
     table-layout: fixed;
 }
 
 .forecast-table th,
 .forecast-table td {
-    padding: 0.5rem 0.25rem; /* 패딩을 줄여 셀 높이를 낮춥니다 */
     border: 1px solid #e2e8f0;
     text-align: center;
-    vertical-align: middle;
+    /* !important를 사용하여 다른 스타일보다 우선순위를 높여봅니다. */
+    padding: 0.25rem !important; /* 위아래 패딩을 0.25rem으로 더 줄여봅니다. (좌우는 0.25rem 유지) */
+    vertical-align: middle !important; /* 중앙 정렬을 강제합니다. */
+    height: auto !important; /* 높이 강제 지정을 다시 확인합니다. */
+    min-height: unset !important; /* 최소 높이 강제 해제를 다시 확인합니다. */
+    line-height: 1.2 !important; /* 행간을 명시적으로 설정하여 높이 계산에 영향을 줍니다. */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: auto;
-    min-height: unset;
+    box-sizing: border-box; /* 패딩이 너비/높이에 포함되도록 */
 }
 
-/* 첫 번째 열 (Min/Max, Weather 레이블)의 너비를 조금 더 확보 */
-.forecast-table th:first-child,
+/* 첫 번째 열 (Min/Max, Weather 레이블)의 스타일 재확인 */
 .forecast-table td:first-child {
-    width: 80px;
-    white-space: normal;
+    width: 80px; /* 고정 너비 유지 */
+    white-space: normal; /* 첫 번째 셀은 줄바꿈 허용 */
+    text-align: left !important; /* 첫 번째 셀은 왼쪽 정렬 강제 */
+    padding-left: 0.5rem !important;
 }
 
-.forecast-table tbody tr:hover {
-    background-color: #e2e8f0; /* 호버 효과 */
+/* 테이블 바디의 tr 요소에 직접 적용 (혹시 tbody의 기본 스타일이 간섭할까봐) */
+.forecast-table tbody tr {
+    height: auto !important;
+    min-height: unset !important;
+    line-height: normal !important;
 }
 
 .exchange-rate-info {
