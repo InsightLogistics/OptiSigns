@@ -11,9 +11,11 @@ let exchangeRateChart;
 const DATA_JSON_URL = 'data/crawling_data.json';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 차트를 설정하고 생성하는 범용 함수
     const setupChart = (chartId, type, datasets, additionalOptions = {}, isAggregated = false) => {
         const ctx = document.getElementById(chartId);
         if (ctx) {
+            // 기존 차트가 있다면 파괴하여 메모리 누수 방지
             if (Chart.getChart(chartId)) {
                 Chart.getChart(chartId).destroy();
             }
@@ -63,20 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         display: true,
                         position: 'right',
                         labels: {
-                            // boxWidth: 20, // 기본값으로 두거나 필요한 경우 조정
-                            // boxHeight: 10, // 기본값으로 두거나 필요한 경우 조정
-                            usePointStyle: false, // 여전히 false 유지
-
-                            // 범례 아이템을 커스터마이징하는 함수
+                            usePointStyle: false, // 사각형 스타일 유지
                             generateLabels: function(chart) {
                                 const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                                 return originalLabels.map(label => {
-                                    // 각 범례 아이템에 대해
-                                    label.lineWidth = 0; // 범례 상자의 테두리 두께를 0으로 설정
-                                    label.strokeStyle = 'transparent'; // 범례 상자의 테두리 색상을 투명으로 설정
-                                    // 중요: 데이터셋의 borderColor는 그대로 유지하되,
-                                    // 범례 아이콘을 그릴 때만 테두리를 없앱니다.
-
+                                    // 각 범례 아이템에 대해 테두리 두께와 색상을 투명하게 설정
+                                    label.lineWidth = 0;
+                                    label.strokeStyle = 'transparent';
                                     return label;
                                 });
                             }
@@ -227,8 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allDataKeys.forEach(key => {
                 newEntry[key] = monthEntry && monthEntry[key] && monthEntry[key].count > 0
-                                        ? monthEntry[key].sum / monthEntry[key].count
-                                        : null;
+                                         ? monthEntry[key].sum / monthEntry[key].count
+                                         : null;
             });
             
             aggregatedData.push(newEntry);
@@ -238,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { aggregatedData: aggregatedData, monthlyLabels: monthlyLabels };
     };
 
+    // 슬라이더를 설정하는 함수
     const setupSlider = (slidesSelector, intervalTime) => {
         const slides = document.querySelectorAll(slidesSelector);
         let currentSlide = 0;
@@ -270,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // 전 세계 시간대를 위한 도시 매핑
     const cityTimezones = {
         'la': 'America/Los_Angeles',
         'ny': 'America/New_York',
@@ -279,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'sydney': 'Australia/Sydney'
     };
 
+    // 세계 시계를 업데이트하는 함수
     function updateWorldClocks() {
         const now = new Date();
         for (const cityKey in cityTimezones) {
@@ -310,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${month}-${day}-${year}`;
     };
 
-    // renderTable 함수 수정: headerDates 인자 추가
+    // 테이블을 렌더링하는 함수 (헤더에 날짜 정보 추가)
     const renderTable = (containerId, headers, rows, headerDates = {}) => {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -356,8 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (header.includes('Weekly Change')) {
                     const weeklyChange = rowData.weekly_change;
                     content = weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined
-                                    ? `${weeklyChange.value} (${weeklyChange.percentage})`
-                                    : '-';
+                                        ? `${weeklyChange.value} (${weeklyChange.percentage})`
+                                        : '-';
                     colorClass = weeklyChange?.color_class || '';
                     td.textContent = content;
                     if (colorClass) {
@@ -384,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(table);
     };
 
+    // 항로-데이터 키 매핑
     const routeToDataKeyMap = {
         KCCI: {
             "종합지수": "KCCI_Composite_Index",
@@ -469,6 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // 테이블 행 데이터로부터 차트 데이터셋을 생성하는 함수
     const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
         const datasets = [];
         const mapping = routeToDataKeyMap[indexType];
@@ -494,8 +494,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
     
                 if (filteredMappedData.length > 0) {
-                    // borderColors 배열에서 하나의 색상을 가져와서
-                    // 차트 라인 색상(borderColor)과 범례 채우기 색상(backgroundColor) 모두에 사용합니다.
                     const sharedColor = borderColors[colorIndex % borderColors.length]; 
                     colorIndex++; 
     
@@ -503,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: originalRouteName,
                         data: filteredMappedData,
                         backgroundColor: sharedColor, // 범례 채우기 색상 (테두리 없음)
-                        borderColor: sharedColor,     // 차트 라인 색상
+                        borderColor: sharedColor,      // 차트 라인 색상
                         borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
                         fill: false
                     });
@@ -536,6 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'drizzle': '09d'
     };
 
+    // 날씨 상태에 따른 아이콘 URL 반환
     const weatherIconUrl = (status) => {
         if (!status) return `https://placehold.co/80x80/cccccc/ffffff?text=Icon`;
         const lowerStatus = status.toLowerCase();
@@ -554,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `https://placehold.co/80x80/cccccc/ffffff?text=Icon`; // Default placeholder if no match
     };
 
+    // JSON 데이터를 로드하고 모든 차트와 테이블을 표시하는 메인 함수
     async function loadAndDisplayData() {
         let allDashboardData = {};
         try {
@@ -628,9 +628,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     headerRow.insertCell().textContent = ''; // 첫 번째 빈 셀
 
-                    // 날짜 헤더 (데이터가 부족해도 5개를 모두 생성하도록 수정)
-                    // slice(0, 5)는 최대 5개이므로, 만약 데이터가 3개면 3개만 나옵니다.
-                    // 이를 보완하여 항상 5개의 열을 만들도록 합니다.
                     const displayForecast = forecastWeatherData.slice(0, 5);
                     const numForecastDays = 5; // 항상 5일 예보를 표시
                     
@@ -702,8 +699,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     for (let i = 0; i < numForecastDays; i++) {
                         const day = displayForecast[i];
                         const td = document.createElement('td');
-                        // !!! 중요: 길어지는 텍스트 처리 - CSS가 우선이지만, JS에서 직접 적용도 가능합니다.
-                        // CSS에서 확실히 적용하는 것이 더 좋습니다. 아래 CSS 수정을 참조하세요.
                         if (day && day.status) {
                             td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
                         } else {
@@ -743,230 +738,234 @@ document.addEventListener('DOMContentLoaded', () => {
                 fill: false,
                 pointRadius: 0
             }];
-            console.log("Exchange Rate Chart Datasets (before setup):", exchangeRateDatasets);
-            console.log("Exchange Rate Chart Data Sample (first 5 points):", exchangeRateDatasets[0].data.slice(0, 5));
-
-
-            exchangeRateChart = setupChart(
-                'exchangeRateChartCanvas', 'line',
-                exchangeRateDatasets,
-                {
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {  
-                                unit: 'day',  // 환율 차트는 원래대로 'day' 단위 유지
-                                displayFormats: { day: 'MM/dd' }, // 환율 차트는 원래대로 'MM/dd' 형식 유지
-                                tooltipFormat: 'M/d/yyyy'
+            console.log("Exchange Rate Datasets:", exchangeRateDatasets); // 여기에 console.log가 끊겨있었음.
+            
+            exchangeRateChart = setupChart('exchangeRateChart', 'line', exchangeRateDatasets, {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                month: 'MM/yy'
                             },
-                            ticks: { autoSkipPadding: 10, maxTicksLimit: undefined }, // 환율 차트의 maxTicksLimit 제거
-                            title: { display: false } // X축 타이틀 제거
+                            tooltipFormat: 'M/d/yyyy'
                         },
-                        y: {
-                            beginAtZero: false,
-                            ticks: { count: 5 },
-                            grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' }, // 세로 보조선 추가
-                            title: { display: false } // Y축 타이틀 제거
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 12
                         }
                     },
-                    plugins: {
-                        legend: { display: false }
+                    y: {
+                        beginAtZero: false
                     }
                 },
-                false // 환율 차트는 월별 집계를 하지 않으므로 false 유지
-            );
-
-            // 각 지수별 최신/이전 날짜를 가져오는 헬퍼 함수
-            const getLatestAndPreviousDates = (chartData) => {
-                if (!chartData || chartData.length < 2) return { latestDate: null, previousDate: null };
-                const sortedData = [...chartData].sort((a, b) => new Date(b.date) - new Date(a.date));
-                const latestDate = sortedData[0] ? new Date(sortedData[0].date) : null;
-                const previousDate = sortedData[1] ? new Date(sortedData[1].date) : null;
-                return { latestDate, previousDate };
-            };
-
-
-            // KCCI 차트 및 테이블
-            const KCCIData = chartDataBySection.KCCI || [];
-            const { latestDate: KCCILatestDate, previousDate: KCCIPrevDate } = getLatestAndPreviousDates(KCCIData);
-            const KCCITableRows = tableDataBySection.KCCI ? tableDataBySection.KCCI.rows : [];
-            const KCCIDatasets = createDatasetsFromTableRows('KCCI', KCCIData, KCCITableRows);
-            KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, {}, false);
-            renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, KCCITableRows, {
-                currentIndexDate: formatDateForTable(KCCILatestDate),
-                previousIndexDate: formatDateForTable(KCCIPrevDate)
-            });
-
-
-            // SCFI 차트 및 테이블
-            const SCFIData = chartDataBySection.SCFI || [];
-            const { latestDate: SCFILatestDate, previousDate: SCFIPrevDate } = getLatestAndPreviousDates(SCFIData);
-            const SCFITableRows = tableDataBySection.SCFI ? tableDataBySection.SCFI.rows : [];
-            const SCFIDatasets = createDatasetsFromTableRows('SCFI', SCFIData, SCFITableRows);
-            SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, {}, false);
-            renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, SCFITableRows, {
-                currentIndexDate: formatDateForTable(SCFILatestDate),
-                previousIndexDate: formatDateForTable(SCFIPrevDate)
-            });
-
-
-            // WCI 차트 및 테이블
-            const WCIData = chartDataBySection.WCI || [];
-            const { latestDate: WCILatestDate, previousDate: WCIPrevDate } = getLatestAndPreviousDates(WCIData);
-            const WCITableRows = tableDataBySection.WCI ? tableDataBySection.WCI.rows : [];
-            const WCIDatasets = createDatasetsFromTableRows('WCI', WCIData, WCITableRows);
-            WCIChart = setupChart('WCIChart', 'line', WCIDatasets, {}, false);
-            renderTable('WCITableContainer', tableDataBySection.WCI.headers, WCITableRows, {
-                currentIndexDate: formatDateForTable(WCILatestDate),
-                previousIndexDate: formatDateForTable(WCIPrevDate)
-            });
-
-
-            // IACI 차트 및 테이블
-            const IACIData = chartDataBySection.IACI || [];
-            const { latestDate: IACILatestDate, previousDate: IACIPrevDate } = getLatestAndPreviousDates(IACIData);
-            const IACITableRows = tableDataBySection.IACI ? tableDataBySection.IACI.rows : [];
-            const IACIDatasets = createDatasetsFromTableRows('IACI', IACIData, IACITableRows);
-            IACIChart = setupChart('IACIChart', 'line', IACIDatasets, {}, false);
-            renderTable('IACITableContainer', tableDataBySection.IACI.headers, IACITableRows, {
-                currentIndexDate: formatDateForTable(IACILatestDate),
-                previousIndexDate: formatDateForTable(IACIPrevDate)
-            });
-
-
-            const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
-            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
-            
-            // Blank Sailing 테이블의 날짜는 원본 데이터의 마지막 날짜를 사용합니다.
-            const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
-            const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
-            
-            const blankSailingDatasets = [
-                {
-                    label: "Gemini Cooperation",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "MSC",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "OCEAN Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Premier Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Others/Independent",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Total",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                }
-            ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
-
-            blankSailingChart = setupChart(
-                'blankSailingChart', 'bar',
-                blankSailingDatasets,
-                {
-                    scales: {
-                        x: {
-                            stacked: true,
-                            type: 'time',
-                            time: {
-                                unit: 'month',
-                                displayFormats: { month: 'MM/01/yy' }, // 형식 변경
-                                tooltipFormat: 'M/d/yyyy'
-                            },
-                            title: { display: false } // X축 타이틀 제거
-                        },
-                        y: {
-                            stacked: true,
-                            beginAtZero: true,
-                            title: { display: false } // Y축 타이틀 제거
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
                         }
                     }
-                },
-                true
-            );
-            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
-                currentIndexDate: formatDateForTable(BSLatestDate),
-                previousIndexDate: formatDateForTable(BSPrevDate)
+                }
             });
 
 
-            // FBX 차트 및 테이블
-            const FBXData = chartDataBySection.FBX || [];
-            const { latestDate: FBXLatestDate, previousDate: FBXPrevDate } = getLatestAndPreviousDates(FBXData);
-            const FBXTableRows = tableDataBySection.FBX ? tableDataBySection.FBX.rows : [];
-            const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, FBXTableRows);
-            FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
-            renderTable('FBXTableContainer', tableDataBySection.FBX.headers, FBXTableRows, {
-                currentIndexDate: formatDateForTable(FBXLatestDate),
-                previousIndexDate: formatDateForTable(FBXPrevDate)
-            });
+            // 여기서부터 다른 차트들을 추가합니다.
+            // 1. KCCI 차트
+            if (tableDataBySection.KCCI && chartDataBySection.KCCI) {
+                const kcciTableRows = tableDataBySection.KCCI.table_rows;
+                const kcciChartData = chartDataBySection.KCCI.chart_data;
+                const kcciHeaderDates = {
+                    currentIndexDate: tableDataBySection.KCCI.latest_date,
+                    previousIndexDate: tableDataBySection.KCCI.previous_date
+                };
 
+                const kcciHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('kcci-table-container', kcciHeaders, kcciTableRows, kcciHeaderDates);
 
-            // XSI 차트 및 테이블
-            const XSIData = chartDataBySection.XSI || [];
-            const { latestDate: XSILatestDate, previousDate: XSIPrevDate } = getLatestAndPreviousDates(XSIData);
-            const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
-            const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
-            XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
-            renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows, {
-                currentIndexDate: formatDateForTable(XSILatestDate),
-                previousIndexDate: formatDateForTable(XSIPrevDate)
-            });
+                const kcciDatasets = createDatasetsFromTableRows('KCCI', kcciChartData, kcciTableRows);
+                KCCIChart = setupChart('kcciChart', 'line', kcciDatasets);
+            }
 
-            // MBCI 차트 및 테이블
-            const MBCIData = chartDataBySection.MBCI || [];
-            const { latestDate: MBCILatestDate, previousDate: MBCIPrevDate } = getLatestAndPreviousDates(MBCIData);
-            const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
-            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows, {
-                currentIndexDate: formatDateForTable(MBCILatestDate),
-                previousIndexDate: formatDateForTable(MBCIPrevDate)
-            });
+            // 2. SCFI 차트
+            if (tableDataBySection.SCFI && chartDataBySection.SCFI) {
+                const scfiTableRows = tableDataBySection.SCFI.table_rows;
+                const scfiChartData = chartDataBySection.SCFI.chart_data;
+                const scfiHeaderDates = {
+                    currentIndexDate: tableDataBySection.SCFI.latest_date,
+                    previousIndexDate: tableDataBySection.SCFI.previous_date
+                };
 
-            // 슬라이더 시간 간격 설정 (10초 간격)
-            setupSlider('.chart-slider-container > .chart-slide', 10000); // <-- .chart-slides를 .chart-slider-container로 변경
-            setupSlider('.top-info-slider-container > .top-info-slide', 10000);
+                const scfiHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('scfi-table-container', scfiHeaders, scfiTableRows, scfiHeaderDates);
 
+                const scfiDatasets = createDatasetsFromTableRows('SCFI', scfiChartData, scfiTableRows);
+                SCFIChart = setupChart('scfiChart', 'line', scfiDatasets);
+            }
 
-            // 세계 시간 업데이트 시작
-            updateWorldClocks();
-            setInterval(updateWorldClocks, 1000); // 1초마다 업데이트
+            // 3. WCI 차트
+            if (tableDataBySection.WCI && chartDataBySection.WCI) {
+                const wciTableRows = tableDataBySection.WCI.table_rows;
+                const wciChartData = chartDataBySection.WCI.chart_data;
+                const wciHeaderDates = {
+                    currentIndexDate: tableDataBySection.WCI.latest_date,
+                    previousIndexDate: tableDataBySection.WCI.previous_date
+                };
+
+                const wciHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('wci-table-container', wciHeaders, wciTableRows, wciHeaderDates);
+
+                const wciDatasets = createDatasetsFromTableRows('WCI', wciChartData, wciTableRows);
+                WCIChart = setupChart('wciChart', 'line', wciDatasets);
+            }
+
+            // 4. IACI 차트
+            if (tableDataBySection.IACI && chartDataBySection.IACI) {
+                const iaciTableRows = tableDataBySection.IACI.table_rows;
+                const iaciChartData = chartDataBySection.IACI.chart_data;
+                const iaciHeaderDates = {
+                    currentIndexDate: tableDataBySection.IACI.latest_date,
+                    previousIndexDate: tableDataBySection.IACI.previous_date
+                };
+
+                const iaciHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('iaci-table-container', iaciHeaders, iaciTableRows, iaciHeaderDates);
+
+                const iaciDatasets = createDatasetsFromTableRows('IACI', iaciChartData, iaciTableRows);
+                IACIChart = setupChart('iaciChart', 'line', iaciDatasets);
+            }
             
+            // 5. Blank Sailing 차트
+            if (chartDataBySection.BLANK_SAILING) {
+                const blankSailingData = chartDataBySection.BLANK_SAILING.chart_data;
+                const aggregatedData = aggregateDataByMonth(blankSailingData, 12);
+
+                const blankSailingLabels = aggregatedData.monthlyLabels.map(label => {
+                    const date = new Date(label);
+                    return date.toLocaleString('en-US', { month: 'short', year: '2-digit' });
+                });
+
+                const datasets = [];
+                colorIndex = 0; // 색상 인덱스 초기화
+                for (const key in blankSailingData[0]) {
+                    if (key !== 'date') {
+                        const sharedColor = borderColors[colorIndex % borderColors.length];
+                        colorIndex++;
+
+                        datasets.push({
+                            label: key.split('_').slice(2).join(' '),
+                            data: aggregatedData.aggregatedData.map(item => item[key]),
+                            backgroundColor: sharedColor,
+                            borderColor: sharedColor,
+                            borderWidth: 1
+                        });
+                    }
+                }
+
+                blankSailingChart = setupChart('blankSailingChart', 'bar', datasets, {
+                    labels: blankSailingLabels,
+                    scales: {
+                        x: {
+                            type: 'category',
+                            title: {
+                                display: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 12
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: false
+                            },
+                            ticks: {
+                                count: 5
+                            },
+                            grid: {
+                                display: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 6. FBX 차트
+            if (tableDataBySection.FBX && chartDataBySection.FBX) {
+                const fbxTableRows = tableDataBySection.FBX.table_rows;
+                const fbxChartData = chartDataBySection.FBX.chart_data;
+                const fbxHeaderDates = {
+                    currentIndexDate: tableDataBySection.FBX.latest_date,
+                    previousIndexDate: tableDataBySection.FBX.previous_date
+                };
+
+                const fbxHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('fbx-table-container', fbxHeaders, fbxTableRows, fbxHeaderDates);
+
+                const fbxDatasets = createDatasetsFromTableRows('FBX', fbxChartData, fbxTableRows);
+                FBXChart = setupChart('fbxChart', 'line', fbxDatasets);
+            }
+
+            // 7. XSI 차트
+            if (tableDataBySection.XSI && chartDataBySection.XSI) {
+                const xsiTableRows = tableDataBySection.XSI.table_rows;
+                const xsiChartData = chartDataBySection.XSI.chart_data;
+                const xsiHeaderDates = {
+                    currentIndexDate: tableDataBySection.XSI.latest_date,
+                    previousIndexDate: tableDataBySection.XSI.previous_date
+                };
+                const xsiHeaders = ["항로", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('xsi-table-container', xsiHeaders, xsiTableRows, xsiHeaderDates);
+
+                const xsiDatasets = createDatasetsFromTableRows('XSI', xsiChartData, xsiTableRows);
+                XSIChart = setupChart('xsiChart', 'line', xsiDatasets);
+            }
+            
+            // 8. MBCI 차트
+            if (tableDataBySection.MBCI && chartDataBySection.MBCI) {
+                const mbciTableRows = tableDataBySection.MBCI.table_rows;
+                const mbciChartData = chartDataBySection.MBCI.chart_data;
+                const mbciHeaderDates = {
+                    currentIndexDate: tableDataBySection.MBCI.latest_date,
+                    previousIndexDate: tableDataBySection.MBCI.previous_date
+                };
+                const mbciHeaders = ["MBCI", "Current Index", "Previous Index", "Weekly Change"];
+                renderTable('mbci-table-container', mbciHeaders, mbciTableRows, mbciHeaderDates);
+
+                const mbciDatasets = createDatasetsFromTableRows('MBCI', mbciChartData, mbciTableRows);
+                MBCIChart = setupChart('mbciChart', 'line', mbciDatasets);
+            }
+            
+            // 슬라이더 및 세계 시계 업데이트
+            setupSlider('.slider-container .slide', 3000);
+            updateWorldClocks();
+            setInterval(updateWorldClocks, 1000); // 1초마다 시계 업데이트
+
         } catch (error) {
-            console.error('Failed to load dashboard data:', error);
-            const chartSliderContainer = document.querySelector('.chart-slider-container');
-            if (chartSliderContainer) {
-                chartSliderContainer.innerHTML = '<p class="placeholder-text text-red-500">Error loading data. Please try again later.</p>';
+            console.error("Error loading or processing data:", error);
+            // 에러 메시지 표시
+            const errorElement = document.getElementById('data-error-message');
+            if(errorElement) {
+                errorElement.textContent = `데이터를 불러오는 데 실패했습니다: ${error.message}`;
             }
         }
     }
 
+    // 초기 데이터 로드 및 표시
     loadAndDisplayData();
 });
