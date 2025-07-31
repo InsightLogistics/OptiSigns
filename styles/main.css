@@ -1,3 +1,6 @@
+/* styles/main.css */
+
+/* 전체 페이지 레이아웃 및 폰트 설정 */
 html, body {
     width: 100vw;
     height: 100vh;
@@ -5,13 +8,9 @@ html, body {
     padding: 0;
     overflow: hidden;
     font-family: 'Inter', sans-serif;
-    background-color: #f0f0f0; /* transparent -> #f0f0f0 (회색 배경 유지) */
+    background-color: #f0f0f0; /* 투명 -> #f0f0f0 (회색 배경 유지) */
     color: #333;
     line-height: 1.6;
-    /* 아래 세 줄은 제거 (컨테이너가 직접 위치를 잡으므로 불필요) */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .container {
@@ -22,23 +21,22 @@ html, body {
     
     /* 16:9 비율 유지하며 화면 채우기 */
     width: 100vw;
-    height: calc(100vw * 9 / 16); /* 너비 기준으로 16:9 높이 계산 */
-    max-height: 100vh; /* 뷰포트 높이를 넘지 않도록 제한 */
-    max-width: calc(100vh * 16 / 9); /* 뷰포트 높이가 제한될 경우 16:9 너비 제한 */
+    height: calc(100vw * 9 / 16);
+    max-height: 100vh;
+    max-width: calc(100vh * 16 / 9);
     
     padding: 0;
     background-color: transparent;
     border-radius: 0;
     box-shadow: none;
     box-sizing: border-box;
-    overflow: hidden; /* 컨테이너 자체는 스크롤바 없음 */
+    overflow: hidden;
     
-    /* 헤더, 메인, 푸터를 세로로 배치하고 유연하게 공간 분배 */
     display: flex;
     flex-direction: column;
 }
 
-/* 뷰포트가 16:9 비율보다 넓을 경우 (높이가 제한될 때) */
+/* 뷰포트가 16:9 비율보다 넓을 경우 */
 @media (min-aspect-ratio: 16/9) {
     .container {
         width: calc(100vh * 16 / 9);
@@ -46,61 +44,62 @@ html, body {
     }
 }
 
+/* 헤더 스타일 */
 header {
     text-align: center;
-    /* margin-bottom: 20px; /* 이 줄을 제거 */
-    padding-bottom: 10px; /* 패딩을 더 줄여서 헤더 높이 감소 */
-    /* border-bottom: 1px solid #eee; /* 이 줄을 제거 */
-    margin-bottom: 10px; /* 헤더 아래 공간을 위해 margin-bottom으로 변경, 더 줄임 */
-    border-bottom: 1px solid #eee; /* 헤더 아래 구분선은 유지 */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 header h1 {
-    font-size: 2.2em; /* 헤더 글자 크기 2.5em -> 2.2em으로 줄임 */
+    font-size: 2.2em;
     color: #003A52;
-    margin-bottom: 5px; /* 헤더 아래 마진 더 줄임 */
-    font-weight: 700; /* 두꺼운 글씨 유지 */
+    margin-bottom: 5px;
+    font-weight: 700;
 }
 
+/* 대시보드 그리드 컨테이너 */
 .dashboard-grid {
-    display: grid; /* 이 줄은 활성화되어 있어야 합니다. */
-    grid-template-columns: 1fr; /* 이 줄은 활성화되어 있어야 합니다. (1열 그리드) */
-    grid-template-rows: auto 1fr; /* 이 줄을 추가: 첫 번째 행은 콘텐츠 높이에 맞게, 두 번째 행은 남은 공간 모두 차지 */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
     gap: 10px;
-    flex-grow: 1; /* .container 내에서 남은 공간을 모두 차지하도록 */
-    overflow: hidden; /* 그리드 컨테이너 자체는 스크롤바 없음 */
-    padding: 10px; /* 대시보드 전체 콘텐츠에 패딩 추가 */
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 10px;
 }
 
 /* World Clocks 섹션 스타일 */
 .world-clock-list {
-    display: grid; /* 그리드 레이아웃 사용 */
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 반응형 그리드, 최소 너비 120px */
-    gap: 0.25rem 0.5rem; /* 행(위아래) 간격 0.25rem, 열(좌우) 간격 0.5rem */
-    padding: 0 0.5rem; /* 좌우 패딩 줄이기 */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.25rem 0.5rem;
+    padding: 0 0.5rem;
 }
 
 .world-clock-item {
     display: flex;
-    justify-content: space-between; /* 도시 이름과 시간 사이 공간 분배 */
+    justify-content: space-between;
     align-items: center;
-    padding: 0.2rem 0.25rem; /* 아이템 내부의 위아래/좌우 패딩을 더 줄임 */
-    font-size: 0.8em; /* 폰트 크기 줄이기 */
-    line-height: 1.2; /* 행간 줄이기 */
-    white-space: nowrap; /* 내용이 줄바꿈되지 않도록 */
+    padding: 0.2rem 0.25rem;
+    font-size: 0.8em;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 .world-clock-item span:first-child {
-    font-weight: normal; /* 도시 이름 폰트 두께 */
+    font-weight: normal;
     color: #555;
 }
 
 .world-clock-item span:last-child {
-    font-weight: bold; /* 시간 폰트 두께 */
+    font-weight: bold;
     color: #333;
-    margin-left: 0.5rem; /* 도시 이름과 시간 사이 간격 */
+    margin-left: 0.5rem;
 }
 
+/* 차트 섹션 스타일 */
 .chart-section {
     background-color: #fff;
     padding: 10px;
@@ -118,7 +117,7 @@ header h1 {
 
 .chart-container {
     position: relative;
-    height: 70%; /* chart-slider-container의 70% 높이를 차지 (원하는 비율로 조절) */
+    height: 70%;
     width: 100%;
     margin: 0 auto;
 }
@@ -130,8 +129,6 @@ header h1 {
     background-color: transparent;
     padding: 0;
     box-shadow: none;
-    /* height: 500px; /* 이 줄은 제거된 상태여야 합니다. */
-    /* flex-grow: 1; /* 이 줄은 제거된 상태여야 합니다. */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -174,24 +171,24 @@ header h1 {
     padding: 30px;
 }
 
+/* 푸터 스타일 */
 footer {
     text-align: center;
-    margin-top: 10px; /* 15px에서 10px으로 줄여서 공간 확보 */
-    padding-top: 10px; /* 패딩도 15px에서 10px으로 줄임 */
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid #eee;
     color: #777;
     font-size: 0.9em;
 }
 
+/* 상단 정보 슬라이더 컨테이너 */
 .top-info-slider-container {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background-color: #fff; /* 흰색 배경으로 변경 */
+    background-color: #fff;
     padding: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 일반적인 그림자로 변경 */
-    /* height: 480px; /* 기존 높이 유지 또는 필요시 조정 */
-    /* height: auto; /* 내용에 따라 높이 자동 조절을 시도할 수도 있습니다. */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,7 +209,7 @@ footer {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-    padding: 0 15px; /* 날씨 섹션 좌우 마진 추가 */
+    padding: 0 15px;
     box-sizing: border-box;
 }
 
@@ -223,13 +220,13 @@ footer {
 }
 
 .top-info-slide h3 {
-    font-size: 1em; /* 날씨 헤더 폰트 크기 1.4em -> 1.2em으로 줄임 */
-    margin-bottom: 1px; /* 헤더 아래 마진 제거 -> 5px로 변경 */
-    font-weight: bold; /* 헤더를 두껍게 */
-    line-height: 1.1; /* 헤더 행간 더 줄임 */
+    font-size: 1em;
+    margin-bottom: 1px;
+    font-weight: bold;
+    line-height: 1.1;
     white-space: normal;
     word-break: keep-all;
-    padding-top: 5px; /* 상단 패딩 10px -> 5px으로 줄여 헤더 잘림 방지 */
+    padding-top: 5px;
 }
 
 .top-info-slide p {
@@ -237,6 +234,7 @@ footer {
     color: #333;
 }
 
+/* 공지사항 섹션 */
 .announcements-section {
     background-color: #fff;
     padding: 15px;
@@ -244,7 +242,7 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     width: 100%;
     box-sizing: border-box;
-    max-height: 480px; /* 최대 높이 유지. 날씨 섹션 줄면 여유 생김 */
+    max-height: 480px;
     overflow-y: auto;
 }
 
@@ -263,10 +261,10 @@ footer {
 }
 
 .announcements-list li {
-    padding: 6px 0; /* 패딩을 8px -> 6px으로 줄임 */
+    padding: 6px 0;
     border-bottom: 1px dashed #eee;
     color: #555;
-    font-size: 0.85em; /* 폰트 크기 0.9em -> 0.85em으로 약간 줄임 */
+    font-size: 0.85em;
     text-align: left;
 }
 
@@ -274,44 +272,44 @@ footer {
     border-bottom: none;
 }
 
-/* Weather in Los Angeles 섹션 내 현재 날씨 정보 스타일 */
+/* LA 날씨 정보 스타일 */
 .weather-current-info {
-    display: flex; /* 플렉스박스 컨테이너로 설정 */
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 (필요에 따라 flex-start 또는 space-around 등 변경 가능) */
-    margin-bottom: 1rem; /* 하단 여백 추가 (아래 상세 정보와 간격) */
-    gap: 0.5rem; /* 요소들 사이의 간격 */
-    flex-wrap: nowrap; /* 요소들이 줄바꿈되지 않도록 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
 }
 
 .weather-current-info #weather-icon-current {
-    width: 40px; /* 아이콘 크기 줄이기 (예시, 필요에 따라 조정) */
+    width: 40px;
     height: 40px;
-    object-fit: contain; /* 이미지 비율 유지 */
+    object-fit: contain;
 }
 
 .weather-current-info #temperature-current {
-    font-size: 1.5em; /* 온도 글자 크기 조정 (현재 레이아웃에서 중요) */
+    font-size: 1.5em;
     font-weight: bold;
     color: #333;
 }
 
 .weather-current-info #status-current {
-    font-size: 1em; /* 날씨 상태 글자 크기 */
+    font-size: 1em;
     color: #666;
-    margin-left: 0.25rem; /* 온도와 상태 사이의 간격 */
+    margin-left: 0.25rem;
 }
 
 .weather-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px; /* 8px -> 5px으로 줄임 */
+    gap: 5px;
     width: 95%;
-    margin-top: 5px; /* 10px -> 5px으로 줄임 */
-    font-size: 0.7em; /* 0.75em -> 0.7em으로 줄임 */
+    margin-top: 5px;
+    font-size: 0.7em;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.0; /* 1.1 -> 1.0으로 줄여 행간 최소화 */
+    line-height: 1.0;
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -327,57 +325,57 @@ footer {
     border-bottom: none;
 }
 
-/* style.css 또는 인라인 스타일에 추가 */
+/* 날씨 예보 테이블 스타일 */
 .forecast-table {
     width: 100%;
-    border-collapse: collapse; /* 테이블 셀 간의 경계선 합치기 */
-    table-layout: fixed; /* 테이블 너비를 고정하고 각 셀에 균등하게 배분 */
-    font-size: 0.75em; /* 원래 사용하시던 폰트 크기로 유지 또는 더 줄일 수 있음 (예: 0.7em) */
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.75em;
 }
 
 .forecast-table th,
 .forecast-table td {
-    border: 1px solid #e2e8f0; /* 테두리 스타일 */
-    padding: 0.35rem 0.25rem; /* 위아래 패딩을 줄여 셀 높이를 낮추고, 좌우 패딩도 조절 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    vertical-align: middle; /* 텍스트 수직 중앙 정렬 */
-    white-space: nowrap; /* 내용이 줄바꿈되지 않도록 (필요시 변경) */
-    overflow: hidden; /* 넘치는 내용 숨김 */
-    text-overflow: ellipsis; /* 넘치는 내용 ...으로 표시 */
-    height: auto; /* 명시적인 높이 설정 제거 */
-    min-height: unset; /* 최소 높이 설정 제거 */
-    line-height: 1.2; /* 행간을 명시적으로 설정하여 높이 제어 */
+    border: 1px solid #e2e8f0;
+    /* 패딩을 동일하게 설정하여 행 높이를 일치시킴 */
+    padding: 0.35rem 0.25rem;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: auto;
+    min-height: unset;
+    line-height: 1.2;
 }
 
-/* 테이블 헤더 셀 스타일 */
+/* 테이블 헤더 셀 스타일 - padding을 다른 셀과 동일하게 유지 */
 .forecast-table th {
-    font-weight: bold; /* 헤더 글씨 굵게 */
-    padding-top: 0.5rem; /* 헤더 상단 패딩 */
-    padding-bottom: 0.5rem; /* 헤더 하단 패딩 */
+    font-weight: bold;
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
 .forecast-table td:first-child {
-    width: 80px; /* 레이블 열 너비 고정 */
-    white-space: normal; /* 첫 번째 셀은 줄바꿈 허용 (레이블이 길 경우 대비) */
-    text-align: left; /* 첫 번째 셀 텍스트 왼쪽 정렬 */
-    padding-left: 0.5rem; /* 첫 번째 셀 왼쪽 패딩 */
+    width: 80px;
+    white-space: normal;
+    text-align: left;
+    padding-left: 0.5rem;
 }
 
+/* 환율 정보 스타일 */
 .exchange-rate-info {
-    margin-bottom: 5px; /* 10px -> 5px으로 줄임 */
+    margin-bottom: 5px;
 }
 
 .exchange-rate-info #current-exchange-rate-value {
-    font-size: 1.8em; /* 2em -> 1.8em으로 줄임 */
+    font-size: 1.8em;
     font-weight: bold;
     color: #00657e;
-    margin-bottom: 5px; /* 8px -> 5px으로 줄임 */
+    margin-bottom: 5px;
 }
 
 .exchange-rate-chart-container {
     position: relative;
-    height: 65%; /* top-info-slide 내에서 차트 높이 조금 늘림 (60% -> 65%) */
+    height: 65%;
     width: 95%;
     margin: 0 auto;
 }
@@ -387,13 +385,14 @@ footer {
     height: 100% !important;
 }
 
+/* 테이블 섹션 (KCCI Indices) 스타일 */
 .table-section {
     background-color: #fff;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
-    max-height: 480px; /* 최대 높이 유지 */
+    max-height: 480px;
 }
 
 .table-section h3 {
@@ -429,16 +428,16 @@ footer {
 }
 
 /* 테이블 컬럼 너비 조정 */
-.data-table th:nth-child(1), .data-table td:nth-child(1) { /* 항로 */
+.data-table th:nth-child(1), .data-table td:nth-child(1) {
     width: 30%;
 }
-.data-table th:nth-child(2), .data-table td:nth-child(2) { /* Current Index */
+.data-table th:nth-child(2), .data-table td:nth-child(2) {
     width: 23.33%;
 }
-.data-table th:nth-child(3), .data-table td:nth-child(3) { /* Previous Index */
+.data-table th:nth-child(3), .data-table td:nth-child(3) {
     width: 23.33%;
 }
-.data-table th:nth-child(4), .data-table td:nth-child(4) { /* Weekly Change */
+.data-table th:nth-child(4), .data-table td:nth-child(4) {
     width: 23.33%;
 }
 
@@ -462,6 +461,7 @@ footer {
     background-color: #f0f8ff;
 }
 
+/* 색상 유틸리티 */
 .text-blue-500 {
     color: #3b82f6;
 }
@@ -478,7 +478,7 @@ footer {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 1rem;
-    margin-bottom: 10px; /* 상단 그리드 아래 마진을 15px -> 10px으로 줄여서 전체 높이 줄임 */
+    margin-bottom: 10px;
 }
 
 /* Chart.js 범례 테두리 강제 제거 (Tailwind CSS 기본값 재정의) */
