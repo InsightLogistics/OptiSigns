@@ -601,67 +601,94 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sunsetTime) sunsetTime.textContent = currentWeatherData.LA_Sunset || '--';
 
             const forecastTableContainer = document.getElementById('forecast-table-container'); // 새 컨테이너 ID (HTML도 변경 필요)
-            if (forecastTableContainer) {
-                forecastTableContainer.innerHTML = ''; // 기존 내용 지우기
-
-                if (forecastWeatherData.length > 0) {
-                    const table = document.createElement('table');
-                    table.classList.add('data-table', 'forecast-table'); // CSS 클래스 추가
-
-                    const thead = document.createElement('thead');
-                    const headerRow = document.createElement('tr');
-                    
-                    // 첫 번째 빈 헤더 셀 추가
-                    headerRow.insertCell().textContent = ''; 
-
-                    // 날짜 헤더 추가 (최대 7일까지)
-                    forecastWeatherData.slice(0, 3).forEach(day => {
-                        const th = document.createElement('th');
-                        th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
-                        th.textContent = day.date || '--'; // 날짜만 표시
-                        headerRow.appendChild(th);
-                    });
-                    thead.appendChild(headerRow);
-                    table.appendChild(thead);
-
-                    const tbody = document.createElement('tbody');
-
-                    // Min/Max 온도 행 생성
-                    const minMaxRow = document.createElement('tr');
-                    minMaxRow.insertCell().textContent = 'Min/Max'; // 첫 번째 셀 레이블
-                    forecastWeatherData.slice(0, 3).forEach(day => {
-                        const td = document.createElement('td');
-                        if (day.min_temp && day.max_temp) {
-                            td.textContent = `${day.min_temp}°F/${day.max_temp}°F`;
-                        } else {
-                            td.textContent = '--';
-                        }
-                        minMaxRow.appendChild(td);
-                    });
-                    tbody.appendChild(minMaxRow);
-
-                    // Weather 상태 행 생성
-                    const weatherStatusRow = document.createElement('tr');
-                    weatherStatusRow.insertCell().textContent = 'Weather'; // 첫 번째 셀 레이블
-                    forecastWeatherData.slice(0, 3).forEach(day => {
-                        const td = document.createElement('td');
-                        // 괄호와 영어 텍스트 제거 (정규식 사용)
-                        if (day.status) {
-                            td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
-                        } else {
-                            td.textContent = '--';
-                        }
-                        weatherStatusRow.appendChild(td);
-                    });
-                    tbody.appendChild(weatherStatusRow);
-
-                    table.appendChild(tbody);
-                    forecastTableContainer.appendChild(table);
-
+                if (forecastTableContainer) {
+                    forecastTableContainer.innerHTML = ''; // 초기화
+                
+                    if (forecastWeatherData.length > 0) {
+                        const table = document.createElement('table');
+                        table.classList.add('data-table', 'forecast-table');
+                
+                        const thead = document.createElement('thead');
+                        const headerRow = document.createElement('tr');
+                
+                        // 빈 셀
+                        headerRow.insertCell().textContent = '';
+                
+                        // 날짜 (년 없이 MM/DD 형식으로)
+                        forecastWeatherData.slice(0, 7).forEach(day => {
+                            const th = document.createElement('th');
+                            th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
+                
+                            // 예: 2025-07-31 -> 7/31
+                            if (day.date) {
+                                const dateParts = day.date.split('-'); // ['2025','07','31']
+                                const month = parseInt(dateParts[1], 10);
+                                const dayNum = parseInt(dateParts[2], 10);
+                                th.textContent = `${month}/${dayNum}`;
+                            } else {
+                                th.textContent = '--';
+                            }
+                            headerRow.appendChild(th);
+                        });
+                        thead.appendChild(headerRow);
+                        table.appendChild(thead);
+                
+                        const tbody = document.createElement('tbody');
+                
+                        // Max(°F) 행
+                        const maxRow = document.createElement('tr');
+                        maxRow.insertCell().textContent = 'Max (°F)';
+                        forecastWeatherData.slice(0, 7).forEach(day => {
+                            const td = document.createElement('td');
+                            td.style.whiteSpace = 'pre-line'; // 줄바꿈 허용
+                
+                            if (day.max_temp != null) {
+                                // 값 줄바꿈 표시 (숫자만)
+                                td.textContent = `${day.max_temp}`;
+                            } else {
+                                td.textContent = '--';
+                            }
+                            maxRow.appendChild(td);
+                        });
+                        tbody.appendChild(maxRow);
+                
+                        // Min(°F) 행
+                        const minRow = document.createElement('tr');
+                        minRow.insertCell().textContent = 'Min (°F)';
+                        forecastWeatherData.slice(0, 7).forEach(day => {
+                            const td = document.createElement('td');
+                            td.style.whiteSpace = 'pre-line';
+                
+                            if (day.min_temp != null) {
+                                td.textContent = `${day.min_temp}`;
+                            } else {
+                                td.textContent = '--';
+                            }
+                            minRow.appendChild(td);
+                        });
+                        tbody.appendChild(minRow);
+                
+                        // Weather 상태 행 (기존처럼 텍스트만)
+                        const weatherStatusRow = document.createElement('tr');
+                        weatherStatusRow.insertCell().textContent = 'Weather';
+                        forecastWeatherData.slice(0, 7).forEach(day => {
+                            const td = document.createElement('td');
+                            if (day.status) {
+                                td.textContent = day.status.replace(/\s*\(.*\)/, '').trim();
+                            } else {
+                                td.textContent = '--';
+                            }
+                            weatherStatusRow.appendChild(td);
+                        });
+                        tbody.appendChild(weatherStatusRow);
+                
+                        table.appendChild(tbody);
+                        forecastTableContainer.appendChild(table);
+                
+                    } else {
+                        forecastTableContainer.innerHTML = '<p class="text-gray-600 text-center">No forecast data available.</p>';
+                    }
                 } else {
-                    forecastTableContainer.innerHTML = '<p class="text-gray-600 text-center">No forecast data available.</p>';
-                }
-            } else {
                 console.warn("Element with ID 'forecast-table-container' not found. Cannot render forecast table.");
             }
 
