@@ -7149,51 +7149,51 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "76.62",
+            "LA_Temperature": "77.56",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "64",
-            "LA_WindSpeed": "9.22",
+            "LA_Humidity": "63",
+            "LA_WindSpeed": "8.05",
             "LA_Pressure": "1016",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:03:46 AM",
+            "LA_Sunrise": "6:03:45 AM",
             "LA_Sunset": "7:54:46 PM"
         },
         "forecast": [
             {
                 "date": "7/31/2025",
                 "min_temp": "68",
-                "max_temp": "81.3",
+                "max_temp": "81.6",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/1/2025",
                 "min_temp": "63.6",
-                "max_temp": "88.1",
+                "max_temp": "87.9",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/2/2025",
-                "min_temp": "71.4",
-                "max_temp": "88",
+                "min_temp": "71.2",
+                "max_temp": "88.4",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/3/2025",
-                "min_temp": "72.4",
-                "max_temp": "86.4",
+                "min_temp": "72.7",
+                "max_temp": "87.1",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/4/2025",
-                "min_temp": "73.5",
-                "max_temp": "86.9",
-                "status": "구름 많음(broken clouds)"
+                "min_temp": "74",
+                "max_temp": "86",
+                "status": "맑음(clear sky)"
             },
             {
                 "date": "8/5/2025",
                 "min_temp": "73",
-                "max_temp": "84.1",
-                "status": "맑음(clear sky)"
+                "max_temp": "83.5",
+                "status": "구름 중간(scattered clouds)"
             }
         ]
     },
