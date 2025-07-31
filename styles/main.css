@@ -337,9 +337,9 @@ footer {
 /* 테이블의 각 셀(th, td)에 Flexbox를 적용하여 높이와 정렬을 강제로 통일합니다. */
 .forecast-table th,
 .forecast-table td {
+    box-sizing: border-box !important; /* 필수! */
     border: 1px solid #e2e8f0;
-    box-sizing: border-box;
-    padding: 4px 8px;
+    padding: 4px 4px;
     text-align: center;
     vertical-align: middle;
     min-height: 28px;
