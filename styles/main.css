@@ -326,25 +326,29 @@ footer {
 .forecast-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0.5rem;
-    font-size: 0.7em; /* 폰트 크기 조정 */
+    margin-top: 1rem;
+    font-size: 0.9em; /* 폰트 크기를 줄여 공간 효율성을 높입니다 */
+    table-layout: fixed;
 }
 
 .forecast-table th,
 .forecast-table td {
-    padding: 0.2rem 0.35rem;
-    border: 1px solid #e2e8f0; /* 테두리 추가 */
-    text-align: center; /* 가운데 정렬 */
-    white-space: nowrap; /* 내용이 줄바꿈되지 않도록 */
+    padding: 0.5rem 0.25rem; /* 패딩을 줄여 셀 높이를 낮춥니다 */
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: auto;
+    min-height: unset;
 }
 
-.forecast-table thead th {
-    background-color: #f8faff; /* 헤더 배경색 */
-    font-weight: bold;
-}
-
-.forecast-table tbody tr:nth-child(even) {
-    background-color: #f0f4f8; /* 짝수 행 배경색 */
+/* 첫 번째 열 (Min/Max, Weather 레이블)의 너비를 조금 더 확보 */
+.forecast-table th:first-child,
+.forecast-table td:first-child {
+    width: 80px;
+    white-space: normal;
 }
 
 .forecast-table tbody tr:hover {
