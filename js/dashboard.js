@@ -581,34 +581,25 @@ async function loadAndDisplayData() {
         console.log("Chart Data:", chartDataBySection);
         console.log("Table Data:", tableDataBySection);
 
-        // 날씨 및 환율 데이터 처리 (기존 코드 유지)
+        // 날씨 데이터 처리 (기존 코드 유지)
         const currentWeatherData = weatherData.current || {};
         const forecastWeatherData = weatherData.forecast || [];
-
         const tempCurrent = document.getElementById('temperature-current');
         if (tempCurrent) tempCurrent.textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
-        
         const statusCurrent = document.getElementById('status-current');
         if (statusCurrent) statusCurrent.textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
-        
         const weatherIcon = document.getElementById('weather-icon-current');
         if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
-
         const humidityCurrent = document.getElementById('humidity-current');
         if (humidityCurrent) humidityCurrent.textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
-        
         const windSpeedCurrent = document.getElementById('wind-speed-current');
         if (windSpeedCurrent) windSpeedCurrent.textContent = currentWeatherData.LA_WindSpeed ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
-        
         const pressureCurrent = document.getElementById('pressure-current');
         if (pressureCurrent) pressureCurrent.textContent = currentWeatherData.LA_Pressure ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
-        
         const visibilityCurrent = document.getElementById('visibility-current');
         if (visibilityCurrent) visibilityCurrent.textContent = currentWeatherData.LA_Visibility ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
-        
         const sunriseTime = document.getElementById('sunrise-time');
         if (sunriseTime) sunriseTime.textContent = currentWeatherData.LA_Sunrise || '--';
-        
         const sunsetTime = document.getElementById('sunset-time');
         if (sunsetTime) sunsetTime.textContent = currentWeatherData.LA_Sunset || '--';
 
@@ -664,12 +655,12 @@ async function loadAndDisplayData() {
             }
         }
 
+        // 환율 데이터 처리
         const currentExchangeRate = exchangeRatesData.length > 0 ? exchangeRatesData[exchangeRatesData.length - 1].rate : null;
         const currentExchangeRateElement = document.getElementById('current-exchange-rate-value');
         if (currentExchangeRateElement) {
             currentExchangeRateElement.textContent = currentExchangeRate ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
         }
-
         if (exchangeRateChart) exchangeRateChart.destroy();
         const exchangeRateDatasets = [{
             label: 'USD/KRW Exchange Rate',
@@ -693,7 +684,7 @@ async function loadAndDisplayData() {
             false
         );
 
-        // 차트와 테이블 렌더링 함수 (중복 선언 제거)
+        // 차트와 테이블 렌더링 함수 (KCCI, SCFI, WCI, IACI, FBX, XSI, MBCI)
         function renderChartAndTable(indexType, chartId, tableId, chartData, tableData) {
             console.log(`Rendering ${indexType}:`, { chartId, tableId });
 
@@ -738,15 +729,111 @@ async function loadAndDisplayData() {
             console.log(`${indexType} Table rendered.`);
         }
 
-        // 각 지수 렌더링
+        // KCCI, SCFI, WCI, IACI, FBX, XSI, MBCI 렌더링
         renderChartAndTable('KCCI', 'KCCIChart', 'KCCITableContainer', chartDataBySection.KCCI, tableDataBySection.KCCI);
         renderChartAndTable('SCFI', 'SCFIChart', 'SCFITableContainer', chartDataBySection.SCFI, tableDataBySection.SCFI);
         renderChartAndTable('WCI', 'WCIChart', 'WCITableContainer', chartDataBySection.WCI, tableDataBySection.WCI);
         renderChartAndTable('IACI', 'IACIChart', 'IACITableContainer', chartDataBySection.IACI, tableDataBySection.IACI);
-        renderChartAndTable('BLANK_SAILING', 'blankSailingChart', 'BLANK_SAILINGTableContainer', chartDataBySection.BLANK_SAILING, tableDataBySection.BLANK_SAILING);
         renderChartAndTable('FBX', 'FBXChart', 'FBXTableContainer', chartDataBySection.FBX, tableDataBySection.FBX);
         renderChartAndTable('XSI', 'XSIChart', 'XSITableContainer', chartDataBySection.XSI, tableDataBySection.XSI);
         renderChartAndTable('MBCI', 'MBCIChart', 'MBCITableContainer', chartDataBySection.MBCI, tableDataBySection.MBCI);
+
+        // BLANK_SAILING (이전 코드 방식으로 복구)
+        const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
+        const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
+        const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
+        const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
+
+        const blankSailingDatasets = [
+            {
+                label: "Gemini Cooperation",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1,
+                fill: true
+            },
+            {
+                label: "MSC",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1,
+                fill: true
+            },
+            {
+                label: "OCEAN Alliance",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1,
+                fill: true
+            },
+            {
+                label: "Premier Alliance",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1,
+                fill: true
+            },
+            {
+                label: "Others/Independent",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1,
+                fill: true
+            },
+            {
+                label: "Total",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 2,
+                fill: true
+            }
+        ].filter(dataset => dataset.data.some(point => point.y != null));
+
+        if (blankSailingDatasets.length === 0) {
+            console.warn("No valid datasets for BLANK_SAILING. Check chart_data.BLANK_SAILING.");
+            const tableContainer = document.getElementById('BLANK_SAILINGTableContainer');
+            if (tableContainer) {
+                tableContainer.innerHTML = '<p class="text-gray-600 text-center">No data available.</p>';
+            }
+        } else {
+            blankSailingChart = setupChart(
+                'blankSailingChart', 'bar',
+                blankSailingDatasets,
+                {
+                    scales: {
+                        x: {
+                            stacked: true,
+                            type: 'time',
+                            time: {
+                                unit: 'month',
+                                displayFormats: { month: 'MM/01/yy' },
+                                tooltipFormat: 'M/d/yyyy'
+                            },
+                            title: { display: false }
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            title: { display: false }
+                        }
+                    }
+                },
+                true
+            );
+            console.log("BLANK_SAILING Chart rendered.");
+        }
+
+        renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
+            currentIndexDate: formatDateForTable(BSLatestDate),
+            previousIndexDate: formatDateForTable(BSPrevDate)
+        });
+        console.log("BLANK_SAILING Table rendered.");
 
         // 슬라이더 설정
         const chartSlides = document.querySelectorAll('.chart-slider-container > .chart-slide');
@@ -769,6 +856,5 @@ async function loadAndDisplayData() {
         }
     }
 }
-
     loadAndDisplayData();
 });
