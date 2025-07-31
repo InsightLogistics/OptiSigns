@@ -234,13 +234,15 @@ footer {
 }
 
 .top-info-slide h3 {
-    font-size: 1em;
-    margin-bottom: 1px;
-    font-weight: bold;
-    line-height: 1.1;
-    white-space: normal;
-    word-break: keep-all;
-    padding-top: 5px;
+  position: absolute; /* 좌측 상단 고정 */
+  top: 10px;
+  left: 15px;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  color: #003A52;
+  background-color: white; /* 필요 시 배경 지정 */
+  z-index: 20;
 }
 
 .top-info-slide p {
