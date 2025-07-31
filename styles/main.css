@@ -137,18 +137,19 @@ header h1 {
     margin: 0 auto;
 }
 
+/* 차트 슬라이더 컨테이너 */
 .chart-slider-container {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background-color: transparent;
+    background-color: #fff;
     padding: 0;
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100%;
 }
 
 .chart-slide {
@@ -582,44 +583,26 @@ div.chart-container canvas ~ ul.chartjs-legend > li > span:first-child {
 
 /* 반응형: 큰 화면 */
 @media (min-width: 1920px) {
-    .slide-header h3 {
+    .chart-section h2 {
         font-size: 1.5rem;
     }
-    .world-clock-list {
-        font-size: 1rem;
-    }
-    .weather-current-info {
-        font-size: 1.2rem;
-    }
-    .weather-details {
-        font-size: 0.9rem;
-    }
-    .exchange-rate-info {
-        font-size: 1.2rem;
-    }
-    .forecast-table {
+    .data-table {
         font-size: 0.8rem;
+    }
+    .chart-container {
+        height: 65%;
     }
 }
 
 /* 반응형: 작은 화면 */
 @media (max-width: 1366px) {
-    .slide-header h3 {
+    .chart-section h2 {
         font-size: 1rem;
     }
-    .world-clock-list {
-        font-size: 0.7rem;
-    }
-    .weather-current-info {
-        font-size: 0.9rem;
-    }
-    .weather-details {
+    .data-table {
         font-size: 0.6rem;
     }
-    .exchange-rate-info {
-        font-size: 0.9rem;
-    }
-    .forecast-table {
-        font-size: 0.6rem;
+    .chart-container {
+        height: 55%;
     }
 }
