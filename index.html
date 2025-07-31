@@ -33,70 +33,63 @@
                         </ul>
                     </div>
 
-                    <!-- top-info-slider의 헤더와 본문을 분리하는 구조로 수정 -->
-                    <div class="top-info-wrapper">
-                        <div class="top-info-header">
-                            <!-- JS를 통해 제목이 동적으로 업데이트될 영역 -->
-                            <h3 id="top-info-title">World Clocks</h3>
-                            <!-- 제목 아래에 그려질 회색 구분선 -->
-                            <div class="header-divider"></div>
+                    <div class="top-info-slider-container">
+                        <div class="top-info-slide active" id="top-info-slide-1">
+                            <h3>World Clocks</h3>
+                            <div class="world-clock-list">
+                                <div class="world-clock-item">
+                                    <span>Los Angeles</span>
+                                    <span id="time-la">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>New York</span>
+                                    <span id="time-ny">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Paris</span>
+                                    <span id="time-paris">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Shanghai</span>
+                                    <span id="time-shanghai">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Seoul</span>
+                                    <span id="time-seoul">--:--:--</span>
+                                </div>
+                                <div class="world-clock-item">
+                                    <span>Sydney</span>
+                                    <span id="time-sydney">--:--:--</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="top-info-slider-container">
-                            <!-- 각 슬라이드에서 h3를 제거하고, 제목을 data-title 속성으로 옮겼습니다. -->
-                            <div class="top-info-slide active" id="top-info-slide-1" data-title="World Clocks">
-                                <div class="world-clock-list">
-                                    <div class="world-clock-item">
-                                        <span>Los Angeles</span>
-                                        <span id="time-la">--:--:--</span>
-                                    </div>
-                                    <div class="world-clock-item">
-                                        <span>New York</span>
-                                        <span id="time-ny">--:--:--</span>
-                                    </div>
-                                    <div class="world-clock-item">
-                                        <span>Paris</span>
-                                        <span id="time-paris">--:--:--</span>
-                                    </div>
-                                    <div class="world-clock-item">
-                                        <span>Shanghai</span>
-                                        <span id="time-shanghai">--:--:--</span>
-                                    </div>
-                                    <div class="world-clock-item">
-                                        <span>Seoul</span>
-                                        <span id="time-seoul">--:--:--</span>
-                                    </div>
-                                    <div class="world-clock-item">
-                                        <span>Sydney</span>
-                                        <span id="time-sydney">--:--:--</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="top-info-slide" id="top-info-slide-2" data-title="Weather in Los Angeles">
-                                <div class="weather-current-info">
-                                    <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
-                                    <span id="temperature-current">--°F</span>
-                                    <span id="status-current">Loading...</span>
-                                </div>
-                                <div class="weather-details">
-                                    <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
-                                    <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
-                                    <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
-                                    <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
-                                    <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
-                                    <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
-                                </div>
-                                <div id="forecast-table-container" class="mt-4">
-                                    <p class="text-gray-600 text-center">Loading forecast data...</p></div>
+                        <div class="top-info-slide" id="top-info-slide-2">
+                            <h3>Weather in Los Angeles</h3>
+                            <div class="weather-current-info">
+                                <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
+                                <span id="temperature-current">--°F</span>
+                                <span id="status-current">Loading...</span>
                             </div>
+                            <div class="weather-details">
+                                <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
+                                <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
+                                <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
+                                <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
+                                <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
+                                <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
+                            </div>
+                            <div id="forecast-table-container" class="mt-4">
+                                <p class="text-gray-600 text-center">Loading forecast data...</p></div>
+                        </div>
 
-                            <div class="top-info-slide" id="top-info-slide-3" data-title="USD to KRW Exchange Rate">
-                                <div class="exchange-rate-info">
-                                    <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
-                                </div>
-                                <div class="exchange-rate-chart-container">
-                                    <canvas id="exchangeRateChartCanvas"></canvas>
-                                </div>
+                        <div class="top-info-slide" id="top-info-slide-3">
+                            <h3>USD to KRW Exchange Rate</h3>
+                            <div class="exchange-rate-info">
+                                <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                            </div>
+                            <div class="exchange-rate-chart-container">
+                                <canvas id="exchangeRateChartCanvas"></canvas>
                             </div>
                         </div>
                     </div>
