@@ -123,7 +123,7 @@ header h1 {
 }
 
 .chart-section h2 {
-    font-size: 1.8em;
+    font-size: 1.5em; /* 폰트 크기 조정 */
     color: #003A52;
     font-weight: 700;
 }
@@ -260,7 +260,7 @@ footer {
 }
 
 .announcements-section h2 {
-    font-size: 1.6em;
+    font-size: 1.3em; /* 폰트 크기 조정 */
     color: #003A52;
     font-weight: 700;
 }
@@ -435,7 +435,7 @@ footer {
 
 /* KCCI Indices 헤더 스타일 */
 .table-section h3 {
-    font-size: 1.2em;
+    font-size: 1.0em; /* 폰트 크기 조정 */
     color: #003A52;
     font-weight: 700;
 }
