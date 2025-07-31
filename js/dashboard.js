@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headerRow.insertCell().textContent = ''; 
 
                     // 날짜 헤더 추가 (최대 7일까지)
-                    forecastWeatherData.slice(0, 7).forEach(day => {
+                    forecastWeatherData.slice(0, 3).forEach(day => {
                         const th = document.createElement('th');
                         th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
                         th.textContent = day.date || '--'; // 날짜만 표시
@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Min/Max 온도 행 생성
                     const minMaxRow = document.createElement('tr');
                     minMaxRow.insertCell().textContent = 'Min/Max'; // 첫 번째 셀 레이블
-                    forecastWeatherData.slice(0, 7).forEach(day => {
+                    forecastWeatherData.slice(0, 3).forEach(day => {
                         const td = document.createElement('td');
                         if (day.min_temp && day.max_temp) {
                             td.textContent = `${day.min_temp}°F/${day.max_temp}°F`;
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Weather 상태 행 생성
                     const weatherStatusRow = document.createElement('tr');
                     weatherStatusRow.insertCell().textContent = 'Weather'; // 첫 번째 셀 레이블
-                    forecastWeatherData.slice(0, 7).forEach(day => {
+                    forecastWeatherData.slice(0, 3).forEach(day => {
                         const td = document.createElement('td');
                         // 괄호와 영어 텍스트 제거 (정규식 사용)
                         if (day.status) {
