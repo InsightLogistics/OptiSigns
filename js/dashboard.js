@@ -563,12 +563,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             allDashboardData = await response.json();
             console.log("Loaded all dashboard data:", allDashboardData);
-
+    
             const chartDataBySection = allDashboardData.chart_data || {};
+            const tableDataBySection = allDashboardData.table_data || {};
             const weatherData = allDashboardData.weather_data || {};
             const exchangeRatesData = allDashboardData.exchange_rate || [];
-            const tableDataBySection = allDashboardData.table_data || {};
-
+    
+            // 디버깅: 차트와 테이블 데이터 확인
+            console.log("Chart Data by Section:", chartDataBySection);
+            console.log("Table Data by Section:", tableDataBySection);
+        
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
@@ -733,116 +737,150 @@ document.addEventListener('DOMContentLoaded', () => {
                 false // 환율 차트는 월별 집계를 하지 않으므로 false 유지
             );
 
-            // 각 지수별 최신/이전 날짜를 가져오는 헬퍼 함수
-            const getLatestAndPreviousDates = (chartData) => {
-                if (!chartData || chartData.length < 2) return { latestDate: null, previousDate: null };
-                const sortedData = [...chartData].sort((a, b) => new Date(b.date) - new Date(a.date));
-                const latestDate = sortedData[0] ? new Date(sortedData[0].date) : null;
-                const previousDate = sortedData[1] ? new Date(sortedData[1].date) : null;
-                return { latestDate, previousDate };
-            };
-
-
-            // KCCI 차트 및 테이블
-            const KCCIData = chartDataBySection.KCCI || [];
-            const { latestDate: KCCILatestDate, previousDate: KCCIPrevDate } = getLatestAndPreviousDates(KCCIData);
-            const KCCITableRows = tableDataBySection.KCCI ? tableDataBySection.KCCI.rows : [];
-            const KCCIDatasets = createDatasetsFromTableRows('KCCI', KCCIData, KCCITableRows);
-            KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, {}, false);
-            renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, KCCITableRows, {
-                currentIndexDate: formatDateForTable(KCCILatestDate),
-                previousIndexDate: formatDateForTable(KCCIPrevDate)
-            });
-
-
-            // SCFI 차트 및 테이블
-            const SCFIData = chartDataBySection.SCFI || [];
-            const { latestDate: SCFILatestDate, previousDate: SCFIPrevDate } = getLatestAndPreviousDates(SCFIData);
-            const SCFITableRows = tableDataBySection.SCFI ? tableDataBySection.SCFI.rows : [];
-            const SCFIDatasets = createDatasetsFromTableRows('SCFI', SCFIData, SCFITableRows);
-            SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, {}, false);
-            renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, SCFITableRows, {
-                currentIndexDate: formatDateForTable(SCFILatestDate),
-                previousIndexDate: formatDateForTable(SCFIPrevDate)
-            });
-
-
-            // WCI 차트 및 테이블
-            const WCIData = chartDataBySection.WCI || [];
-            const { latestDate: WCILatestDate, previousDate: WCIPrevDate } = getLatestAndPreviousDates(WCIData);
-            const WCITableRows = tableDataBySection.WCI ? tableDataBySection.WCI.rows : [];
-            const WCIDatasets = createDatasetsFromTableRows('WCI', WCIData, WCITableRows);
-            WCIChart = setupChart('WCIChart', 'line', WCIDatasets, {}, false);
-            renderTable('WCITableContainer', tableDataBySection.WCI.headers, WCITableRows, {
-                currentIndexDate: formatDateForTable(WCILatestDate),
-                previousIndexDate: formatDateForTable(WCIPrevDate)
-            });
-
-
-            // IACI 차트 및 테이블
-            const IACIData = chartDataBySection.IACI || [];
-            const { latestDate: IACILatestDate, previousDate: IACIPrevDate } = getLatestAndPreviousDates(IACIData);
-            const IACITableRows = tableDataBySection.IACI ? tableDataBySection.IACI.rows : [];
-            const IACIDatasets = createDatasetsFromTableRows('IACI', IACIData, IACITableRows);
-            IACIChart = setupChart('IACIChart', 'line', IACIDatasets, {}, false);
-            renderTable('IACITableContainer', tableDataBySection.IACI.headers, IACITableRows, {
-                currentIndexDate: formatDateForTable(IACILatestDate),
-                previousIndexDate: formatDateForTable(IACIPrevDate)
-            });
-
-
-            const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
-            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
-            
-            // Blank Sailing 테이블의 날짜는 원본 데이터의 마지막 날짜를 사용합니다.
-            const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
-            const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
-            
-            const blankSailingDatasets = [
-                {
-                    label: "Gemini Cooperation",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "MSC",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "OCEAN Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Premier Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Others/Independent",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
-                },
-                {
-                    label: "Total",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+    const renderChartAndTable = (indexType, chartId, tableId, chartData, tableData) => {
+                const data = chartData || [];
+                const { latestDate, previousDate } = getLatestAndPreviousDates(data);
+                const tableRows = tableData ? tableData.rows : [];
+                
+                console.log(`${indexType} Data:`, { data, tableRows, latestDate, previousDate });
+    
+                if (!document.getElementById(chartId)) {
+                    console.warn(`Chart canvas with ID ${chartId} not found.`);
+                    return;
                 }
-            ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
+                if (!document.getElementById(tableId)) {
+                    console.warn(`Table container with ID ${tableId} not found.`);
+                    return;
+                }
+    
+                const datasets = createDatasetsFromTableRows(indexType, data, tableRows);
+                if (datasets.length === 0) {
+                    console.warn(`No datasets created for ${indexType}. Check data or routeToDataKeyMap.`);
+                    document.getElementById(tableId).innerHTML = '<p class="text-gray-600 text-center">No data available for this chart.</p>';
+                    return;
+                }
+    
+                const chart = setupChart(chartId, 'line', datasets, {}, false);
+                if (chart) {
+                    console.log(`${indexType} Chart rendered successfully.`);
+                } else {
+                    console.warn(`${indexType} Chart failed to render.`);
+                }
+    
+                renderTable(tableId, tableData.headers, tableRows, {
+                    currentIndexDate: formatDateForTable(latestDate),
+                    previousIndexDate: formatDateForTable(previousDate)
+                });
+                console.log(`${indexType} Table rendered successfully.`);
+            };
+            
+// 차트와 테이블 렌더링 디버깅
+        const renderChartAndTable = (indexType, chartId, tableId, chartData, tableData) => {
+            const data = chartData || [];
+            const { latestDate, previousDate } = getLatestAndPreviousDates(data);
+            const tableRows = tableData ? tableData.rows : [];
+            
+            console.log(`${indexType} Data:`, { data, tableRows, latestDate, previousDate });
 
+            if (!document.getElementById(chartId)) {
+                console.warn(`Chart canvas with ID ${chartId} not found.`);
+                return;
+            }
+            if (!document.getElementById(tableId)) {
+                console.warn(`Table container with ID ${tableId} not found.`);
+                return;
+            }
+
+            const datasets = createDatasetsFromTableRows(indexType, data, tableRows);
+            if (datasets.length === 0) {
+                console.warn(`No datasets created for ${indexType}. Check data or routeToDataKeyMap.`);
+                document.getElementById(tableId).innerHTML = '<p class="text-gray-600 text-center">No data available for this chart.</p>';
+                return;
+            }
+
+            const chart = setupChart(chartId, 'line', datasets, {}, false);
+            if (chart) {
+                console.log(`${indexType} Chart rendered successfully.`);
+            } else {
+                console.warn(`${indexType} Chart failed to render.`);
+            }
+
+            renderTable(tableId, tableData.headers, tableRows, {
+                currentIndexDate: formatDateForTable(latestDate),
+                previousIndexDate: formatDateForTable(previousDate)
+            });
+            console.log(`${indexType} Table rendered successfully.`);
+        };
+
+        // KCCI
+        renderChartAndTable('KCCI', 'KCCIChart', 'KCCITableContainer', chartDataBySection.KCCI, tableDataBySection.KCCI);
+
+        // SCFI
+        renderChartAndTable('SCFI', 'SCFIChart', 'SCFITableContainer', chartDataBySection.SCFI, tableDataBySection.SCFI);
+
+        // WCI
+        renderChartAndTable('WCI', 'WCIChart', 'WCITableContainer', chartDataBySection.WCI, tableDataBySection.WCI);
+
+        // IACI
+        renderChartAndTable('IACI', 'IACIChart', 'IACITableContainer', chartDataBySection.IACI, tableDataBySection.IACI);
+
+        // Blank Sailing
+        const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
+        const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
+        const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
+        const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
+
+        const blankSailingDatasets = [
+            {
+                label: "Gemini Cooperation",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            },
+            {
+                label: "MSC",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            },
+            {
+                label: "OCEAN Alliance",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            },
+            {
+                label: "Premier Alliance",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            },
+            {
+                label: "Others/Independent",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            },
+            {
+                label: "Total",
+                data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
+                backgroundColor: getNextColor(),
+                borderColor: getNextBorderColor(),
+                borderWidth: 1
+            }
+        ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
+
+        if (!document.getElementById('blankSailingChart')) {
+            console.warn("Chart canvas with ID blankSailingChart not found.");
+        } else if (blankSailingDatasets.length === 0) {
+            console.warn("No datasets created for Blank Sailing.");
+            document.getElementById('BLANK_SAILINGTableContainer').innerHTML = '<p class="text-gray-600 text-center">No data available for this chart.</p>';
+        } else {
             blankSailingChart = setupChart(
                 'blankSailingChart', 'bar',
                 blankSailingDatasets,
@@ -853,77 +891,58 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'time',
                             time: {
                                 unit: 'month',
-                                displayFormats: { month: 'MM/01/yy' }, // 형식 변경
+                                displayFormats: { month: 'MM/01/yy' },
                                 tooltipFormat: 'M/d/yyyy'
                             },
-                            title: { display: false } // X축 타이틀 제거
+                            title: { display: false }
                         },
                         y: {
                             stacked: true,
                             beginAtZero: true,
-                            title: { display: false } // Y축 타이틀 제거
+                            title: { display: false }
                         }
                     }
                 },
                 true
             );
-            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
-                currentIndexDate: formatDateForTable(BSLatestDate),
-                previousIndexDate: formatDateForTable(BSPrevDate)
-            });
+            console.log("Blank Sailing Chart rendered successfully.");
+        }
 
+        renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
+            currentIndexDate: formatDateForTable(BSLatestDate),
+            previousIndexDate: formatDateForTable(BSPrevDate)
+        });
+        console.log("Blank Sailing Table rendered successfully.");
 
-            // FBX 차트 및 테이블
-            const FBXData = chartDataBySection.FBX || [];
-            const { latestDate: FBXLatestDate, previousDate: FBXPrevDate } = getLatestAndPreviousDates(FBXData);
-            const FBXTableRows = tableDataBySection.FBX ? tableDataBySection.FBX.rows : [];
-            const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, FBXTableRows);
-            FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
-            renderTable('FBXTableContainer', tableDataBySection.FBX.headers, FBXTableRows, {
-                currentIndexDate: formatDateForTable(FBXLatestDate),
-                previousIndexDate: formatDateForTable(FBXPrevDate)
-            });
+        // FBX
+        renderChartAndTable('FBX', 'FBXChart', 'FBXTableContainer', chartDataBySection.FBX, tableDataBySection.FBX);
 
+        // XSI
+        renderChartAndTable('XSI', 'XSIChart', 'XSITableContainer', chartDataBySection.XSI, tableDataBySection.XSI);
 
-            // XSI 차트 및 테이블
-            const XSIData = chartDataBySection.XSI || [];
-            const { latestDate: XSILatestDate, previousDate: XSIPrevDate } = getLatestAndPreviousDates(XSIData);
-            const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
-            const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
-            XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
-            renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows, {
-                currentIndexDate: formatDateForTable(XSILatestDate),
-                previousIndexDate: formatDateForTable(XSIPrevDate)
-            });
+        // MBCI
+        renderChartAndTable('MBCI', 'MBCIChart', 'MBCITableContainer', chartDataBySection.MBCI, tableDataBySection.MBCI);
 
-            // MBCI 차트 및 테이블
-            const MBCIData = chartDataBySection.MBCI || [];
-            const { latestDate: MBCILatestDate, previousDate: MBCIPrevDate } = getLatestAndPreviousDates(MBCIData);
-            const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
-            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows, {
-                currentIndexDate: formatDateForTable(MBCILatestDate),
-                previousIndexDate: formatDateForTable(MBCIPrevDate)
-            });
+        // 슬라이더 설정
+        setupSlider('.chart-slider-container > .chart-slide', 10000);
+        setupSlider('.top-info-slider-container > .top-info-slide', 10000);
 
-            // 슬라이더 시간 간격 설정 (10초 간격)
-            setupSlider('.chart-slider-container > .chart-slide', 10000); // <-- .chart-slides를 .chart-slider-container로 변경
-            setupSlider('.top-info-slider-container > .top-info-slide', 10000);
+        // 세계 시간 업데이트
+        updateWorldClocks();
+        setInterval(updateWorldClocks, 1000);
 
-
-            // 세계 시간 업데이트 시작
-            updateWorldClocks();
-            setInterval(updateWorldClocks, 1000); // 1초마다 업데이트
-            
-        } catch (error) {
-            console.error('Failed to load dashboard data:', error);
-            const chartSliderContainer = document.querySelector('.chart-slider-container');
-            if (chartSliderContainer) {
-                chartSliderContainer.innerHTML = '<p class="placeholder-text text-red-500">Error loading data. Please try again later.</p>';
-            }
+    } catch (error) {
+        console.error('Failed to load dashboard data:', error);
+        const chartSliderContainer = document.querySelector('.chart-slider-container');
+        if (chartSliderContainer) {
+            chartSliderContainer.innerHTML = '<p class="placeholder-text text-red-500">Error loading data. Please try again later.</p>';
+        }
+        const topInfoSliderContainer = document.querySelector('.top-info-slider-container');
+        if (topInfoSliderContainer) {
+            topInfoSliderContainer.innerHTML = '<p class="placeholder-text text-red-500">Error loading data. Please try again later.</p>';
         }
     }
+}
 
     loadAndDisplayData();
 });
