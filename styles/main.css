@@ -337,29 +337,25 @@ footer {
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
-    /* Flexbox를 사용하여 콘텐츠를 수직 중앙 정렬합니다. */
-    display: flex;
-    align-items: center;
-    /* 최소 높이를 설정하여 셀 높이가 일정하게 유지되도록 강제합니다. */
-    min-height: 28px; 
-    /* 패딩을 최소화하여 여백을 줄입니다. */
-    padding: 0 0.25rem;
+    padding: 4px 8px; /* 통일된 패딩으로 높이 제어 */
     text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    vertical-align: middle; /* 수직 중앙 정렬 */
+    min-height: 28px; 
+    word-wrap: break-word; /* 텍스트 줄바꿈 허용 */
 }
 
 /* 헤더 셀에만 폰트 굵기 적용 */
 .forecast-table th {
     font-weight: bold;
-    justify-content: center;
+    background-color: #f8f8f8; /* 배경색 추가로 가시성 향상 */
 }
 
 /* 일반 셀의 텍스트를 중앙 정렬합니다. */
 .forecast-table td {
-    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
@@ -368,8 +364,7 @@ footer {
     white-space: normal;
     text-align: left;
     padding-left: 0.5rem;
-    /* 첫 번째 열은 왼쪽 정렬을 유지합니다. */
-    justify-content: flex-start;
+    word-wrap: break-word;
 }
 
 /* 환율 정보 스타일 */
