@@ -618,16 +618,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         forecastWeatherData.slice(0, 7).forEach(day => {
                             const th = document.createElement('th');
                             th.className = 'text-sm font-semibold whitespace-nowrap leading-tight p-1 h-8';
-                
-                            // 예: 2025-07-31 -> 7/31
+                        
                             if (day.date) {
-                                const dateParts = day.date.split('-'); // ['2025','07','31']
-                                const month = parseInt(dateParts[1], 10);
-                                const dayNum = parseInt(dateParts[2], 10);
-                                th.textContent = `${month}/${dayNum}`;
+                                const dateParts = day.date.split('-'); // ['mm','dd','yyyy']
+                                if (dateParts.length === 3) {
+                                    const month = parseInt(dateParts[0], 10);
+                                    const dayNum = parseInt(dateParts[1], 10);
+                                    if (!isNaN(month) && !isNaN(dayNum)) {
+                                        th.textContent = `${month}/${dayNum}`;
+                                    } else {
+                                        th.textContent = '--';
+                                    }
+                                } else {
+                                    th.textContent = '--';
+                                }
                             } else {
                                 th.textContent = '--';
                             }
+                        
                             headerRow.appendChild(th);
                         });
                         thead.appendChild(headerRow);
