@@ -243,6 +243,7 @@ footer {
   color: #003A52;
   background-color: white; /* 필요 시 배경 지정 */
   z-index: 20;
+  border-bottom: 1px solid #e0e0e0;  
 }
 
 .top-info-slide p {
