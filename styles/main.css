@@ -339,12 +339,13 @@ footer {
 }
 
 /* 헤더 셀과 일반 셀의 높이를 일치시키기 위해 패딩과 라인 높이를 통일 */
+/* 셀의 높이를 더 좁게 하고, 최소 높이를 지정하여 정렬 문제를 해결합니다. */
 .forecast-table th,
 .forecast-table td {
     border: 1px solid #e2e8f0;
     /* 패딩을 명시적으로 top/bottom, left/right로 분리 */
-    padding-top: 0.35rem;
-    padding-bottom: 0.35rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     text-align: center;
@@ -352,8 +353,9 @@ footer {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* 최소 높이를 설정하여 셀 높이가 일정하게 유지되도록 강제합니다. */
+    min-height: 35px;
     height: auto;
-    min-height: unset;
     /* 모든 셀에 동일한 line-height 적용 */
     line-height: 1.2;
 }
