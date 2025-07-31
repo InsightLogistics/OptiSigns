@@ -329,43 +329,39 @@ footer {
 
 /* style.css 또는 인라인 스타일에 추가 */
 .forecast-table {
-    /* 기존 테이블 스타일 유지 */
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    font-size: 0.7em; /* 원래 0.75em 이었으니, 더 줄이려면 0.7em 유지 */
-    table-layout: fixed;
+    border-collapse: collapse; /* 테이블 셀 간의 경계선 합치기 */
+    table-layout: fixed; /* 테이블 너비를 고정하고 각 셀에 균등하게 배분 */
+    font-size: 0.75em; /* 원래 사용하시던 폰트 크기로 유지 또는 더 줄일 수 있음 (예: 0.7em) */
 }
 
 .forecast-table th,
 .forecast-table td {
-    border: 1px solid #e2e8f0;
-    text-align: center;
-    /* !important를 사용하여 다른 스타일보다 우선순위를 높여봅니다. */
-    padding: 0.25rem !important; /* 위아래 패딩을 0.25rem으로 더 줄여봅니다. (좌우는 0.25rem 유지) */
-    vertical-align: middle !important; /* 중앙 정렬을 강제합니다. */
-    height: auto !important; /* 높이 강제 지정을 다시 확인합니다. */
-    min-height: unset !important; /* 최소 높이 강제 해제를 다시 확인합니다. */
-    line-height: 1.2 !important; /* 행간을 명시적으로 설정하여 높이 계산에 영향을 줍니다. */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    box-sizing: border-box; /* 패딩이 너비/높이에 포함되도록 */
+    border: 1px solid #e2e8f0; /* 테두리 스타일 */
+    padding: 0.35rem 0.25rem; /* 위아래 패딩을 줄여 셀 높이를 낮추고, 좌우 패딩도 조절 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    vertical-align: middle; /* 텍스트 수직 중앙 정렬 */
+    white-space: nowrap; /* 내용이 줄바꿈되지 않도록 (필요시 변경) */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 넘치는 내용 ...으로 표시 */
+    height: auto; /* 명시적인 높이 설정 제거 */
+    min-height: unset; /* 최소 높이 설정 제거 */
+    line-height: 1.2; /* 행간을 명시적으로 설정하여 높이 제어 */
 }
 
-/* 첫 번째 열 (Min/Max, Weather 레이블)의 스타일 재확인 */
+/* 테이블 헤더 셀 스타일 */
+.forecast-table th {
+    font-weight: bold; /* 헤더 글씨 굵게 */
+    padding-top: 0.5rem; /* 헤더 상단 패딩 */
+    padding-bottom: 0.5rem; /* 헤더 하단 패딩 */
+}
+
+/* 첫 번째 열 (Min/Max, Weather 레이블) 스타일 */
 .forecast-table td:first-child {
-    width: 80px; /* 고정 너비 유지 */
-    white-space: normal; /* 첫 번째 셀은 줄바꿈 허용 */
-    text-align: left !important; /* 첫 번째 셀은 왼쪽 정렬 강제 */
-    padding-left: 0.5rem !important;
-}
-
-/* 테이블 바디의 tr 요소에 직접 적용 (혹시 tbody의 기본 스타일이 간섭할까봐) */
-.forecast-table tbody tr {
-    height: auto !important;
-    min-height: unset !important;
-    line-height: normal !important;
+    width: 80px; /* 레이블 열 너비 고정 */
+    white-space: normal; /* 첫 번째 셀은 줄바꿈 허용 (레이블이 길 경우 대비) */
+    text-align: left; /* 첫 번째 셀 텍스트 왼쪽 정렬 */
+    padding-left: 0.5rem; /* 첫 번째 셀 왼쪽 패딩 */
 }
 
 .exchange-rate-info {
