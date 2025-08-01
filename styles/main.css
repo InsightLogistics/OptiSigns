@@ -282,7 +282,7 @@ footer {
 /* 공지사항 섹션 */
 .announcements-section {
     background-color: #fff;
-    padding: 5px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     width: 100%;
@@ -292,7 +292,7 @@ footer {
 }
 
 .announcements-section h2 {
-    font-size: 1.3em; /* 폰트 크기 조정 */
+    font-size: 1.0rem; /* 폰트 크기 조정 */
     color: #003A52;
     font-weight: 700;
 }
