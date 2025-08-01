@@ -469,55 +469,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
-        const datasets = [];
-        const mapping = routeToDataKeyMap[indexType];
-        if (!mapping) {
-            console.warn(`No data key mapping found for index type: ${indexType}`);
-            return datasets;
-        }
-    
-        // 각 차트 유형마다 색상 인덱스를 초기화하여 색상 할당이 일관되도록 합니다.
-        colorIndex = 0; 
-    
-        tableRows.forEach(row => {
-            const originalRouteName = row.route.split('_').slice(1).join('_');
-            const dataKey = mapping[originalRouteName];
-            
-            if (dataKey !== null && dataKey !== undefined && row.current_index !== "") { 
-                const mappedData = chartData.map(item => {
-                    const xVal = item.date;
-                    const yVal = item[dataKey];
-                    return { x: xVal, y: yVal };
-                });
-    
-                const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
-    
-                if (filteredMappedData.length > 0) {
-                    // borderColors 배열에서 하나의 색상을 가져와서
-                    // 차트 라인 색상(borderColor)과 범례 채우기 색상(backgroundColor) 모두에 사용합니다.
-                    const sharedColor = borderColors[colorIndex % borderColors.length]; 
-                    colorIndex++; 
-    
-                    datasets.push({
-                        label: originalRouteName,
-                        data: filteredMappedData,
-                        backgroundColor: sharedColor, // 범례 채우기 색상 (테두리 없음)
-                        borderColor: sharedColor,     // 차트 라인 색상
-                        borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
-                        fill: false
-                    });
-                } else {
-                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteName}' (dataKey: '${dataKey}'). Skipping dataset.`);
-                }
-            } else if (dataKey === null) {
-                console.info(`INFO: Skipping chart dataset for route '${row.route}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
-            } else {
-                console.warn(`WARNING: No dataKey found or current_index is empty for ${indexType} - route: '${row.route}'. Skipping dataset.`);
-            }
-        });
-        return datasets;
-    };
+const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
+        const datasets = [];
+        const mapping = routeToDataKeyMap[indexType];
+        if (!mapping) {
+            console.warn(`No data key mapping found for index type: ${indexType}`);
+            return datasets;
+        }
+    
+        // 각 차트 유형마다 색상 인덱스를 초기화하여 색상 할당이 일관되도록 합니다.
+        colorIndex = 0; 
+    
+        tableRows.forEach(row => {
+            const originalRouteName = row.route.split('_').slice(1).join('_');
+            const dataKey = mapping[originalRouteName];
+            
+            if (dataKey !== null && dataKey !== undefined && row.current_index !== "") { 
+                const mappedData = chartData.map(item => {
+                    const xVal = item.date;
+                    const yVal = item[dataKey];
+                    return { x: xVal, y: yVal };
+                });
+    
+                const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
+    
+                if (filteredMappedData.length > 0) {
+                    const sharedColor = borderColors[colorIndex % borderColors.length]; 
+                    colorIndex++; 
+    
+                    // 여기부터 수정된 부분입니다.
+                    let datasetConfig = {
+                        label: originalRouteName,
+                        data: filteredMappedData,
+                        backgroundColor: sharedColor,
+                        borderColor: sharedColor,     
+                        borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
+                        fill: false
+                    };
+
+                    // BLANKSAILING 차트인 경우 테두리를 없애는 조건 추가
+                    if (indexType === 'BLANKSAILING') {
+                        datasetConfig.borderColor = 'rgba(0, 0, 0, 0)'; // 테두리 색상을 투명하게
+                        datasetConfig.borderWidth = 0; // 테두리 두께를 0으로
+                    }
+    
+                    datasets.push(datasetConfig);
+                } else {
+                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteName}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                }
+            } else if (dataKey === null) {
+                console.info(`INFO: Skipping chart dataset for route '${row.route}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
+            } else {
+                console.warn(`WARNING: No dataKey found or current_index is empty for ${indexType} - route: '${row.route}'. Skipping dataset.`);
+            }
+        });
+        return datasets;
+    };
 
     // 날씨 아이콘 매핑
     const weatherIconMapping = {
