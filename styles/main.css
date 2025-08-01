@@ -169,7 +169,7 @@ header h1 {
 .chart-container {
     position: relative;
     /* height: 70%; <-- 이 줄을 완전히 제거하거나 주석 처리합니다. */
-    min-height: 200px; /* 차트의 최소 높이를 지정합니다. 필요에 따라 값을 조절하세요. */
+    min-height: 450px; /* 차트의 최소 높이를 지정합니다. 필요에 따라 값을 조절하세요. */
     width: 100%;
     margin: 0 auto;
 }
