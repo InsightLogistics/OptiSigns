@@ -42,6 +42,9 @@ html, body {
     .container {
         width: calc(100vh * 16 / 9);
         height: 100vh;
+        /* media 쿼리 안에서도 가운데 정렬이 유지되도록 추가 */
+        margin-left: auto; /* <-- 이 줄을 추가 */
+        margin-right: auto; /* <-- 이 줄을 추가 */
     }
 }
 
