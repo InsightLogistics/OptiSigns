@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
-            "MBCI": "MBCI_Value"
+            "종합지수": "MBCI_Value"
         }
     };
 
