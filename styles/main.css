@@ -17,6 +17,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
     transform: none;
     
     /* 16:9 비율 유지하며 화면 채우기 */
