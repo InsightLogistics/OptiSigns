@@ -144,7 +144,6 @@ header h1 {
     /* height: 100%; 이전에 제거하셨거나 주석 처리했을 겁니다. */
     min-height: 250px; /* 이 값도 필요에 따라 조절하여 최소 높이를 설정합니다. */
     box-sizing: border-box;
-    margin-bottom: 20px; /* 이전에 추가했던 마진 (필요시 조절) */
     /* 여기에 max-height를 추가합니다. */
 }
 
