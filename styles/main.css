@@ -142,9 +142,9 @@ header h1 {
     flex-direction: row; /* 기존 column -> row로 변경 */
     gap: 15px; /* 차트 섹션과 테이블 섹션 사이의 간격 */
 
-    height: 100%; /* 부모 .chart-slide의 높이를 채우도록 설정 */
     min-height: 250px; /* 박스가 내용 없이도 최소 높이를 가지도록 강제 */
     box-sizing: border-box; /* 패딩이 전체 높이에 포함되도록 */
+    margin-bottom: 0px; /* 이 줄을 추가하여 하단 마진을 조절합니다. 원하는 값으로 변경하세요. */
 }
 
 .chart-section {
