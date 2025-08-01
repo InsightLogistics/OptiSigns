@@ -110,7 +110,7 @@ header h1 {
 .table-section h3 {
     text-align: left; /* 헤더 좌측 정렬 */
     padding-left: 15px; /* 카드 좌측 패딩과 동일하게 설정 */
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     border-bottom: 1px solid #e0e0e0; /* 헤더 아래 회색 구분선 추가 */
     margin-bottom: 15px; /* 헤더와 본문 간격 조절 */
     margin-top: 0;
