@@ -410,7 +410,7 @@ def fetch_and_process_data():
         processed_table_data = {}
         for section_key, table_details in TABLE_DATA_CELL_MAPPINGS.items():
             print(f"DEBUG: Processing table section: {section_key}") # 추가된 디버그 로그
-            table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+            table_headers = ["Route", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
             # BLANKSAILING 섹션은 특별 처리
