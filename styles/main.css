@@ -2,8 +2,8 @@
 
 /* 전체 페이지 레이아웃 및 폰트 설정 */
 html, body {
-    width: 100vw;
-    height: 100vh;
+    width: 105vw;
+    height: 105vh;
     margin: 0;
     padding: 0;
     overflow: hidden;
