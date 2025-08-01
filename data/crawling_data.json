@@ -7161,9 +7161,9 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "68.49",
+            "LA_Temperature": "67.48",
             "LA_WeatherStatus": "흐림(overcast clouds)",
-            "LA_Humidity": "79",
+            "LA_Humidity": "81",
             "LA_WindSpeed": "6.91",
             "LA_Pressure": "1018",
             "LA_Visibility": "6.2",
@@ -7174,7 +7174,7 @@
             {
                 "date": "8/1/2025",
                 "min_temp": "67.5",
-                "max_temp": "79.3",
+                "max_temp": "79.6",
                 "status": "흐림(overcast clouds)"
             },
             {
