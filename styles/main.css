@@ -85,7 +85,7 @@ header h1 {
 .world-clock-item {
     display: flex;
     flex-direction: column; /* 도시명 아래에 시간이 나오도록 변경 */
-    align-items: flex-start;
+    align-items: center;
     padding: 0.2rem 0.25rem;
     font-size: 0.8em;
     line-height: 1.2;
