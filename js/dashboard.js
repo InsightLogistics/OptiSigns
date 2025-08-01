@@ -431,13 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
         IACI: {
             "종합지수": "IACI_Composite_Index"
         },
-        BLANK_SAILING: {
-            "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
-            "MSC": "BLANK_SAILING_MSC",
-            "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
-            "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
-            "Others/Independent": "BLANK_SAILING_Others_Independent",
-            "Total": "BLANK_SAILING_Total"
+        BLANKSAILING: {
+            "Gemini Cooperation": "BLANKSAILING_Gemini_Cooperation",
+            "MSC": "BLANKSAILING_MSC",
+            "OCEAN Alliance": "BLANKSAILING_OCEAN_Alliance",
+            "Premier Alliance": "BLANKSAILING_Premier_Alliance",
+            "Others/Independent": "BLANKSAILING_Others_Independent",
+            "Total": "BLANKSAILING_Total"
         },
         FBX: {
             "종합지수": "FBX_Composite_Index",
@@ -834,52 +834,52 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
 
-            const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
+            const blankSailingRawData = chartDataBySection.BLANKSAILING || [];
             const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
             
             // Blank Sailing 테이블의 날짜는 원본 데이터의 마지막 날짜를 사용합니다.
             const { latestDate: BSLatestDate, previousDate: BSPrevDate } = getLatestAndPreviousDates(blankSailingRawData);
-            const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
+            const blankSailingTableRows = tableDataBySection.BLANKSAILING ? tableDataBySection.BLANKSAILING.rows : [];
             
             const blankSailingDatasets = [
                 {
                     label: "Gemini Cooperation",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Gemini_Cooperation })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: "MSC",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_MSC })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: "OCEAN Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_OCEAN_Alliance })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: "Premier Alliance",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Premier_Alliance })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: "Others/Independent",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Others_Independent })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: "Total",
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })),
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Total })),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1
@@ -910,7 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 true
             );
-            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows, {
+            renderTable('BLANKSAILINGTableContainer', tableDataBySection.BLANKSAILING.headers, blankSailingTableRows, {
                 currentIndexDate: formatDateForTable(BSLatestDate),
                 previousIndexDate: formatDateForTable(BSPrevDate)
             });
