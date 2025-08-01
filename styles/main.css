@@ -355,7 +355,7 @@ footer {
     table-layout: fixed !important;
     border-collapse: collapse !important;
     border-spacing: 0 !important;
-    font-size: 0.75em;
+    font-size: 0.65em;
 }
 
 /* forecast-table의 모든 셀에 공통으로 적용되는 스타일 */
@@ -364,7 +364,7 @@ footer {
 .forecast-table td {
     box-sizing: border-box !important;
     border: 1px solid #e2e8f0;
-    padding: 2px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
+    padding: 0px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
     margin: 0 !important;
     vertical-align: middle;
     line-height: 1.2;
@@ -375,7 +375,7 @@ footer {
     background-color: #f8f8f8;
     font-weight: 600 !important; /* bold와 600 중 하나로 통일 */
     color: #003A52;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     height: auto; /* 고정된 높이를 제거하여 내용에 따라 유동적으로 변경되도록 함 */
     overflow: hidden;
 }
@@ -410,7 +410,7 @@ footer {
 
 /* 현재 환율 값의 폰트 크기 조정 */
 .exchange-rate-info #current-exchange-rate-value {
-    font-size: 1.2em; /* 폰트 크기 줄임 */
+    font-size: 0.75em; /* 폰트 크기 줄임 */
     font-weight: bold;
     color: #00657e;
     margin-bottom: 5px;
@@ -421,7 +421,7 @@ footer {
     height: 65%;
     width: 95%;
     margin: 0 auto;
-    margin-top: 15px; /* 본문 위쪽 여백 추가 */    
+    margin-top: 5px; /* 본문 위쪽 여백 추가 */    
 }
 
 .exchange-rate-chart-container canvas {

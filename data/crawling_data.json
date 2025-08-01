@@ -2310,10 +2310,6 @@
         ],
         "IACI": [
             {
-                "date": "2024-07-31",
-                "IACI_Composite_Index": 929
-            },
-            {
                 "date": "2024-08-15",
                 "IACI_Composite_Index": 907
             },
@@ -2399,15 +2395,6 @@
             }
         ],
         "BLANK_SAILING": [
-            {
-                "date": "2025-01-24",
-                "BLANK_SAILING_Gemini_Cooperation": 10,
-                "BLANK_SAILING_MSC": 10,
-                "BLANK_SAILING_OCEAN_Alliance": 20,
-                "BLANK_SAILING_Premier_Alliance": 30,
-                "BLANK_SAILING_Others_Independent": 15,
-                "BLANK_SAILING_Total": 17
-            },
             {
                 "date": "2025-01-31",
                 "BLANK_SAILING_Gemini_Cooperation": 11,
@@ -2641,6 +2628,15 @@
                 "BLANK_SAILING_Premier_Alliance": 12,
                 "BLANK_SAILING_Others_Independent": 5,
                 "BLANK_SAILING_Total": 7
+            },
+            {
+                "date": "2025-08-01",
+                "BLANK_SAILING_Gemini_Cooperation": 0,
+                "BLANK_SAILING_MSC": 9,
+                "BLANK_SAILING_OCEAN_Alliance": 11,
+                "BLANK_SAILING_Premier_Alliance": 9,
+                "BLANK_SAILING_Others_Independent": 6,
+                "BLANK_SAILING_Total": 7
             }
         ],
         "FBX": [
@@ -2648,7 +2644,7 @@
                 "date": "2024-08-02",
                 "FBX_Composite_Index": 4924,
                 "FBX_China_EA_US_West_Coast": 6891,
-                "FBX_US_West_Coast_China_EA": 334,
+                "FBX_US_West_Coast_China_EA": 314,
                 "FBX_China_EA_US_East_Coast": 9661,
                 "FBX_US_East_Coast_China_EA": 449,
                 "FBX_China_EA_North_Europe": 8429,
@@ -3459,20 +3455,25 @@
                 "FBX_North_Europe_US_East_Coast": 1929,
                 "FBX_Europe_South_America_East_Coast": 714,
                 "FBX_Europe_South_America_West_Coast": 3154
+            },
+            {
+                "date": "2025-08-01",
+                "FBX_Composite_Index": 2338,
+                "FBX_China_EA_US_West_Coast": 2335,
+                "FBX_US_West_Coast_China_EA": 373,
+                "FBX_China_EA_US_East_Coast": 4011,
+                "FBX_US_East_Coast_China_EA": 373,
+                "FBX_China_EA_North_Europe": 3425,
+                "FBX_North_Europe_China_EA": 415,
+                "FBX_China_EA_Mediterranean": 3278,
+                "FBX_Mediterranean_China_EA": 549,
+                "FBX_US_East_Coast_North_Europe": 476,
+                "FBX_North_Europe_US_East_Coast": 1929,
+                "FBX_Europe_South_America_East_Coast": 769,
+                "FBX_Europe_South_America_West_Coast": 3134
             }
         ],
         "XSI": [
-            {
-                "date": "2024-07-31",
-                "XSI_East_Asia_North_Europe": 8532,
-                "XSI_North_Europe_East_Asia": 483,
-                "XSI_East_Asia_US_West_Coast": 6877,
-                "XSI_US_West_Coast_East_Asia": 687,
-                "XSI_East_Asia_South_America_East_Coast": 8676,
-                "XSI_North_Europe_US_East_Coast": 1825,
-                "XSI_US_East_Coast_North_Europe": 556,
-                "XSI_North_Europe_South_America_East_Coast": 549
-            },
             {
                 "date": "2024-08-01",
                 "XSI_East_Asia_North_Europe": 8398,
@@ -6200,6 +6201,17 @@
                 "XSI_North_Europe_US_East_Coast": 1989,
                 "XSI_US_East_Coast_North_Europe": 643,
                 "XSI_North_Europe_South_America_East_Coast": 611
+            },
+            {
+                "date": "2025-07-31",
+                "XSI_East_Asia_North_Europe": 3399,
+                "XSI_North_Europe_East_Asia": 234,
+                "XSI_East_Asia_US_West_Coast": 2170,
+                "XSI_US_West_Coast_East_Asia": 642,
+                "XSI_East_Asia_South_America_East_Coast": 5611,
+                "XSI_North_Europe_US_East_Coast": 1989,
+                "XSI_US_East_Coast_North_Europe": 644,
+                "XSI_North_Europe_South_America_East_Coast": 609
             }
         ],
         "MBCI": [
@@ -6846,52 +6858,52 @@
                 },
                 {
                     "route": "BLANK_SAILING_MSC",
-                    "current_index": 8.0,
-                    "previous_index": 5.0,
+                    "current_index": 9.0,
+                    "previous_index": 8.0,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "60.00%",
+                        "value": "1.00",
+                        "percentage": "12.50%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "BLANK_SAILING_OCEAN Alliance",
-                    "current_index": 10.0,
-                    "previous_index": 7.0,
+                    "current_index": 11.0,
+                    "previous_index": 10.0,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "42.86%",
+                        "value": "1.00",
+                        "percentage": "10.00%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "BLANK_SAILING_Premier Alliance",
-                    "current_index": 12.0,
-                    "previous_index": 6.0,
+                    "current_index": 9.0,
+                    "previous_index": 12.0,
                     "weekly_change": {
-                        "value": "6.00",
-                        "percentage": "100.00%",
-                        "color_class": "text-red-500"
+                        "value": "-3.00",
+                        "percentage": "-25.00%",
+                        "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "BLANK_SAILING_Others/Independent",
-                    "current_index": 5.0,
-                    "previous_index": 2.0,
+                    "current_index": 6.0,
+                    "previous_index": 5.0,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "150.00%",
+                        "value": "1.00",
+                        "percentage": "20.00%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "BLANK_SAILING_Total",
                     "current_index": 7.0,
-                    "previous_index": 4.0,
+                    "previous_index": 7.0,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "75.00%",
-                        "color_class": "text-red-500"
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
                     }
                 }
             ]
@@ -6906,101 +6918,101 @@
             "rows": [
                 {
                     "route": "FBX_종합지수",
-                    "current_index": 2370.0,
-                    "previous_index": 2458.0,
+                    "current_index": 2338.0,
+                    "previous_index": 2370.0,
                     "weekly_change": {
-                        "value": "-88.00",
-                        "percentage": "-3.71%",
+                        "value": "-32.00",
+                        "percentage": "-1.37%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_중국/동아시아 → 미주서안",
-                    "current_index": 2334.0,
-                    "previous_index": 2325.0,
+                    "current_index": 2335.0,
+                    "previous_index": 2334.0,
                     "weekly_change": {
-                        "value": "9.00",
-                        "percentage": "0.39%",
+                        "value": "1.00",
+                        "percentage": "0.04%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "FBX_미주서안 → 중국/동아시아",
-                    "current_index": 430.0,
+                    "current_index": 373.0,
                     "previous_index": 430.0,
                     "weekly_change": {
-                        "value": "0.00",
-                        "percentage": "0.00%",
-                        "color_class": "text-gray-700"
+                        "value": "-57.00",
+                        "percentage": "-15.28%",
+                        "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_중국/동아시아 → 미주동안",
-                    "current_index": 4113.0,
-                    "previous_index": 4411.0,
+                    "current_index": 4011.0,
+                    "previous_index": 4113.0,
                     "weekly_change": {
-                        "value": "-298.00",
-                        "percentage": "-7.25%",
+                        "value": "-102.00",
+                        "percentage": "-2.54%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_미주동안 → 중국/동아시아",
-                    "current_index": 384.0,
-                    "previous_index": 393.0,
+                    "current_index": 373.0,
+                    "previous_index": 384.0,
                     "weekly_change": {
-                        "value": "-9.00",
-                        "percentage": "-2.34%",
+                        "value": "-11.00",
+                        "percentage": "-2.95%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_중국/동아시아 → 북유럽",
-                    "current_index": 3419.0,
-                    "previous_index": 3572.0,
+                    "current_index": 3425.0,
+                    "previous_index": 3419.0,
                     "weekly_change": {
-                        "value": "-153.00",
-                        "percentage": "-4.47%",
-                        "color_class": "text-blue-500"
+                        "value": "6.00",
+                        "percentage": "0.18%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "FBX_북유럽 → 중국/동아시아",
-                    "current_index": 435.0,
-                    "previous_index": 436.0,
+                    "current_index": 415.0,
+                    "previous_index": 435.0,
                     "weekly_change": {
-                        "value": "-1.00",
-                        "percentage": "-0.23%",
+                        "value": "-20.00",
+                        "percentage": "-4.82%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_중국/동아시아 → 지중해",
-                    "current_index": 3399.0,
-                    "previous_index": 3568.0,
+                    "current_index": 3278.0,
+                    "previous_index": 3399.0,
                     "weekly_change": {
-                        "value": "-169.00",
-                        "percentage": "-4.97%",
+                        "value": "-121.00",
+                        "percentage": "-3.69%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "FBX_지중해 → 중국/동아시아",
-                    "current_index": 542.0,
-                    "previous_index": 566.0,
+                    "current_index": 549.0,
+                    "previous_index": 542.0,
                     "weekly_change": {
-                        "value": "-24.00",
-                        "percentage": "-4.43%",
-                        "color_class": "text-blue-500"
+                        "value": "7.00",
+                        "percentage": "1.28%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "FBX_미주동안 → 북유럽",
-                    "current_index": 498.0,
-                    "previous_index": 513.0,
+                    "current_index": 476.0,
+                    "previous_index": 498.0,
                     "weekly_change": {
-                        "value": "-15.00",
-                        "percentage": "-3.01%",
+                        "value": "-22.00",
+                        "percentage": "-4.62%",
                         "color_class": "text-blue-500"
                     }
                 },
@@ -7016,21 +7028,21 @@
                 },
                 {
                     "route": "FBX_유럽 → 남미동안",
-                    "current_index": 714.0,
-                    "previous_index": 725.0,
+                    "current_index": 769.0,
+                    "previous_index": 714.0,
                     "weekly_change": {
-                        "value": "-11.00",
-                        "percentage": "-1.54%",
-                        "color_class": "text-blue-500"
+                        "value": "55.00",
+                        "percentage": "7.15%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "FBX_유럽 → 남미서안",
-                    "current_index": 3154.0,
-                    "previous_index": 3241.0,
+                    "current_index": 3134.0,
+                    "previous_index": 3154.0,
                     "weekly_change": {
-                        "value": "-87.00",
-                        "percentage": "-2.76%",
+                        "value": "-20.00",
+                        "percentage": "-0.64%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -7047,80 +7059,80 @@
                 {
                     "route": "XSI_동아시아 → 북유럽",
                     "current_index": 3399.0,
-                    "previous_index": 3407.0,
+                    "previous_index": 3406.0,
                     "weekly_change": {
-                        "value": "-8.00",
-                        "percentage": "-0.24%",
+                        "value": "-7.00",
+                        "percentage": "-0.21%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 동아시아",
                     "current_index": 234.0,
-                    "previous_index": 233.0,
+                    "previous_index": 234.0,
                     "weekly_change": {
-                        "value": "1.00",
-                        "percentage": "0.43%",
-                        "color_class": "text-red-500"
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
                     }
                 },
                 {
                     "route": "XSI_동아시아 → 미주서안",
-                    "current_index": 2172.0,
-                    "previous_index": 2248.0,
+                    "current_index": 2170.0,
+                    "previous_index": 2216.0,
                     "weekly_change": {
-                        "value": "-76.00",
-                        "percentage": "-3.50%",
+                        "value": "-46.00",
+                        "percentage": "-2.12%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_미주서안 → 동아시아",
-                    "current_index": 640.0,
-                    "previous_index": 637.0,
+                    "current_index": 642.0,
+                    "previous_index": 634.0,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "0.47%",
+                        "value": "8.00",
+                        "percentage": "1.25%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_동아시아 → 남미동안",
                     "current_index": 5611.0,
-                    "previous_index": 6246.0,
+                    "previous_index": 6206.0,
                     "weekly_change": {
-                        "value": "-635.00",
-                        "percentage": "-11.32%",
+                        "value": "-595.00",
+                        "percentage": "-10.60%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 미주동안",
                     "current_index": 1989.0,
-                    "previous_index": 1988.0,
+                    "previous_index": 1990.0,
                     "weekly_change": {
-                        "value": "1.00",
-                        "percentage": "0.05%",
-                        "color_class": "text-red-500"
+                        "value": "-1.00",
+                        "percentage": "-0.05%",
+                        "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_미주동안 → 북유럽",
-                    "current_index": 643.0,
-                    "previous_index": 649.0,
+                    "current_index": 644.0,
+                    "previous_index": 647.0,
                     "weekly_change": {
-                        "value": "-6.00",
-                        "percentage": "-0.93%",
+                        "value": "-3.00",
+                        "percentage": "-0.47%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 남미동안",
-                    "current_index": 611.0,
-                    "previous_index": 622.0,
+                    "current_index": 609.0,
+                    "previous_index": 624.0,
                     "weekly_change": {
-                        "value": "-11.00",
-                        "percentage": "-1.80%",
+                        "value": "-15.00",
+                        "percentage": "-2.46%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -7149,51 +7161,51 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "83.59",
-            "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "53",
-            "LA_WindSpeed": "10.36",
-            "LA_Pressure": "1015",
+            "LA_Temperature": "65.7",
+            "LA_WeatherStatus": "옅은안개(haze)",
+            "LA_Humidity": "84",
+            "LA_WindSpeed": "5.75",
+            "LA_Pressure": "1018",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:03:46 AM",
-            "LA_Sunset": "7:54:46 PM"
+            "LA_Sunrise": "6:04:30 AM",
+            "LA_Sunset": "7:53:56 PM"
         },
         "forecast": [
             {
-                "date": "7/31/2025",
-                "min_temp": "68",
-                "max_temp": "84.1",
-                "status": "맑음(clear sky)"
-            },
-            {
                 "date": "8/1/2025",
-                "min_temp": "63.6",
-                "max_temp": "87.9",
-                "status": "맑음(clear sky)"
+                "min_temp": "67.5",
+                "max_temp": "84.5",
+                "status": "구름 많음(broken clouds)"
             },
             {
                 "date": "8/2/2025",
-                "min_temp": "71.2",
-                "max_temp": "88.4",
+                "min_temp": "69.2",
+                "max_temp": "89.1",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/3/2025",
-                "min_temp": "72.7",
-                "max_temp": "87.1",
+                "min_temp": "71.3",
+                "max_temp": "88.8",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/4/2025",
-                "min_temp": "74",
-                "max_temp": "86",
+                "min_temp": "73.8",
+                "max_temp": "88",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/5/2025",
-                "min_temp": "73",
-                "max_temp": "90.7",
-                "status": "구름 중간(scattered clouds)"
+                "min_temp": "73.5",
+                "max_temp": "91.4",
+                "status": "구름 조금(few clouds)"
+            },
+            {
+                "date": "8/6/2025",
+                "min_temp": "73.9",
+                "max_temp": "76.4",
+                "status": "맑음(clear sky)"
             }
         ]
     },
