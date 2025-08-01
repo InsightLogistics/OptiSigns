@@ -365,10 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
-                    td.textContent = content; // 값만 표시, 날짜는 헤더로 이동
+                    td.textContent = content; // 값만 표시, 날짜는 헤더로
                 } else if (header.includes('Previous Index')) {
                     content = rowData.previous_index ?? '-';
-                    td.textContent = content; // 값만 표시, 날짜는 헤더로 이동
+                    td.textContent = content; // 값만 표시, 날짜는 헤더로
                 } else if (header.includes('Route') || header.includes('route')) {
                     const displayRouteName = rowData.route ? rowData.route.split('_').slice(1).join('_') : '-';
                     td.textContent = displayRouteName;
