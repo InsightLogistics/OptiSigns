@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 날짜 헤더 (데이터가 부족해도 5개를 모두 생성하도록 수정)
                     // slice(0, 5)는 최대 5개이므로, 만약 데이터가 3개면 3개만 나옵니다.
                     // 이를 보완하여 항상 5개의 열을 만들도록 합니다.
-                    const displayForecast = forecastWeatherData.slice(0, 5);
+                    const displayForecast = forecastWeatherData.slice(1, 6);
                     const numForecastDays = 5; // 항상 5일 예보를 표시
                     
                     for (let i = 0; i < numForecastDays; i++) {
