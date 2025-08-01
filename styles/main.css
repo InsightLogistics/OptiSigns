@@ -359,7 +359,7 @@ footer {
     table-layout: fixed !important;
     border-collapse: collapse !important;
     border-spacing: 0 !important;
-    font-size: 0.65em;
+    font-size: 0.75rem;
 }
 
 /* forecast-table의 모든 셀에 공통으로 적용되는 스타일 */
@@ -370,6 +370,7 @@ footer {
     border: 1px solid #e2e8f0;
     padding: 0px 6px !important; /* 헤더와 본문 셀의 패딩을 동일하게 조정하여 높이를 맞춤 */
     margin: 0 !important;
+    font-size: 0.75rem;    
     vertical-align: middle;
     line-height: 1.2;
 }
@@ -379,7 +380,6 @@ footer {
     background-color: #f8f8f8;
     font-weight: 600 !important; /* bold와 600 중 하나로 통일 */
     color: #003A52;
-    font-size: 0.65rem;
     height: auto; /* 고정된 높이를 제거하여 내용에 따라 유동적으로 변경되도록 함 */
     overflow: hidden;
 }
