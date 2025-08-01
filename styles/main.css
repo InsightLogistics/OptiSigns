@@ -124,9 +124,9 @@ header h1 {
     border-radius: 8px; /* 박스 모서리 둥글게 */
     padding: 15px; /* 통합된 박스의 전체 내부 패딩 */
 
-    /* 여기를 수정했습니다: flexbox -> grid로 변경 */
+    /* 이 부분을 수정했습니다: 가로 배치를 위해 flex 대신 grid를 사용 */
     display: grid;
-    grid-template-columns: 2fr 1fr; /* 2:1 비율로 차트와 테이블을 가로 배치 */
+    grid-template-columns: 2fr 1fr;
     gap: 15px; /* 차트 섹션과 테이블 섹션 사이의 간격 */
 
     height: 100%; /* 부모 .chart-slide의 높이를 채우도록 설정 */
@@ -177,7 +177,7 @@ header h1 {
 .chart-slide {
     width: 100%;
     height: 100%;
-    /* 여기를 수정했습니다: display와 gap 속성 제거 */
+    /* 이 부분을 수정했습니다: grid 레이아웃 속성을 제거 */
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
