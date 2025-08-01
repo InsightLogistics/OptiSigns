@@ -415,7 +415,7 @@ footer {
 
 /* 현재 환율 값의 폰트 크기 조정 */
 .exchange-rate-info #current-exchange-rate-value {
-    font-size: 0.75em; /* 폰트 크기 줄임 */
+    font-size: 1rem; /* 폰트 크기 줄임 */
     font-weight: bold;
     color: #00657e;
     margin-bottom: 5px;
