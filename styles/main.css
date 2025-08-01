@@ -58,7 +58,7 @@ header {
 }
 
 .dashboard-logo {
-    width: 120px; /* 로고 이미지의 너비 조절 (원하는 크기로 변경) */
+    width: 200px; /* 로고 이미지의 너비 조절 (원하는 크기로 변경) */
     height: auto; /* 비율을 유지하며 높이 자동 조절 */
     margin-right: 15px; /* 로고와 제목 사이의 간격을 추가합니다. */
     /* margin-left는 이제 header의 padding이 담당하므로 여기서는 제거합니다. */
