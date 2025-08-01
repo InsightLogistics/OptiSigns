@@ -74,6 +74,7 @@ header h1 {
 /* World Clocks 섹션 스타일 */
 /* 세계시간 헤더와 본문 간격 수정 및 도시명 아래에 시간 표시 */
 .world-clock-list {
+    margin-top: 40px; /* h3 높이만큼 마진 추가 */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 0.25rem 0.5rem;
@@ -292,6 +293,7 @@ footer {
 /* LA 날씨 정보 스타일 */
 /* 날씨 정보 섹션 간격 수정 */
 .weather-current-info {
+    margin-top: 40px; /* h3 높이만큼 마진 추가 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -407,6 +409,7 @@ footer {
 
 /* 환율 정보 스타일 */
 .exchange-rate-info {
+    margin-top: 40px; /* h3 높이만큼 마진 추가 */
     margin-bottom: 5px;
 }
 
