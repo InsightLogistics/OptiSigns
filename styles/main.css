@@ -132,20 +132,20 @@ header h1 {
 /* 차트 섹션 스타일 */
 /* 차트와 테이블을 가로로 배치하고, 전체 너비를 차지하도록 수정 */
 .chart-and-table-wrapper {
-    background-color: #fff; /* 박스 배경색 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 박스 그림자 */
-    border-radius: 8px; /* 박스 모서리 둥글게 */
-    padding: 15px; /* 통합된 박스의 전체 내부 패딩 */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 15px;
 
-    /* 이 부분을 수정했습니다: 가로 배치를 위해 Flexbox를 사용하고, 높이 안정성을 추가합니다 */
-    display: flex; /* 내부 요소(차트, 테이블)를 가로로 정렬 */
-    flex-direction: row; /* 기존 column -> row로 변경 */
-    gap: 15px; /* 차트 섹션과 테이블 섹션 사이의 간격 */
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
 
-/*     height: 100%; /* 부모 .chart-slide의 높이를 채우도록 설정 */     */
-    min-height: 250px; /* 박스가 내용 없이도 최소 높이를 가지도록 강제 */
-    box-sizing: border-box; /* 패딩이 전체 높이에 포함되도록 */
-    margin-bottom: 0px; /* 이 줄을 추가하여 하단 마진을 조절합니다. 원하는 값으로 변경하세요. */
+    /* height: 100%; */
+    min-height: 250px; /* 차트와 테이블의 최소 높이 (필요시 조절) */
+    max-height: 450px; /* <-- 이 줄을 추가하여 wrapper의 최대 높이를 제한합니다. */
+    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .chart-section {
