@@ -268,7 +268,7 @@ TABLE_DATA_CELL_MAPPINGS = {
         "previous_date_cell": (59, 0), # A60
         "previous_index_cols_range": (6, 6), # G60
         "weekly_change_row_idx": 60, # G61
-        "route_names": ["MBCI"]
+        "route_names": ["종합지수"]
     }
 }
 
