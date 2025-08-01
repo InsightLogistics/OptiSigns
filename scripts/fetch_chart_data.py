@@ -111,7 +111,7 @@ SECTION_COLUMN_MAPPINGS = {
             "종합지수": "Composite_Index" # AS2
         }
     },
-    "BLANK_SAILING": {
+    "BLANKSAILING": {
         "section_name_cell": (0, 46), # AU1
         "date_col_idx": 46, # AU열
         "data_start_col_idx": 47, # AV열
@@ -222,7 +222,7 @@ TABLE_DATA_CELL_MAPPINGS = {
         "weekly_change_row_idx": 28, # B29
         "route_names": ["종합지수"]
     },
-    "BLANK_SAILING": {
+    "BLANKSAILING": {
         "current_date_cell": (32, 0), # A33
         "current_index_cols_range": (1, 6), # B33:G33
         "previous_entries": [ # 여러 이전 데이터 지점 처리
@@ -413,9 +413,9 @@ def fetch_and_process_data():
             table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
-            # BLANK_SAILING 섹션은 특별 처리
-            if section_key == "BLANK_SAILING" and "previous_entries" in table_details:
-                blank_sailing_historical_data = []
+            # BLANKSAILING 섹션은 특별 처리
+            if section_key == "BLANKSAILING" and "previous_entries" in table_details:
+                blanksailing_historical_data = []
                 
                 # 현재 데이터 처리
                 current_row_idx = table_details["current_date_cell"][0]
@@ -431,7 +431,7 @@ def fetch_and_process_data():
                         if col_idx <= current_cols_end and col_idx < len(current_data_row):
                             val = str(current_data_row[col_idx]).strip().replace(',', '')
                             current_bs_entry[route_name] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
-                    blank_sailing_historical_data.append(current_bs_entry)
+                    blanksailing_historical_data.append(current_bs_entry)
 
                 # 이전 데이터 처리
                 for prev_entry_details in table_details["previous_entries"]:
@@ -447,15 +447,15 @@ def fetch_and_process_data():
                             if col_idx <= prev_cols_end and col_idx < len(prev_data_row):
                                 val = str(prev_data_row[col_idx]).strip().replace(',', '')
                                 prev_bs_entry[route_name] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
-                        blank_sailing_historical_data.append(prev_bs_entry)
+                        blanksailing_historical_data.append(prev_bs_entry)
                 
                 # 날짜 파싱 및 정렬 (MM/DD/YYYY 또는 YYYY-MM/DD)
-                # BLANK_SAILING 날짜 형식은 '7/18/2025' 이므로 %m/%d/%Y 사용
-                blank_sailing_historical_data.sort(key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y') if x['date'] else datetime.min)
+                # BLANKSAILING 날짜 형식은 '7/18/2025' 이므로 %m/%d/%Y 사용
+                blanksailing_historical_data.sort(key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y') if x['date'] else datetime.min)
 
-                if len(blank_sailing_historical_data) >= 2:
-                    latest_bs_data = blank_sailing_historical_data[-1]
-                    second_latest_bs_data = blank_sailing_historical_data[-2]
+                if len(blanksailing_historical_data) >= 2:
+                    latest_bs_data = blanksailing_historical_data[-1]
+                    second_latest_bs_data = blanksailing_historical_data[-2]
 
                     for route_name in route_names:
                         current_index_val = latest_bs_data.get(route_name)
@@ -483,7 +483,7 @@ def fetch_and_process_data():
                         })
                 else:
                     # 데이터가 충분하지 않을 때의 처리 (기존 로직 유지)
-                    print(f"경고: BLANK_SAILING 섹션에 테이블 데이터 생성에 충분한 기록이 없습니다.")
+                    print(f"경고: BLANKSAILING 섹션에 테이블 데이터 생성에 충분한 기록이 없습니다.")
                     for route_name in route_names:
                         table_rows_data.append({
                             "route": f"{section_key}_{route_name}",
@@ -492,7 +492,7 @@ def fetch_and_process_data():
                             "weekly_change": None
                         })
 
-            else: # BLANK_SAILING을 제외한 일반 섹션 처리
+            else: # BLANKSAILING을 제외한 일반 섹션 처리
                 current_row_idx = table_details["current_date_cell"][0]
                 previous_row_idx = table_details["previous_date_cell"][0]
                 weekly_change_row_idx = table_details.get("weekly_change_row_idx") # weekly_change_cols_range 대신 weekly_change_row_idx 사용
