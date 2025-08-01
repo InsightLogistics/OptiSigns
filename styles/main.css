@@ -271,6 +271,7 @@ footer {
  z-index: 20;
  border-bottom: 1px solid #e0e0e0; /* 헤더 밑줄 */
  width: calc(100% - 30px); /* 좌우 여백 고려한 너비 */
+text-align: left; /* 이 줄을 추가합니다. */
 }
 
 .top-info-slide p {
