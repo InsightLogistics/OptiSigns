@@ -47,23 +47,27 @@ html, body {
 /* 헤더 스타일 */
 /* 요청에 따라 헤더를 좌측 정렬 */
 header {
-    text-align: left;
-    padding-bottom: 5px;
+    display: flex; /* <-- 이 줄이 핵심입니다! 이 줄을 반드시 추가해주세요. */
+    align-items: center; /* 세로 방향으로 이미지와 제목을 가운데 정렬합니다. */
+    /* flex-direction: row; 는 display: flex; 의 기본값이므로 따로 명시하지 않아도 가로로 배치됩니다. */
+
+    padding: 5px 15px; /* 헤더의 전체적인 상하 패딩을 5px, 좌우 패딩을 15px로 설정 */
     margin-bottom: 5px;
     border-bottom: 1px solid #eee;
+    /* text-align: left; 는 flex 컨테이너에서는 자식 요소 정렬에 직접적인 영향을 주지 않으므로 제거 가능합니다. */
 }
 
 .dashboard-logo {
     width: 40px; /* 로고 이미지의 너비 조절 (원하는 크기로 변경) */
     height: auto; /* 비율을 유지하며 높이 자동 조절 */
-    margin-right: 30px; /* 로고와 제목 사이의 간격 추가 */
-    margin-left: 15px;
+    margin-right: 15px; /* 로고와 제목 사이의 간격을 추가합니다. */
+    /* margin-left는 이제 header의 padding이 담당하므로 여기서는 제거합니다. */
 }
 
 header h1 {
     font-size: 2.2em;
     color: #003A52;
-    margin-bottom: 5px;
+    margin-bottom: 0; /* h1 자체의 하단 마진을 제거하여 부모 header의 padding-bottom에 의해 간격이 조절되도록 합니다. */
     font-weight: 700;
 }
 
