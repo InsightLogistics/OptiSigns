@@ -506,12 +506,6 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
                         borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1,
                         fill: false
                     };
-
-                    // BLANKSAILING 차트인 경우 테두리를 없애는 조건 추가
-                    if (indexType === 'BLANKSAILING') {
-                        datasetConfig.borderColor = 'rgba(0, 0, 0, 0)'; // 테두리 색상을 투명하게
-                        datasetConfig.borderWidth = 0; // 테두리 두께를 0으로
-                    }
     
                     datasets.push(datasetConfig);
                 } else {
@@ -853,43 +847,43 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
                     label: "Gemini Cooperation",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Gemini_Cooperation })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0
                 },
                 {
                     label: "MSC",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_MSC })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0
                 },
                 {
                     label: "OCEAN Alliance",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_OCEAN_Alliance })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)', // <--- 이 부분 추가
+                    borderWidth: 0 // <--- 이 부분 수정
                 },
                 {
                     label: "Premier Alliance",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Premier_Alliance })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0
                 },
                 {
                     label: "Others/Independent",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Others_Independent })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0
                 },
                 {
                     label: "Total",
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANKSAILING_Total })),
                     backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0
                 }
             ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined));
 
