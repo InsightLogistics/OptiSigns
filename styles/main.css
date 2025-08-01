@@ -141,11 +141,11 @@ header h1 {
     flex-direction: row;
     gap: 15px;
 
-    /* height: 100%; */
-    min-height: 250px; /* 차트와 테이블의 최소 높이 (필요시 조절) */
-    max-height: 450px; /* <-- 이 줄을 추가하여 wrapper의 최대 높이를 제한합니다. */
+    /* height: 100%; 이전에 제거하셨거나 주석 처리했을 겁니다. */
+    min-height: 250px; /* 이 값도 필요에 따라 조절하여 최소 높이를 설정합니다. */
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* 이전에 추가했던 마진 (필요시 조절) */
+    /* 여기에 max-height를 추가합니다. */
 }
 
 .chart-section {
@@ -162,7 +162,7 @@ header h1 {
 }
 
 .chart-section h2 {
-    font-size: 1.0rem; /* 폰트 크기 조정 */
+    font-size: 1.2rem; /* 폰트 크기 조정 */
     color: #003A52;
     font-weight: 700;
 }
