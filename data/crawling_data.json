@@ -6933,7 +6933,7 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "73.11",
+            "LA_Temperature": "72.91",
             "LA_WeatherStatus": "옅은안개(haze)",
             "LA_Humidity": "72",
             "LA_WindSpeed": "5.75",
@@ -6946,7 +6946,7 @@
             {
                 "date": "8/4/2025",
                 "min_temp": "69.6",
-                "max_temp": "82.3",
+                "max_temp": "82.2",
                 "status": "맑음(clear sky)"
             },
             {
