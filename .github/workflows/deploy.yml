@@ -6,8 +6,9 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # 매일 3:30 AM (UTC)에 실행
-    - cron: '30 3 * * *' 
+    # 매일 한 시간마다 자동으로 실행되도록 설정
+    # (예: 매시 정각 00분)
+    - cron: '0 * * * *'
 
 jobs:
   deploy:
