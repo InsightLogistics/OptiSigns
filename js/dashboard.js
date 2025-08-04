@@ -176,11 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const aggregateDataByMonth = (data, numMonths = 12) => {
         if (data.length === 0) return { aggregatedData: [], monthlyLabels: [] };
 
-        data.sort((a, b) => new Date(a.date + 'T00:00:00Z') - new Date(b.date + 'T00:00:00Z'));
+        data.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         const monthlyDataMap = new Map();
 
-        const latestDate = new Date(data[data.length - 1].date + 'T00:00:00Z');
+        const latestDate = new Date(data[data.length - 1].date);
         const startDate = new Date(latestDate);
         startDate.setMonth(latestDate.getMonth() - (numMonths - 1));
 
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         data.forEach(item => {
-            const date = new Date(item.date + 'T00:00:00Z');
+            const date = new Date(item.date);
             const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
 
             if (!monthlyDataMap.has(yearMonth)) {
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 날짜 포맷팅 헬퍼 함수
     const formatDateForTable = (dateString) => {
         if (!dateString) return '';
-        const date = new Date(dateString + 'T00:00:00Z');
+        const date = new Date(dateString);
         if (isNaN(date)) return ''; // Invalid date
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
