@@ -1,10 +1,13 @@
 name: Deploy Dashboard with Data
 
 on:
-  push: # Automatically run workflow on push to main branch
+  push:
     branches:
       - main
-  workflow_dispatch: # Allow manual triggering from GitHub Actions tab
+  workflow_dispatch:
+  schedule:
+    # 매일 3:30 AM (UTC)에 실행
+    - cron: '30 3 * * *' 
 
 jobs:
   deploy:
