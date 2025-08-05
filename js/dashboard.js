@@ -373,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (colorClass) {
                         td.classList.add(colorClass);
                     }
-                }
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
                     td.textContent = content; // 값만 표시, 날짜는 헤더로
