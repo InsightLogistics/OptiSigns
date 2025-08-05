@@ -607,7 +607,7 @@ def fetch_and_process_data():
                     # weekly_change_data_row가 None인 경우 (즉, weekly_change_row_idx가 설정되지 않은 경우)
                     # current_index_val과 previous_index_val을 기반으로 계산
                     if weekly_change is None and current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
-                        change_value = current_index_val - previous_index_val
+                        change_value = int(round(current_index_val - previous_index_val))
                         change_percentage = (change_value / previous_index_val) * 100
                         color_class = "text-gray-700"
                         if change_value > 0:
