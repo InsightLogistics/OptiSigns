@@ -6831,80 +6831,80 @@
                 {
                     "route": "XSI_동아시아 → 북유럽",
                     "current_index": 3362.0,
-                    "previous_index": 3410.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "-48.00",
-                        "percentage": "-1.43%",
-                        "color_class": "text-blue-500"
+                        "value": "3362.00",
+                        "percentage": "100.00%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 동아시아",
                     "current_index": 237.0,
-                    "previous_index": 234.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "3.00",
-                        "percentage": "1.27%",
+                        "value": "237.00",
+                        "percentage": "100.00%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_동아시아 → 미주서안",
                     "current_index": 2166.0,
-                    "previous_index": 2206.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "-40.00",
-                        "percentage": "-1.85%",
-                        "color_class": "text-blue-500"
+                        "value": "2166.00",
+                        "percentage": "100.00%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_미주서안 → 동아시아",
                     "current_index": 638.0,
-                    "previous_index": 634.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "4.00",
-                        "percentage": "0.63%",
+                        "value": "638.00",
+                        "percentage": "100.00%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_동아시아 → 남미동안",
                     "current_index": 5108.0,
-                    "previous_index": 6199.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "-1091.00",
-                        "percentage": "-21.36%",
-                        "color_class": "text-blue-500"
+                        "value": "5108.00",
+                        "percentage": "100.00%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 미주동안",
                     "current_index": 2013.0,
-                    "previous_index": 1990.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "23.00",
-                        "percentage": "1.14%",
+                        "value": "2013.00",
+                        "percentage": "100.00%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_미주동안 → 북유럽",
                     "current_index": 627.0,
-                    "previous_index": 647.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "-20.00",
-                        "percentage": "-3.19%",
-                        "color_class": "text-blue-500"
+                        "value": "627.00",
+                        "percentage": "100.00%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 남미동안",
                     "current_index": 637.0,
-                    "previous_index": 622.0,
+                    "previous_index": null,
                     "weekly_change": {
-                        "value": "15.00",
-                        "percentage": "2.35%",
+                        "value": "637.00",
+                        "percentage": "100.00%",
                         "color_class": "text-red-500"
                     }
                 }
@@ -6933,10 +6933,10 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "68.11",
+            "LA_Temperature": "67.28",
             "LA_WeatherStatus": "옅은안개(haze)",
-            "LA_Humidity": "83",
-            "LA_WindSpeed": "6.91",
+            "LA_Humidity": "84",
+            "LA_WindSpeed": "5.75",
             "LA_Pressure": "1013",
             "LA_Visibility": "6.2",
             "LA_Sunrise": "6:06:42 AM",
@@ -6944,34 +6944,34 @@
         },
         "forecast": [
             {
-                "date": "8/4/2025",
-                "min_temp": "68.1",
-                "max_temp": "68.1",
-                "status": "맑음(clear sky)"
-            },
-            {
                 "date": "8/5/2025",
-                "min_temp": "66",
-                "max_temp": "88.9",
+                "min_temp": "65.9",
+                "max_temp": "91.7",
                 "status": "구름 중간(scattered clouds)"
             },
             {
                 "date": "8/6/2025",
-                "min_temp": "72.7",
-                "max_temp": "90.8",
-                "status": "흐림(overcast clouds)"
+                "min_temp": "73.3",
+                "max_temp": "91.2",
+                "status": "구름 많음(broken clouds)"
             },
             {
                 "date": "8/7/2025",
-                "min_temp": "74.8",
-                "max_temp": "93.3",
+                "min_temp": "75",
+                "max_temp": "94.2",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/8/2025",
                 "min_temp": "76.5",
-                "max_temp": "92.8",
+                "max_temp": "93.1",
                 "status": "맑음(clear sky)"
+            },
+            {
+                "date": "8/9/2025",
+                "min_temp": "72.1",
+                "max_temp": "88.8",
+                "status": "구름 조금(few clouds)"
             },
             {
                 "date": "8/9/2025",
