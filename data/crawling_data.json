@@ -6950,10 +6950,10 @@
                 {
                     "route": "MBCI_종합지수",
                     "current_index": 1472.0,
-                    "previous_index": 1415.0,
+                    "previous_index": 1420.0,
                     "weekly_change": {
-                        "value": "57.0",
-                        "percentage": "3.87%",
+                        "value": "52.0",
+                        "percentage": "3.53%",
                         "color_class": "text-red-500"
                     }
                 }
@@ -6962,20 +6962,20 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "80.15",
-            "LA_WeatherStatus": "옅은안개(haze)",
-            "LA_Humidity": "60",
-            "LA_WindSpeed": "8.05",
+            "LA_Temperature": "83.26",
+            "LA_WeatherStatus": "맑음(clear sky)",
+            "LA_Humidity": "54",
+            "LA_WindSpeed": "6.91",
             "LA_Pressure": "1015",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:07:27 AM",
+            "LA_Sunrise": "6:07:26 AM",
             "LA_Sunset": "7:50:25 PM"
         },
         "forecast": [
             {
                 "date": "8/5/2025",
                 "min_temp": "70.2",
-                "max_temp": "83.7",
+                "max_temp": "85.1",
                 "status": "맑음(clear sky)"
             },
             {
