@@ -471,7 +471,7 @@ def fetch_and_process_data():
                             elif change_value < 0:
                                 color_class = "text-blue-500"
                             weekly_change = {
-                                "value": f"{change_value:.2f}",
+                                "value": f"{change_value}",
                                 "percentage": f"{change_percentage:.2f}%",
                                 "color_class": color_class
                             }
@@ -587,7 +587,7 @@ def fetch_and_process_data():
                                 elif change_value < 0:
                                     color_class = "text-blue-500"
                                 weekly_change = {
-                                    "value": f"{change_value:.2f}",
+                                    "value": f"{change_value}",
                                     "percentage": change_percentage_str if change_percentage_str else "N/A",
                                     "color_class": color_class
                                 }
@@ -615,7 +615,7 @@ def fetch_and_process_data():
                         elif change_value < 0:
                             color_class = "text-blue-500"
                         weekly_change = {
-                            "value": f"{change_value:.2f}",
+                            "value": f"{change_value}",
                             "percentage": f"{change_percentage:.2f}%",
                             "color_class": color_class
                         }
