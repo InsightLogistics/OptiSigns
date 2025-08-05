@@ -463,7 +463,7 @@ def fetch_and_process_data():
                         
                         weekly_change = None
                         if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
-                            change_value = current_index_val - previous_index_val
+                            change_value = int(round(current_index_val - previous_index_val))
                             change_percentage = (change_value / previous_index_val) * 100
                             color_class = "text-gray-700"
                             if change_value > 0:
@@ -572,7 +572,7 @@ def fetch_and_process_data():
                                         change_percentage_str = val
                                         # change_value_only = float(val[:-1]) # % 제거 후 숫자 변환 (이 값은 사용되지 않으므로 제거)
                                         if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
-                                            change_value = current_index_val - previous_index_val
+                                            change_value = int(round(current_index_val - previous_index_val))
                                     else:
                                         change_value = float(val)
                                         if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
