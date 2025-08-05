@@ -1653,6 +1653,40 @@
                 "SCFI_South_Africa": 2828
             },
             {
+                "date": "2025-07-18",
+                "SCFI_Composite_Index": 1647,
+                "SCFI_US_West_Coast": 2142,
+                "SCFI_US_East_Coast": 3612,
+                "SCFI_North_Europe": 2079,
+                "SCFI_Mediterranean": 2528,
+                "SCFI_Southeast_Asia": 442,
+                "SCFI_Middle_East": 1321,
+                "SCFI_Australia_New_Zealand": 1042,
+                "SCFI_South_America": 5628,
+                "SCFI_Japan_West_Coast": 313,
+                "SCFI_Japan_East_Coast": 322,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4312,
+                "SCFI_South_Africa": 2851
+            },
+            {
+                "date": "2025-07-25",
+                "SCFI_Composite_Index": 1593,
+                "SCFI_US_West_Coast": 2067,
+                "SCFI_US_East_Coast": 3378,
+                "SCFI_North_Europe": 2090,
+                "SCFI_Mediterranean": 2418,
+                "SCFI_Southeast_Asia": 429,
+                "SCFI_Middle_East": 1152,
+                "SCFI_Australia_New_Zealand": 1071,
+                "SCFI_South_America": 5188,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 324,
+                "SCFI_Korea": 135,
+                "SCFI_East_West_Africa": 4273,
+                "SCFI_South_Africa": 2961
+            },
+            {
                 "date": "2025-08-01",
                 "SCFI_Composite_Index": 1647,
                 "SCFI_US_West_Coast": 2142,
@@ -6928,9 +6962,9 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "65.88",
+            "LA_Temperature": "66.38",
             "LA_WeatherStatus": "옅은안개(haze)",
-            "LA_Humidity": "88",
+            "LA_Humidity": "87",
             "LA_WindSpeed": "5.75",
             "LA_Pressure": "1015",
             "LA_Visibility": "6.2",
