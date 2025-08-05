@@ -353,25 +353,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 let content = '';
                 let colorClass = '';
 
-                    if (header.includes('Weekly Change')) {
-                        const weeklyChange = rowData.weekly_change;
+                if (header.includes('Weekly Change')) {
+                    const weeklyChange = rowData.weekly_change;
+                    
+                    // weeklyChange 객체와 그 내부의 value, percentage가 모두 존재하는지 확인합니다.
+                    if (weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined) {
+                        // weeklyChange.value를 가져와 정수로 변환합니다. (소수점 아래를 버림)
+                        const valueAsInteger = parseInt(weeklyChange.value, 10);
                         
-                        if (weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined) {
-                            // Math.trunc()를 사용하여 소수점을 버리고 정수만 얻습니다.
-                            // Math.trunc()는 숫자 타입과 문자열 숫자 모두 잘 처리합니다.
-                            const valueAsInteger = Math.trunc(weeklyChange.value);
-                            
-                            content = `${valueAsInteger} (${weeklyChange.percentage})`;
-                            colorClass = weeklyChange.color_class || '';
-                        } else {
-                            content = '-';
-                            colorClass = '';
-                        }
-                        
-                        td.textContent = content;
-                        if (colorClass) {
-                            td.classList.add(colorClass);
-                        }
+                        // **여기서 수정된 정수 값을 사용합니다.**
+                        // 퍼센트 값인 weeklyChange.percentage는 그대로 둡니다.
+                        content = `${valueAsInteger} (${weeklyChange.percentage})`;
+                        colorClass = weeklyChange.color_class || '';
+                    } else {
+                        content = '-';
+                        colorClass = '';
+                    }
+                    
+                    td.textContent = content;
+                    if (colorClass) {
+                        td.classList.add(colorClass);
                     }
                 } else if (header.includes('Current Index')) {
                     content = rowData.current_index ?? '-';
