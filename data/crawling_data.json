@@ -6933,19 +6933,19 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "67.28",
+            "LA_Temperature": "65.97",
             "LA_WeatherStatus": "옅은안개(haze)",
-            "LA_Humidity": "84",
-            "LA_WindSpeed": "5.75",
+            "LA_Humidity": "86",
+            "LA_WindSpeed": "3.44",
             "LA_Pressure": "1013",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:06:42 AM",
-            "LA_Sunset": "7:51:19 PM"
+            "LA_Sunrise": "6:07:27 AM",
+            "LA_Sunset": "7:50:25 PM"
         },
         "forecast": [
             {
                 "date": "8/5/2025",
-                "min_temp": "65.9",
+                "min_temp": "65.8",
                 "max_temp": "91.7",
                 "status": "구름 중간(scattered clouds)"
             },
