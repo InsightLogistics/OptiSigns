@@ -7154,9 +7154,9 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "81.21",
+            "LA_Temperature": "84.97",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "56",
+            "LA_Humidity": "50",
             "LA_WindSpeed": "5.75",
             "LA_Pressure": "1016",
             "LA_Visibility": "6.2",
@@ -7166,38 +7166,38 @@
         "forecast": [
             {
                 "date": "8/6/2025",
-                "min_temp": "73.5",
-                "max_temp": "86.8",
-                "status": "맑음(clear sky)"
+                "min_temp": "73.2",
+                "max_temp": "87.4",
+                "status": "구름 중간(scattered clouds)"
             },
             {
                 "date": "8/7/2025",
-                "min_temp": "75.5",
-                "max_temp": "94.8",
-                "status": "구름 많음(broken clouds)"
+                "min_temp": "68.6",
+                "max_temp": "93.7",
+                "status": "흐림(overcast clouds)"
             },
             {
                 "date": "8/8/2025",
-                "min_temp": "75.7",
-                "max_temp": "91.3",
+                "min_temp": "75.1",
+                "max_temp": "91.8",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/9/2025",
                 "min_temp": "72.5",
-                "max_temp": "90.1",
+                "max_temp": "88.4",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/10/2025",
-                "min_temp": "71",
-                "max_temp": "85.3",
-                "status": "구름 중간(scattered clouds)"
+                "min_temp": "70.9",
+                "max_temp": "85.9",
+                "status": "맑음(clear sky)"
             },
             {
                 "date": "8/11/2025",
-                "min_temp": "72",
-                "max_temp": "73.9",
+                "min_temp": "71.9",
+                "max_temp": "83.4",
                 "status": "맑음(clear sky)"
             }
         ]
