@@ -6190,6 +6190,17 @@
                 "XSI_North_Europe_US_East_Coast": 2019,
                 "XSI_US_East_Coast_North_Europe": 611,
                 "XSI_North_Europe_South_America_East_Coast": 609
+            },
+            {
+                "date": "2025-08-05",
+                "XSI_East_Asia_North_Europe": 3389,
+                "XSI_North_Europe_East_Asia": 230,
+                "XSI_East_Asia_US_West_Coast": 2108,
+                "XSI_US_West_Coast_East_Asia": 637,
+                "XSI_East_Asia_South_America_East_Coast": 5043,
+                "XSI_North_Europe_US_East_Coast": 2018,
+                "XSI_US_East_Coast_North_Europe": 610,
+                "XSI_North_Europe_South_America_East_Coast": 608
             }
         ],
         "MBCI": [
@@ -7040,11 +7051,11 @@
             "rows": [
                 {
                     "route": "XSI_동아시아 → 북유럽",
-                    "current_index": 3395.0,
+                    "current_index": 3389.0,
                     "previous_index": 3399.0,
                     "weekly_change": {
-                        "value": "-4.0",
-                        "percentage": "-0.12%",
+                        "value": "-10.0",
+                        "percentage": "-0.30%",
                         "color_class": "text-blue-500"
                     }
                 },
@@ -7060,11 +7071,11 @@
                 },
                 {
                     "route": "XSI_동아시아 → 미주서안",
-                    "current_index": 2135.0,
+                    "current_index": 2108.0,
                     "previous_index": 2179.0,
                     "weekly_change": {
-                        "value": "-44.0",
-                        "percentage": "-2.06%",
+                        "value": "-71.0",
+                        "percentage": "-3.37%",
                         "color_class": "text-blue-500"
                     }
                 },
@@ -7080,41 +7091,41 @@
                 },
                 {
                     "route": "XSI_동아시아 → 남미동안",
-                    "current_index": 5087.0,
+                    "current_index": 5043.0,
                     "previous_index": 5827.0,
                     "weekly_change": {
-                        "value": "-740.0",
-                        "percentage": "-14.55%",
+                        "value": "-784.0",
+                        "percentage": "-15.55%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 미주동안",
-                    "current_index": 2019.0,
+                    "current_index": 2018.0,
                     "previous_index": 1990.0,
                     "weekly_change": {
-                        "value": "29.0",
-                        "percentage": "1.44%",
+                        "value": "28.0",
+                        "percentage": "1.39%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "XSI_미주동안 → 북유럽",
-                    "current_index": 611.0,
+                    "current_index": 610.0,
                     "previous_index": 645.0,
                     "weekly_change": {
-                        "value": "-34.0",
-                        "percentage": "-5.56%",
+                        "value": "-35.0",
+                        "percentage": "-5.74%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 남미동안",
-                    "current_index": 609.0,
+                    "current_index": 608.0,
                     "previous_index": 613.0,
                     "weekly_change": {
-                        "value": "-4.0",
-                        "percentage": "-0.66%",
+                        "value": "-5.0",
+                        "percentage": "-0.82%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -7143,19 +7154,19 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "66.18",
+            "LA_Temperature": "68.22",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "70",
+            "LA_Humidity": "77",
             "LA_WindSpeed": "0",
             "LA_Pressure": "1016",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:08:11 AM",
+            "LA_Sunrise": "6:08:10 AM",
             "LA_Sunset": "7:49:28 PM"
         },
         "forecast": [
             {
                 "date": "8/6/2025",
-                "min_temp": "65.3",
+                "min_temp": "68.4",
                 "max_temp": "89.4",
                 "status": "맑음(clear sky)"
             },
