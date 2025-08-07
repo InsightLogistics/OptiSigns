@@ -3464,17 +3464,6 @@
         ],
         "XSI": [
             {
-                "date": "2024-08-06",
-                "XSI_East_Asia_North_Europe": 8396,
-                "XSI_North_Europe_East_Asia": 493,
-                "XSI_East_Asia_US_West_Coast": 6552,
-                "XSI_US_West_Coast_East_Asia": 673,
-                "XSI_East_Asia_South_America_East_Coast": 8459,
-                "XSI_North_Europe_US_East_Coast": 1755,
-                "XSI_US_East_Coast_North_Europe": 564,
-                "XSI_North_Europe_South_America_East_Coast": 517
-            },
-            {
                 "date": "2024-08-07",
                 "XSI_East_Asia_North_Europe": 8387,
                 "XSI_North_Europe_East_Asia": 493,
@@ -7154,21 +7143,21 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "70.27",
+            "LA_Temperature": "67.35",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "67",
-            "LA_WindSpeed": "6.91",
-            "LA_Pressure": "1015",
+            "LA_Humidity": "79",
+            "LA_WindSpeed": "3.44",
+            "LA_Pressure": "1014",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:08:11 AM",
-            "LA_Sunset": "7:49:28 PM"
+            "LA_Sunrise": "6:08:55 AM",
+            "LA_Sunset": "7:48:31 PM"
         },
         "forecast": [
             {
                 "date": "8/7/2025",
-                "min_temp": "68.6",
+                "min_temp": "67.3",
                 "max_temp": "94.7",
-                "status": "구름 중간(scattered clouds)"
+                "status": "맑음(clear sky)"
             },
             {
                 "date": "8/8/2025",
