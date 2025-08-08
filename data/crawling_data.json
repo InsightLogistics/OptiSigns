@@ -7084,20 +7084,20 @@
                 {
                     "route": "XSI_동아시아 → 미주서안",
                     "current_index": 2018.0,
-                    "previous_index": 2172.0,
+                    "previous_index": 2170.0,
                     "weekly_change": {
-                        "value": "-154.0",
-                        "percentage": "-7.63%",
+                        "value": "-152.0",
+                        "percentage": "-7.53%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_미주서안 → 동아시아",
                     "current_index": 638.0,
-                    "previous_index": 640.0,
+                    "previous_index": 642.0,
                     "weekly_change": {
-                        "value": "-2.0",
-                        "percentage": "-0.31%",
+                        "value": "-4.0",
+                        "percentage": "-0.63%",
                         "color_class": "text-blue-500"
                     }
                 },
@@ -7124,21 +7124,21 @@
                 {
                     "route": "XSI_미주동안 → 북유럽",
                     "current_index": 610.0,
-                    "previous_index": 643.0,
+                    "previous_index": 644.0,
                     "weekly_change": {
-                        "value": "-33.0",
-                        "percentage": "-5.41%",
+                        "value": "-34.0",
+                        "percentage": "-5.57%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 남미동안",
                     "current_index": 611.0,
-                    "previous_index": 611.0,
+                    "previous_index": 609.0,
                     "weekly_change": {
-                        "value": "0.0",
-                        "percentage": "0.00%",
-                        "color_class": "text-gray-700"
+                        "value": "2.0",
+                        "percentage": "0.33%",
+                        "color_class": "text-red-500"
                     }
                 }
             ]
@@ -7166,10 +7166,10 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "77.92",
+            "LA_Temperature": "74.44",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "52",
-            "LA_WindSpeed": "4.61",
+            "LA_Humidity": "65",
+            "LA_WindSpeed": "5.75",
             "LA_Pressure": "1012",
             "LA_Visibility": "6.2",
             "LA_Sunrise": "6:08:55 AM",
@@ -7177,33 +7177,33 @@
         },
         "forecast": [
             {
-                "date": "8/7/2025",
-                "min_temp": "77.8",
-                "max_temp": "77.8",
-                "status": "맑음(clear sky)"
-            },
-            {
                 "date": "8/8/2025",
-                "min_temp": "71.8",
-                "max_temp": "92.2",
+                "min_temp": "70.1",
+                "max_temp": "97.8",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/9/2025",
-                "min_temp": "72.8",
-                "max_temp": "89.2",
+                "min_temp": "72.6",
+                "max_temp": "88.6",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/10/2025",
-                "min_temp": "72.2",
-                "max_temp": "85.4",
+                "min_temp": "71.7",
+                "max_temp": "87.8",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/11/2025",
-                "min_temp": "71.7",
-                "max_temp": "89.3",
+                "min_temp": "72.4",
+                "max_temp": "90.7",
+                "status": "맑음(clear sky)"
+            },
+            {
+                "date": "8/12/2025",
+                "min_temp": "72.5",
+                "max_temp": "88.1",
                 "status": "맑음(clear sky)"
             },
             {
