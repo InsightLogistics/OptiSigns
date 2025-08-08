@@ -7182,10 +7182,10 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "79.39",
+            "LA_Temperature": "84.56",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "61",
-            "LA_WindSpeed": "6.91",
+            "LA_Humidity": "53",
+            "LA_WindSpeed": "9.22",
             "LA_Pressure": "1013",
             "LA_Visibility": "6.2",
             "LA_Sunrise": "6:09:40 AM",
@@ -7194,38 +7194,38 @@
         "forecast": [
             {
                 "date": "8/8/2025",
-                "min_temp": "69.4",
-                "max_temp": "88",
+                "min_temp": "67.5",
+                "max_temp": "89.4",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/9/2025",
-                "min_temp": "71.8",
-                "max_temp": "88",
+                "min_temp": "64.5",
+                "max_temp": "87.7",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/10/2025",
-                "min_temp": "73.1",
-                "max_temp": "88.2",
+                "min_temp": "73.4",
+                "max_temp": "88",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/11/2025",
-                "min_temp": "72.6",
-                "max_temp": "90.7",
+                "min_temp": "73.5",
+                "max_temp": "91.2",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/12/2025",
-                "min_temp": "72.3",
-                "max_temp": "87.8",
+                "min_temp": "72.2",
+                "max_temp": "87.9",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/13/2025",
-                "min_temp": "70.5",
-                "max_temp": "72",
+                "min_temp": "72.2",
+                "max_temp": "81.7",
                 "status": "맑음(clear sky)"
             }
         ]
