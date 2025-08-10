@@ -837,23 +837,6 @@
         ],
         "SCFI": [
             {
-                "date": "2024-08-09",
-                "SCFI_Composite_Index": 3254,
-                "SCFI_US_West_Coast": 6068,
-                "SCFI_US_East_Coast": 9083,
-                "SCFI_North_Europe": 4786,
-                "SCFI_Mediterranean": 4733,
-                "SCFI_Southeast_Asia": 595,
-                "SCFI_Middle_East": 2208,
-                "SCFI_Australia_New_Zealand": 1581,
-                "SCFI_South_America": 7987,
-                "SCFI_Japan_West_Coast": 293,
-                "SCFI_Japan_East_Coast": 299,
-                "SCFI_Korea": 162,
-                "SCFI_East_West_Africa": 5068,
-                "SCFI_South_Africa": 4800
-            },
-            {
                 "date": "2024-08-16",
                 "SCFI_Composite_Index": 3281,
                 "SCFI_US_West_Coast": 6581,
@@ -3479,17 +3462,6 @@
             }
         ],
         "XSI": [
-            {
-                "date": "2024-08-09",
-                "XSI_East_Asia_North_Europe": 8301,
-                "XSI_North_Europe_East_Asia": 493,
-                "XSI_East_Asia_US_West_Coast": 6415,
-                "XSI_US_West_Coast_East_Asia": 660,
-                "XSI_East_Asia_South_America_East_Coast": 8521,
-                "XSI_North_Europe_US_East_Coast": 1758,
-                "XSI_US_East_Coast_North_Europe": 554,
-                "XSI_North_Europe_South_America_East_Coast": 506
-            },
             {
                 "date": "2024-08-12",
                 "XSI_East_Asia_North_Europe": 8348,
@@ -6221,10 +6193,6 @@
         ],
         "MBCI": [
             {
-                "date": "2024-08-09",
-                "MBCI_Value": 1284
-            },
-            {
                 "date": "2024-08-16",
                 "MBCI_Value": 1195
             },
@@ -7171,20 +7139,20 @@
     "weather_data": {
         "current": {
             "LA_Temperature": "65.03",
-            "LA_WeatherStatus": "맑음(clear sky)",
+            "LA_WeatherStatus": "구름 중간(scattered clouds)",
             "LA_Humidity": "86",
-            "LA_WindSpeed": "4.61",
-            "LA_Pressure": "1012",
+            "LA_WindSpeed": "6.91",
+            "LA_Pressure": "1013",
             "LA_Visibility": "6.2",
-            "LA_Sunrise": "6:10:24 AM",
-            "LA_Sunset": "7:46:33 PM"
+            "LA_Sunrise": "6:11:09 AM",
+            "LA_Sunset": "7:45:32 PM"
         },
         "forecast": [
             {
                 "date": "8/10/2025",
                 "min_temp": "66.4",
                 "max_temp": "91.4",
-                "status": "맑음(clear sky)"
+                "status": "구름 중간(scattered clouds)"
             },
             {
                 "date": "8/11/2025",
