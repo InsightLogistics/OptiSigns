@@ -7138,11 +7138,11 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "64.47",
+            "LA_Temperature": "63.48",
             "LA_WeatherStatus": "흐림(overcast clouds)",
-            "LA_Humidity": "88",
+            "LA_Humidity": "90",
             "LA_WindSpeed": "5.75",
-            "LA_Pressure": "1012",
+            "LA_Pressure": "1013",
             "LA_Visibility": "6.2",
             "LA_Sunrise": "6:11:09 AM",
             "LA_Sunset": "7:45:32 PM"
@@ -7150,47 +7150,43 @@
         "forecast": [
             {
                 "date": "8/10/2025",
-                "min_temp": "64.5",
-                "max_temp": "91.4",
+                "min_temp": "63.5",
+                "max_temp": "82.8",
                 "status": "흐림(overcast clouds)"
             },
             {
                 "date": "8/11/2025",
-                "min_temp": "72.9",
-                "max_temp": "90.3",
+                "min_temp": "72",
+                "max_temp": "89.8",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/12/2025",
-                "min_temp": "72.8",
-                "max_temp": "88.8",
+                "min_temp": "72.5",
+                "max_temp": "89",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/13/2025",
-                "min_temp": "71.6",
-                "max_temp": "83.9",
+                "min_temp": "71.9",
+                "max_temp": "84.7",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/14/2025",
-                "min_temp": "71",
-                "max_temp": "85",
+                "min_temp": "71.7",
+                "max_temp": "86.1",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/15/2025",
-                "min_temp": "69.6",
-                "max_temp": "69.6",
+                "min_temp": "68.3",
+                "max_temp": "70.8",
                 "status": "맑음(clear sky)"
             }
         ]
     },
     "exchange_rate": [
-        {
-            "date": "2025-07-09",
-            "rate": 1374.0
-        },
         {
             "date": "2025-07-10",
             "rate": 1374.0
@@ -7274,6 +7270,10 @@
         {
             "date": "2025-08-07",
             "rate": 1386.0
+        },
+        {
+            "date": "2025-08-08",
+            "rate": 1389.0
         }
     ]
 }
