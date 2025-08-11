@@ -955,11 +955,11 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
             const { latestDate: MBCILatestDate, previousDate: MBCIPrevDate } = getLatestAndPreviousDates(MBCIData);
             const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows, {
-                currentIndexDate: formatDateForTable(MBCILatestDate),
-                previousIndexDate: formatDateForTable(MBCIPrevDate)
-            });
+            // MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
+            // renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows, {
+            //     currentIndexDate: formatDateForTable(MBCILatestDate),
+            //     previousIndexDate: formatDateForTable(MBCIPrevDate)
+            // });
 
             // 슬라이더 시간 간격 설정 (10초 간격)
             setupSlider('.chart-slider-container > .chart-slide', 10000); // <-- .chart-slides를 .chart-slider-container로 변경
