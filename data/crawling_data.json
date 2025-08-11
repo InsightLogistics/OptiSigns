@@ -7138,44 +7138,44 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "65.39",
+            "LA_Temperature": "66.36",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "81",
-            "LA_WindSpeed": "8.05",
+            "LA_Humidity": "72",
+            "LA_WindSpeed": "5.75",
             "LA_Pressure": "1014",
             "LA_Visibility": "6.2",
             "LA_Sunrise": "6:11:09 AM",
-            "LA_Sunset": "7:45:33 PM"
+            "LA_Sunset": "7:45:32 PM"
         },
         "forecast": [
             {
-                "date": "8/10/2025",
-                "min_temp": "65.5",
-                "max_temp": "65.5",
-                "status": "맑음(clear sky)"
-            },
-            {
                 "date": "8/11/2025",
                 "min_temp": "65.3",
-                "max_temp": "89.1",
+                "max_temp": "86",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/12/2025",
-                "min_temp": "72.7",
-                "max_temp": "89.6",
+                "min_temp": "72.8",
+                "max_temp": "89",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/13/2025",
-                "min_temp": "72.7",
-                "max_temp": "85.6",
+                "min_temp": "72.5",
+                "max_temp": "85.2",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/14/2025",
-                "min_temp": "71.6",
-                "max_temp": "85",
+                "min_temp": "72.1",
+                "max_temp": "85.6",
+                "status": "맑음(clear sky)"
+            },
+            {
+                "date": "8/15/2025",
+                "min_temp": "67.8",
+                "max_temp": "84.2",
                 "status": "맑음(clear sky)"
             },
             {
