@@ -6239,7 +6239,216 @@
                 "XSI_North_Europe_South_America_East_Coast": 637
             }
         ],
-        "MBCI": []
+        "MBCI": [
+            {
+                "date": "2024-08-16",
+                "MBCI_Value": 1195
+            },
+            {
+                "date": "2024-08-23",
+                "MBCI_Value": 1176
+            },
+            {
+                "date": "2024-08-30",
+                "MBCI_Value": 1164
+            },
+            {
+                "date": "2024-09-06",
+                "MBCI_Value": 1147
+            },
+            {
+                "date": "2024-09-13",
+                "MBCI_Value": 1094
+            },
+            {
+                "date": "2024-09-20",
+                "MBCI_Value": 1095
+            },
+            {
+                "date": "2024-09-27",
+                "MBCI_Value": 1097
+            },
+            {
+                "date": "2024-10-04",
+                "MBCI_Value": 1149
+            },
+            {
+                "date": "2024-10-11",
+                "MBCI_Value": 1160
+            },
+            {
+                "date": "2024-10-18",
+                "MBCI_Value": 1183
+            },
+            {
+                "date": "2024-10-25",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-01",
+                "MBCI_Value": 1195
+            },
+            {
+                "date": "2024-11-08",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-15",
+                "MBCI_Value": 1168
+            },
+            {
+                "date": "2024-11-22",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-29",
+                "MBCI_Value": 1159
+            },
+            {
+                "date": "2024-12-06",
+                "MBCI_Value": 1146
+            },
+            {
+                "date": "2024-12-13",
+                "MBCI_Value": 1235
+            },
+            {
+                "date": "2024-12-20",
+                "MBCI_Value": 1234
+            },
+            {
+                "date": "2024-12-27",
+                "MBCI_Value": 1203
+            },
+            {
+                "date": "2025-01-03",
+                "MBCI_Value": 1263
+            },
+            {
+                "date": "2025-01-10",
+                "MBCI_Value": 1294
+            },
+            {
+                "date": "2025-01-17",
+                "MBCI_Value": 1269
+            },
+            {
+                "date": "2025-01-24",
+                "MBCI_Value": 1247
+            },
+            {
+                "date": "2025-01-31",
+                "MBCI_Value": 1265
+            },
+            {
+                "date": "2025-02-07",
+                "MBCI_Value": 1277
+            },
+            {
+                "date": "2025-02-14",
+                "MBCI_Value": 1298
+            },
+            {
+                "date": "2025-02-21",
+                "MBCI_Value": 1323
+            },
+            {
+                "date": "2025-02-28",
+                "MBCI_Value": 1328
+            },
+            {
+                "date": "2025-03-07",
+                "MBCI_Value": 1319
+            },
+            {
+                "date": "2025-03-14",
+                "MBCI_Value": 1335
+            },
+            {
+                "date": "2025-03-21",
+                "MBCI_Value": 1345
+            },
+            {
+                "date": "2025-03-28",
+                "MBCI_Value": 1346
+            },
+            {
+                "date": "2025-04-04",
+                "MBCI_Value": 1333
+            },
+            {
+                "date": "2025-04-11",
+                "MBCI_Value": 1348
+            },
+            {
+                "date": "2025-04-18",
+                "MBCI_Value": 1391
+            },
+            {
+                "date": "2025-04-25",
+                "MBCI_Value": 1424
+            },
+            {
+                "date": "2025-05-02",
+                "MBCI_Value": 1424
+            },
+            {
+                "date": "2025-05-09",
+                "MBCI_Value": 1407
+            },
+            {
+                "date": "2025-05-16",
+                "MBCI_Value": 1373
+            },
+            {
+                "date": "2025-05-23",
+                "MBCI_Value": 1342
+            },
+            {
+                "date": "2025-05-30",
+                "MBCI_Value": 1337
+            },
+            {
+                "date": "2025-06-06",
+                "MBCI_Value": 1319
+            },
+            {
+                "date": "2025-06-13",
+                "MBCI_Value": 1307
+            },
+            {
+                "date": "2025-06-20",
+                "MBCI_Value": 1289
+            },
+            {
+                "date": "2025-06-27",
+                "MBCI_Value": 1294
+            },
+            {
+                "date": "2025-07-04",
+                "MBCI_Value": 1352
+            },
+            {
+                "date": "2025-07-11",
+                "MBCI_Value": 1379
+            },
+            {
+                "date": "2025-07-18",
+                "MBCI_Value": 1415
+            },
+            {
+                "date": "2025-07-25",
+                "MBCI_Value": 1420
+            },
+            {
+                "date": "2025-08-01",
+                "MBCI_Value": 1472
+            },
+            {
+                "date": "2025-08-08",
+                "MBCI_Value": 1556
+            }
+        ]
     },
     "table_data": {
         "KCCI": {
