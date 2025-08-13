@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     x: {
                         display: true,
                         title: {
-                            display: false // X축 타이틀 제거
+                            display: false // X축 타이틀 제거?
                         },
                         type: 'time',
                         time: {
