@@ -2405,6 +2405,10 @@
             {
                 "date": "2025-07-31",
                 "IACI_Composite_Index": 652
+            },
+            {
+                "date": "2025-08-15",
+                "IACI_Composite_Index": 594
             }
         ],
         "BLANKSAILING": [
@@ -3507,17 +3511,6 @@
             }
         ],
         "XSI": [
-            {
-                "date": "2024-08-14",
-                "XSI_East_Asia_North_Europe": 8250,
-                "XSI_North_Europe_East_Asia": 494,
-                "XSI_East_Asia_US_West_Coast": 6356,
-                "XSI_US_West_Coast_East_Asia": 666,
-                "XSI_East_Asia_South_America_East_Coast": 8566,
-                "XSI_North_Europe_US_East_Coast": 1784,
-                "XSI_US_East_Coast_North_Europe": 555,
-                "XSI_North_Europe_South_America_East_Coast": 514
-            },
             {
                 "date": "2024-08-15",
                 "XSI_East_Asia_North_Europe": 8116,
@@ -7096,10 +7089,10 @@
                 {
                     "route": "XSI_동아시아 → 북유럽",
                     "current_index": 3202.0,
-                    "previous_index": 3386.0,
+                    "previous_index": 3313.0,
                     "weekly_change": {
-                        "value": "-184.0",
-                        "percentage": "-5.75%",
+                        "value": "-111.0",
+                        "percentage": "-3.47%",
                         "color_class": "text-blue-500"
                     }
                 },
@@ -7116,50 +7109,50 @@
                 {
                     "route": "XSI_동아시아 → 미주서안",
                     "current_index": 1931.0,
-                    "previous_index": 2018.0,
+                    "previous_index": 2012.0,
                     "weekly_change": {
-                        "value": "-87.0",
-                        "percentage": "-4.51%",
+                        "value": "-81.0",
+                        "percentage": "-4.19%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_미주서안 → 동아시아",
                     "current_index": 631.0,
-                    "previous_index": 638.0,
+                    "previous_index": 639.0,
                     "weekly_change": {
-                        "value": "-7.0",
-                        "percentage": "-1.11%",
+                        "value": "-8.0",
+                        "percentage": "-1.27%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_동아시아 → 남미동안",
                     "current_index": 4301.0,
-                    "previous_index": 4853.0,
+                    "previous_index": 4832.0,
                     "weekly_change": {
-                        "value": "-552.0",
-                        "percentage": "-12.83%",
+                        "value": "-531.0",
+                        "percentage": "-12.35%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_북유럽 → 미주동안",
                     "current_index": 1952.0,
-                    "previous_index": 2019.0,
+                    "previous_index": 2007.0,
                     "weekly_change": {
-                        "value": "-67.0",
-                        "percentage": "-3.43%",
+                        "value": "-55.0",
+                        "percentage": "-2.82%",
                         "color_class": "text-blue-500"
                     }
                 },
                 {
                     "route": "XSI_미주동안 → 북유럽",
                     "current_index": 635.0,
-                    "previous_index": 610.0,
+                    "previous_index": 611.0,
                     "weekly_change": {
-                        "value": "25.0",
-                        "percentage": "3.94%",
+                        "value": "24.0",
+                        "percentage": "3.78%",
                         "color_class": "text-red-500"
                     }
                 },
